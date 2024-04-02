@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap");
+
+:root {
+  --white: #fff;
+  --white-2: #e9ebe7;
+  --blue: #245ced;
+  --red: #f0171b;
+  --blue-2: #070045;
+  --green: #45A84A;
+  --black: #333; 
+
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+body {
+  background: linear-gradient(90deg, #323480 40%, #140b5c  100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+h3,
+.sub-titulo p {
+  text-align: center;
+  margin: 10px;
+}
+
+form {
+  margin: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: var(--blue-2);
+}

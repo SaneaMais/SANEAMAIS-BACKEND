@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap");
+
+:root {
+  --white: #fff;
+  --blue-2: #070045;
+  --black: #000;
+  --white-2: #e9ebe7;
+  --blue:rgba(7, 44, 117);
+  --green: #84bc26;
+  --blue-3: #0c48a8; 
+}
+
+* {
+  padding: 0;
+  margin: 0;
+
+}
+
+header {
+  padding: 10px 30px;
+
+}
+textarea{
+  margin: 15px 0;
+  width: 100%;
+  outline: none;
+  border-radius: 2px;
+  resize: none;
+  font-size: 1rem;
+  padding: 10px;
+}
+footer{
+  margin-top: 20px;
+}
+main{
+  margin: 3px;
+}

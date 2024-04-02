@@ -1,0 +1,163 @@
+
+.font {
+    font-size: 1.8rem;
+    padding: 20px;
+    color: var(--white);
+
+}
+.nav img {
+    margin-right: 10px;
+}
+
+.font-FaleConosco>p {
+    padding: 5px;
+    text-align: center;
+    margin: 10px 0;
+    font-size: 1.2rem;
+    color: var(--white);
+}
+
+.font-FaleConosco > h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    color: var(--white);
+    margin: 33px 0 0;
+
+}
+
+.Espacamento h2{
+    color:  #333333;
+}
+/* todo: formulario  */
+
+
+.formFale {
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.fcontainer {
+    background-color: #140b5c;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+}
+
+.input-box-form {
+    margin: 20px 0;
+}
+
+.containerMensagem {
+    border: solid 1px var(--black);
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--white);
+
+}
+
+
+.input-field {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 3px;
+    border-bottom: 1px solid var(--black);
+    cursor: text;
+    width: 90%;
+}
+
+.input-field i {
+    font-size: 18px;
+    cursor: text;
+    color: var(--black);
+}
+
+.input-field input {
+    border: none;
+    width: 100%;
+    background-color: transparent;
+    font-size: 15px;
+}
+
+.input-field input:focus {
+    outline: none;
+}
+
+.button {
+    margin-right: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+.button button{
+    padding: 5px 30px;
+    border-radius: 3px;
+    background-color: var(--white);
+    cursor: pointer;
+    border: 1px solid var(--black);
+  }
+    
+
+/* todo:  fim */
+
+/*  ! sub  */
+
+.Sub-menuF {
+    display: flex;
+    justify-content: space-evenly; 
+    margin: 20px 40px;
+    padding-left: 40px;
+}
+
+.sub-font h1 {
+    color: var(--blue-3);
+    font-size: 3rem;
+    font-weight: bolder;
+}
+
+.sub-font > p {
+    width: 100%;
+    color: var(--blue-3);
+    font-size: 3rem;
+    margin-top: 10px;
+}
+
+/* reponsividae  */
+
+@media(max-width:660px) {
+
+    .CorpoMeio {padding: 50px;text-align: center;justify-content: center;display: flex;align-items: center;}
+
+    .font {max-width: 100%;padding: 20px;}
+
+    .Sub-menuF  {padding: 10px 10px;}
+
+    .sub-font p {font-size: 2.3rem;width: 100%;text-align: center;}
+    
+    .sub-font h1{text-align: center;}
+}
+@media(max-width:500px){
+
+    .sub-font h1{font-size: 3.2rem;margin: 10px 0;}
+
+    .sub-font p {font-size: 2rem;width: 100%;}
+
+    .font {font-size: 0.9rem;}
+
+    .containerMensagem {margin: 10px 10px;}
+
+    .CorpoMeio{padding: 20px;}
+
+    .Sub-menuF{padding-left: 0;}
+
+    header {padding: 10px;}
+
+    .fcontainer{padding: 30px 10px}
+
+    .button{margin: 0;}
+}   

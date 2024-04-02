@@ -1,0 +1,190 @@
+.box-form {
+  max-width: 100%;
+  background-color: var(--white-2);
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  max-height: 100%;
+  display: flex;
+}
+
+.form-content {
+  width: 70%;
+  margin: 1%;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--white);
+  border-radius: 4px;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  margin: 12px 0;
+  padding-left: 10px;
+}
+#Entrar{
+  width: 100%;
+  background-color: var(--blue);
+  color: var(--white);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s, 0.2s;
+  font-size: 1rem;
+  margin-top: 5%;
+}
+
+#Entrar:hover {
+  background-color: var(--green);
+}
+
+.form-input {
+  margin-top: 10px;
+  width: 100%;
+
+}
+
+.logo img {
+  width: 95%;
+  height: auto;
+  margin: 10px;
+
+}
+
+.container-img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.form-figura > img {
+  display: block;
+  width: 100%;
+  margin-top: 15px;
+
+}
+
+
+
+.form-content label span {
+  color: var(--red);
+}
+
+.titulo {
+  font-size: 2.2rem;
+  color: var(--blue-2);
+}
+
+.sub-titulo {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  padding: 5px;
+  text-align: center;
+}
+
+/* ! icon da redes sociais*/
+
+.alternative1 {
+  text-align: center;
+  padding: 10px;
+
+}
+
+.alternative1 span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  font-size: 1.1rem;
+  color: var(--black);
+  font-weight: 400;
+}
+
+.alternative1 span::before,
+main .alternative1 span::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 35%;
+  background: var(--black);
+}
+
+.media {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.icon {
+  width: min(45px, 33%);
+}
+
+.icon>img {
+  width: 100%;
+}
+
+/* ! icon ver senha  */
+.input__wrapper {
+  position: relative;
+}
+
+.input__field {
+  padding-left: 30px;
+}
+
+.input__icon {
+  position: absolute;
+  right: 10px;
+  top: 37px;
+}
+
+.form-input img {
+  overflow-clip-margin: content-box;
+  overflow: clip;
+}
+@media (max-width: 740px) {
+  .box-form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-content {
+    width: 100%;
+  }
+
+  .form-figura {
+    display: none;
+  }
+
+  .titulo {
+    font-size: 1.8rem;
+    margin-top: 60px;
+  }
+
+  .box-form {
+    margin-top: 40px;
+    position: relative; 
+    margin-bottom: 0; 
+  padding-bottom: 0;
+  }
+
+  .logo {
+    position: absolute;
+    top: 15px;
+    width: 60%;
+  }
+
+}
+@media(max-width:420px){.logo{top: 30px;}.titulo{padding: 15px 0 0;}}
+@media(max-width:320px){.logo{top: 20px;}}
