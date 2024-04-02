@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../CSS/login/index.css">
+  <link rel="stylesheet" href="../../CSS/login/style.css">
+  <link rel="shortcut icon" href="../../img/MicrosoftTeams-image-removebg-preview.png" tyle="image/ x-icon">
+  <title>Login</title>
+</head>
+<body>
+  <main>
+    <form action="../../HTML/Publicacao/publicacao/index.html" id="form">
+      <section class="box-form">
+        <article class="form-content">
+          <h3 class="titulo">Olá seja bem vindo!</h3>
+          <p class="sub-titulo">Estamos muito animados em ter você aqui!</p>
+          <article id="msgError"></article>
+          <article>
+            <label id="labelEmail" for="email">E-mail ou número de telefone <span>*</span> </label>
+            <input type="email" placeholder="Digite seu email ou telefone" class="inputs" autocomplete="off"  id="inputEmail" required>
+            <p id="messageEmail"></p>
+          </article>
+          <article class="form-input">
+            <article class="input__wrapper">
+              <label id="labelSenha" for="senha">Senha<span>*</span> </label>
+              <input type="password" placeholder="Senha" id="password" class="input__field" maxlength="25"
+                 pattern=".{8,}" required>
+              <p id="messageSenha"></p>
+              <img alt="Eye Icon" title="Eye Icon" src="../../img/Login/eye-off.svg" class="input__icon">
+            </article>
+          </article>
+          <article class="forget-password-link">
+            <a href="#">Esqueceu sua senha?</a>
+          </article>
+          <input type="submit" value="Entrar" id="Entrar">
+          <article class="alternative1">
+            <span>ou</span>
+          </article>
+          <article class="media">
+            <a href="#" class="icon">
+              <img src="../../img/Login/icons8-google-logo.svg">
+            </a>
+            <a href="#" class="icon">
+              <img src="../../img/Login/icons8-linkedin.svg">
+            </a>
+            <a href="#" class="icon">
+              <img src="../../img/Login/icons8-facebook-novo.svg">
+            </a>
+          </article>
+        </article>
+        <article class="container-img">
+          <article class="logo">
+            <a href="../../index.html">
+              <img src="../../img/LOGO2.png">
+            </a>
+          </article>
+          <article class="form-figura">
+            <img src="../../img/Login/figuralogin.png">
+          </article>
+        </article>
+    </form>
+  </main>
+  <script src="../../js/login/senha.js"></script>
+  <script src="../../js/login/val.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="../../../img/MicrosoftTeams-image-removebg-preview.png" tyle="image/ x-icon">
+    <link rel="stylesheet" href="../../../CSS/Publicacao/Config/style.css">
+</head>
+
+<body>
+    <main class="container light-style flex-grow-1 container-p-y">
+        <h4 class="font-weight-bold py-3 mb-4">
+            Configurações e privacidade
+        </h4>
+        <section class="card overflow-hidden">
+            <section class="row no-gutters row-bordered row-border-light">
+                <section class="col-md-3 pt-0">
+                    <article class="list-group list-group-flush account-settings-links">
+                        <a class="list-group-item list-group-item-action active" data-toggle="list"
+                            href="#account-general">Geral</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list"
+                            href="#account-change-password">Alterar senha</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-info">Editar
+                            perfil</a>
+                        <a class="list-group-item list-group-item-action" data-toggle="list"
+                            href="#account-social-links">Links sociais</a>
+                    </article>
+                </section>
+                <section class="col-md-9">
+                    <section class="tab-content">
+                        <section class="tab-pane fade active show" id="account-general">
+                            <article class="card-body media align-items-center">
+                                <img src="../../../img/Config/foto.png" alt class="d-block ui-w-80">
+                                <article class="media-body ml-4">
+                                    <label class="btn btn-outline-primary">
+                                        Alterar imagem
+                                        <input type="file" class="account-settings-fileinput">
+                                    </label> &nbsp;
+                                    <button type="button" class="btn btn-default md-btn-flat">Resetar</button>
+                                </article>
+                            </article>
+                            <hr class="border-light m-0">
+                            <section class="card-body">
+                                <article class="form-group">
+                                    <label class="form-label">Usuário</label>
+                                    <input type="text" class="form-control mb-1" value="lastofus">
+                                </article>
+                                <article class="form-group">
+                                    <label class="form-label">Nome</label>
+                                    <input type="text" class="form-control" value="Ellie Williams">
+                                </article>
+                                <article class="form-group">
+                                    <label class="form-label">E-mail</label>
+                                    <input type="text" class="form-control mb-1" value="ellie2020@gmail.com">
+
+                                </article>
+
+                            </section>
+                        </section>
+                        <section class="tab-pane fade" id="account-change-password">
+                            <section class="card-body pb-2">
+                                <article class="form-group">
+                                    <label class="form-label">Senha atual</label>
+                                    <input type="password" class="form-control">
+                                </article>
+                                <article class="form-group">
+                                    <label class="form-label">Nova senha</label>
+                                    <input type="password" class="form-control">
+                                </article>
+                                <article class="form-group">
+                                    <label class="form-label">Repita sua nova senha</label>
+                                    <input type="password" class="form-control">
+                                </article>
+                            </section>
+                        </section>
+                        <section class="tab-pane fade" id="account-info">
+                            <section class="card-body pb-2">
+                                <article class="form-group">
+                                    <label class="form-label">Bio</label>
+                                    <textarea class="form-control"
+                                        rows="5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nunc arcu, dignissim sit amet sollicitudin iaculis, vehicula id urna. Sed luctus urna nunc. Donec fermentum, magna sit amet rutrum pretium, turpis dolor molestie diam, ut lacinia diam risus eleifend sapien. Curabitur ac nibh nulla. Maecenas nec augue placerat, viverra tellus non, pulvinar risus.</textarea>
+                                </article>
+                                <article class="form-group">
+                                    <label class="form-label">Data de nascimento</label>
+                                    <input type="text" class="form-control" value="May 3, 1995">
+                                </article>
+
+                            </section>
+                            <hr class="border-light m-0">
+                            <section class="card-body pb-2">
+                                <h6 class="mb-4">Contatos</h6>
+                                <article class="form-group">
+                                    <label class="form-label">Telefone</label>
+                                    <input type="text" class="form-control" value="+0 (123) 456 7891">
+                                </article>
+                                <article class="form-group">
+                                    <label class="form-label">Site</label>
+                                    <input type="text" class="form-control" value>
+                                </article>
+                            </section>
+                        </section>
+                        <section class="tab-pane fade" id="account-social-links">
+                            <section class="card-body pb-2">
+                                <article class="form-group">
+                                    <label class="form-label">Twitter</label>
+                                    <input type="text" class="form-control" value="https://twitter.com/user">
+                                </article>
+                                <article class="form-group">
+                                    <label class="form-label">Facebook</label>
+                                    <input type="text" class="form-control" value="https://www.facebook.com/user">
+                                </article>
+                                <article class="form-group">
+                                    <label class="form-label">Google+</label>
+                                    <input type="text" class="form-control" value>
+                                </article>
+                                <article class="form-group">
+                                    <label class="form-label">LinkedIn</label>
+                                    <input type="text" class="form-control" value>
+                                </article>
+                                <article class="form-group">
+                                    <label class="form-label">Instagram</label>
+                                    <input type="text" class="form-control" value="https://www.instagram.com/user">
+                                </article>
+                            </section>
+                        </section>
+                        <article class="text-right mt-3">
+                            <button type="button" class="btn btn-primary">Salvar</button>&nbsp;
+                            <button type="button" class="btn btn-default position-button">Cancelar</button>
+                        </article>
+                    </section>
+
+                    <script data-cfasync="false"
+                        src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+                    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+                    <script type="text/javascript">
+
+                    </script>
+                </section>  
+            </section>
+        </section>  
+    </main>
+</body>
+
+
+</html>

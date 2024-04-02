@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaneaMais</title>
+    <!--iconscout cdn-->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+        rel="stylesheet">
+    <link rel="shortcut icon" href="../../../img/MicrosoftTeams-image-removebg-preview.png" tyle="image/ x-icon">
+
+    <!--stylesheet-->
+
+    <link rel="stylesheet" href="../../../CSS/Publicacao/NovoPerfil/style.css">
+
+
+</head>
+
+<body>
+    <nav>
+        <section class="container">
+            <h2 class="log">
+                <img src="../../../img/NovoPerfil/LOGO1.png" alt="Logo" />
+            </h2>
+            <article class="search-bar">
+                <i class="uil-search"></i>
+                <input type="search" placeholder="O que deseja procurar?">
+            </article>
+            <section class="action">
+                <article class="profile" onclick="menuToggle();">
+                    <img src="../../../img/NovoPerfil/profile-3.png" alt="">
+                </article>
+                <section class="menu">
+                    <h3>
+                        Ellie Williams
+                        <div>
+                            @lastofus
+                        </div>
+                    </h3>
+                    <ul>
+                        <li>
+                            <span class="material-icons icons-size">person</span>
+                            <a href="../Perfil/index.html">Meu perfil</a>
+                        </li>
+                        <li>
+                            <span class="material-icons icons-size">mode</span>
+                            <a href="../Config/index.html">Editar perfil</a>
+                        </li>
+                        <li>
+                            <span class="material-icons icons-size">account_balance_wallet</span>
+                            <a href="../../../index.html">Sair</a>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+        </section>
+    </nav>
+
+    <!-------main------------>
+    <main>
+        <section class="container">
+            <!-----------LEFT------------------------->
+            <section class="left">
+                <a class="profile">
+                    <article class="profile-photo">
+                        <img src="../../../img/NovoPerfil/profile-2.png">
+
+                    </article>
+                    <article class="handle">
+                        <h4>Ellie Williams</h4>
+                        <p class="text-muted">
+                            @lastofus
+                        </p>
+                    </article>
+
+                </a>
+                <!----------icones do lado------>
+                <section class="sidebar">
+                    <a class="menu-item active">
+                        <span><i class="uil uil-home"></i></span>
+                        <h3>Home</h3>
+                    </a>
+
+
+                    <!-------------NOTIFICATION POPUP------------->
+                    <!-- -->
+                    <main class="notifications-popup">
+                        <section>
+                            <article class="profile-photo">
+                                <img src="../../../img/NovoPerfil/profile-2.jpg">
+                            </article>
+                            <article class="notification-body">
+                                <b>Keke Benjamin</b> curtiu sua publicação
+                                <small class="text-muted">HÁ DOIS DIAS</small>
+                            </article>
+                        </section>
+                        <section>
+                            <article class="profile-photo">
+                                <img src="../../../img/NovoPerfil/profile-10.jpg">
+                            </article>
+                            <article class="notification-body">
+                                <b>Joana Carla</b> curtiu sua publicação
+                                <small class="text-muted">HÁ UM DIA</small>
+                            </article>
+                        </section>
+                        <d>
+                            <article class="profile-photo">
+                                <img src="../../../img/NovoPerfil/profile-4.jpg">
+                            </article>
+                            <article class="notification-body">
+                                <b>Luisa Carla</b> curtiu sua publicação
+                                <small class="text-muted">HÁ DUAS HORAS</small>
+                            </article>
+                        </d>
+                        <section>
+                            <article class="profile-photo">
+                                <img src="../../../img/NovoPerfil/profile-5.jpg">
+                            </article>
+                            <article class="notification-body">
+                                <b>Ariel Mares</b> curtiu sua publicação
+                                <small class="text-muted">HÁ TRINTA MINUTOS</small>
+                            </article>
+                        </section>
+                        <section>
+                            <article class="profile-photo">
+                                <img src="../../../img/NovoPerfil/profile-6.jpg">
+                            </article>
+                            <article class="notification-body">
+                                <b>Joice Fonseca</b> curtiu sua publicação
+                                <small class="text-muted">HÁ DOIS DIAS</small>
+                            </article>
+                        </section>
+                        <section>
+                            <article class="profile-photo">
+                                <img src="../../../img/NovoPerfil/profile-7.jpg">
+                            </article>
+                            <article class="notification-body">
+                                <b>Afoncinha</b> curtiu sua publicação
+                                <small class="text-muted">HÁ QUINZE MINUTOS</small>
+                            </article>
+                        </section>
+                    </main>
+                    </a>
+                    <a href="../../Publicacao/Perfil/index.html" class="menu-item active">
+                        <span><i class="uil uil-user-circle"></i></span>
+                        <h3>Perfil</h3>
+                    </a>
+                    <a href="../Config/index.html" class="menu-item active">
+                        <span><i class="uil uil-setting"></i></span>
+                        <h3>Configurações</h3>
+                    </a>
+             </section>
+                <!------------------ FINAL SIDEBAR-------------------------->
+                <label for="create-post" class="btn btn-primary">Faça sua denúncia</label>
+            </section>
+            <!------------------ END OF LEFT-------------------------->
+
+
+
+
+            <!-----------MIDDLE------------------------->
+            <section class="middle">
+                <!------------------ STORIES-------------------------->
+                <form class="create-post">
+                    <article class="profile-photo">
+                        <img src="../../../img/NovoPerfil/profile-2.png">
+                    </article>
+                    <input type="text" placeholder="Faça um comentário!" id="create-post">
+                    <input type="submit" value="Postar" class="btn btn-primary">
+                </form>
+
+                <!-------------------FEEDS------------------------->
+                <section class="feeds">
+                    <!-------------------FEEDS 1------------------------->
+                    <section class="feed">
+                        <section class="head">
+                            <section class="user">
+                                <article class="profile-photo">
+                                    <img src="../../../img/NovoPerfil/profile-13.jpg">
+                                </article>
+                                <article class="ingo">
+                                    <h3>Lana Rose</h3>
+                                    <small>Barueri, 15 MINUTOS ATRÁS</small>
+                                </article>
+                            </section>
+                            <span class="edit">
+                                <i class="uil uil-ellipsis-h"></i>
+                            </span>
+                        </section>
+
+                        <article class="photo">
+                            <img src="../../../img/NovoPerfil/feed-1.jpg">
+                        </article>
+
+                        <section class="action-buttons">
+                            <article class="interaction-buttons">
+                                <span><i class="uil uil-heart"></i></span>
+                                <span><i class="uil uil-comment-dots"></i></span>
+                                <span><i class="uil uil-share-alt"></i></span>
+                            </article>
+                            <article class="bookmark">
+                                <span><i class="uil uil-bookmark-full">
+                                    </i></span>
+
+                            </article>
+                        </section>
+
+                        <article class="liked-by">
+                            <span><img src="../../../img/NovoPerfil/profile-10.jpg"></span>
+                            <span><img src="../../../img/NovoPerfil/profile-4.jpg"></span>
+                            <span><img src="../../../img/NovoPerfil/profile-15.jpg"></span>
+
+                            <p>Curtido por <b> Everson Zoio</b> e <b>
+                                    30 pessoas</b> </p>
+                        </article>
+
+                        <article class="caption">
+                            <p><b>Lana Rose</b> Extrememamente horrivel essa situação!
+                                <span class="harsh-tag">#denuncia</span>
+                            </p>
+                        </article>
+                        <article class="comments text-muted">Visualize todos os 05 comentários</article>
+                    </section>
+
+                    <!-----------FIM FEED------------------------->
+
+                    <section class="feed">
+                        <section class="head">
+                            <section class="user">
+                                <article class="profile-photo">
+                                    <img src="../../../img/NovoPerfil/profile-14.jpg">
+                                </article>
+                                <article class="ingo">
+                                    <h3>Bruno_Santos</h3>
+                                    <small>Carapicuiba, 05 MINUTOS ATRÁS</small>
+                                </article>
+                            </section>
+                            <span class="edit">
+                                <i class="uil uil-ellipsis-h"></i>
+                            </span>
+                        </section>
+
+                        <article class="photo">
+                            <img src="../../../img/NovoPerfil/feed-2.jpg">
+                        </article>
+
+                        <section class="action-buttons">
+                            <article class="interaction-buttons">
+                                <span><i class="uil uil-heart"></i></span>
+                                <span><i class="uil uil-comment-dots"></i></span>
+                                <span><i class="uil uil-share-alt"></i></span>
+                            </article>
+                            <article class="bookmark">
+                                <span><i class="uil uil-bookmark-full">
+                                    </i></span>
+
+                            </article>
+                        </section>
+
+                        <article class="liked-by">
+                            <span><img src="../../../img/NovoPerfil/profile-10.jpg"></span>
+                            <span><img src="../../../img/NovoPerfil/profile-4.jpg"></span>
+                            <span><img src="../../../img/NovoPerfil/profile-15.jpg"></span>
+
+                            <p>Curtido por <b> Elayne Baeta</b> e <b>
+                                    30 pessoas</b> </p>
+                        </article>
+
+                        <article class="caption">
+                            <p><b>Bruno_Santos</b> Quando chove este cano acaba enchendo a rua de agua com lodo por toda
+                                parte
+                                <span class="harsh-tag">#denuncia</span>
+                            </p>
+                        </article>
+                        <article class="comments text-muted">Visualize todos os 12 comentários</article>
+                    </section>
+
+                    <!-----------FIM FEED------------------------->
+
+                    <section class="feed">
+                        <section class="head">
+                            <section class="user">
+                                <article class="profile-photo">
+                                    <img src="../../../img/NovoPerfil/profile-19.jpg">
+                                </article>
+                                <article class="ingo">
+                                    <h3>Marina_sena23</h3>
+                                    <small>Moca, 30 MINUTOS ATRÁS</small>
+                                </article>
+                            </section>
+                            <span class="edit">
+                                <i class="uil uil-ellipsis-h"></i>
+                            </span>
+                        </section>
+
+                        <article class="photo">
+                            <img src="../../../img/NovoPerfil/feed-3.jpg">
+                        </article>
+
+                        <section class="action-buttons">
+                            <article class="interaction-buttons">
+                                <span><i class="uil uil-heart"></i></span>
+                                <span><i class="uil uil-comment-dots"></i></span>
+                                <span><i class="uil uil-share-alt"></i></span>
+                            </article>
+                            <article class="bookmark">
+                                <span><i class="uil uil-bookmark-full">
+                                    </i></span>
+
+                            </article>
+                        </section>
+
+                        <article class="liked-by">
+                            <span><img src="../../../img/NovoPerfil/profile-10.jpg"></span>
+                            <span><img src="../../../img/NovoPerfil/profile-4.jpg"></span>
+                            <span><img src="../../../img/NovoPerfil/profile-15.jpg"></span>
+
+                            <p>Curtido por <b> Martinhs_23</b> e <b>
+                                    11 pessoas</b> </p>
+                        </article>
+
+                        <article class="caption">
+                            <p><b>Marina_sena23</b> muito lixo no corrego carijo jardim tupã
+                                <span class="harsh-tag">#denuncia #horror </span>
+                            </p>
+                        </article>
+                        <article class="comments text-muted">Visualize todos os 12 comentários</article>
+                    </section>
+
+                    <!-----------FIM FEED------------------------->
+
+                    <section class="feed">
+                        <section class="head">
+                            <section class="user">
+                                <article class="profile-photo">
+                                    <img src="../../../img/NovoPerfil/profile-15.jpg">
+                                </article>
+                                <article class="ingo">
+                                    <h3>Minguel.Caio</h3>
+                                    <small>Barueri, 03 DIAS ATRÁS</small>
+                                </article>
+                            </section>
+                            <span class="edit">
+                                <i class="uil uil-ellipsis-h"></i>
+                            </span>
+                        </section>
+
+                        <article class="photo">
+                            <img src="../../../img/NovoPerfil/feed-4.jpg">
+                        </article>
+
+                        <section class="action-buttons">
+                            <article class="interaction-buttons">
+                                <span><i class="uil uil-heart"></i></span>
+                                <span><i class="uil uil-comment-dots"></i></span>
+                                <span><i class="uil uil-share-alt"></i></span>
+                            </article>
+                            <article class="bookmark">
+                                <span><i class="uil uil-bookmark-full">
+                                    </i></span>
+
+                            </article>
+                        </section>
+
+                        <article class="liked-by">
+                            <span><img src="../../../img/NovoPerfil/profile-10.jpg"></span>
+                            <span><img src="../../../img/NovoPerfil/profile-4.jpg"></span>
+                            <span><img src="../../../img/NovoPerfil/profile-15.jpg"></span>
+
+                            <p>Curtido por <b> Everson Zoio</b> e <b>
+                                    30 pessoas</b> </p>
+                        </article>
+
+                        <article class="caption">
+                            <p><b>Minguel.Caio</b> Toda vez que chove acaba ALAGANDO por conta do lixo!
+                                <span class="harsh-tag">#ajuda</span>
+                            </p>
+                        </article>
+                        <article class="comments text-muted">Vizualize todos os 03 comentários</article>
+                    </section>
+
+                    <!-----------FIM FEED------------------------->
+
+                    <section class="feed">
+                        <section class="head">
+                            <section class="user">
+                                <article class="profile-photo">
+                                    <img src="../../../img/NovoPerfil/profile-17.jpg">
+                                </article>
+                                <article class="ingo">
+                                    <h3>Katarina.234</h3>
+                                    <small>Osasco, 02 DIAS ATRÁS</small>
+                                </article>
+                            </section>
+                            <span class="edit">
+                                <i class="uil uil-ellipsis-h"></i>
+                            </span>
+                        </section>
+
+                        <article class="photo">
+                            <img src="../../../img/NovoPerfil/feed-5.jpg">
+                        </article>
+
+                        <section class="action-buttons">
+                            <article class="interaction-buttons">
+                                <span><i class="uil uil-heart"></i></span>
+                                <span><i class="uil uil-comment-dots"></i></span>
+                                <span><i class="uil uil-share-alt"></i></span>
+                            </article>
+                            <article class="bookmark">
+                                <span><i class="uil uil-bookmark-full">
+                                    </i></span>
+
+                            </article>
+                        </section>
+
+                        <article class="liked-by">
+                            <span><img src="../../../img/NovoPerfil/profile-10.jpg"></span>
+                            <span><img src="../../../img/NovoPerfil/profile-4.jpg"></span>
+                            <span><img src="../../../img/NovoPerfil/profile-15.jpg"></span>
+
+                            <p>Curtido por <b> Miguel_Carlos.23</b> e <b>
+                                    43 pessoas</b> </p>
+                        </article>
+
+                        <article class="caption">
+                            <p><b>Katarina.234</b> muito lixo nas praias, perigoso causar doenças
+                                <span class="harsh-tag">#denuncia</span>
+                            </p>
+                        </article>
+                        <article class="comments text-muted">Visualize todos os 15 comentários</article>
+                    </section>
+
+                    <!-----------FIM FEED------------------------->
+
+                    <section class="feed">
+                        <section class="head">
+                            <section class="user">
+                                <article class="profile-photo">
+                                    <img src="../../../img/NovoPerfil/profile-18.jpg">
+                                </article>
+                                <article class="ingo">
+                                    <h3>Jorge14_Silva</h3>
+                                    <small>Barueri, 15 MINUTOS ATRÁS</small>
+                                </article>
+                            </section>
+                            <span class="edit">
+                                <i class="uil uil-ellipsis-h"></i>
+                            </span>
+                        </section>
+
+                        <article class="photo">
+                            <img src="../../../img/NovoPerfil/feed-6.jpg">
+                        </article>
+
+                        <section class="action-buttons">
+                            <article class="interaction-buttons">
+                                <span><i class="uil uil-heart"></i></span>
+                                <span><i class="uil uil-comment-dots"></i></span>
+                                <span><i class="uil uil-share-alt"></i></span>
+                            </article>
+                            <article class="bookmark">
+                                <span><i class="uil uil-bookmark-full">
+                                    </i></span>
+
+                            </article>
+                        </section>
+
+                        <article class="liked-by">
+                            <span><img src="../../../img/NovoPerfil/profile-10.jpg"></span>
+                            <span><img src="../../../img/NovoPerfil/profile-4.jpg"></span>
+                            <span><img src="../../../img/NovoPerfil/profile-15.jpg"></span>
+
+                            <p>Curtido por <b> Emile_Dukermen22</b> e <b>
+                                    24 pessoas</b> </p>
+                        </article>
+
+                        <article class="caption">
+                            <p><b>Jorge14_Silva</b> Aqui em barueri no centro está INADMISSÍVEL a situação!!!!!
+                                <span class="harsh-tag">#denuncia</span>
+                            </p>
+                        </article>
+                        <article class="comments text-muted">Visualize todos os 22 comentários</article>
+                    </section>
+
+                    <!-----------FIM FEED------------------------->
+
+                    <section class="feed">
+                        <section class="head">
+                            <section class="user">
+                                <article class="profile-photo">
+                                    <img src="../../../img/NovoPerfil/profile-19.jpg">
+                                </article>
+                                <article class="ingo">
+                                    <h3>B3a.silva</h3>
+                                    <small>Barueri, 15 MINUTOS ATRÁS</small>
+                                </article>
+                            </section>
+                            <span class="edit">
+                                <i class="uil uil-ellipsis-h"></i>
+                            </span>
+                        </section>
+
+                        <article class="photo">
+                            <img src="../../../img/NovoPerfil/feed-7.jpg">
+                        </article>
+
+                        <section class="action-buttons">
+                            <section class="interaction-buttons">
+                                <span><i class="uil uil-heart"></i></span>
+                                <span><i class="uil uil-comment-dots"></i></span>
+                                <span><i class="uil uil-share-alt"></i></span>
+                            </section>
+                            <article class="bookmark">
+                                <span><i class="uil uil-bookmark-full">
+                                    </i></span>
+
+                            </article>
+                        </section>
+
+                        <article class="liked-by">
+                            <span><img src="../../../img/NovoPerfil/profile-10.jpg"></span>
+                            <span><img src="../../../img/NovoPerfil/profile-4.jpg"></span>
+                            <span><img src="../../../img/NovoPerfil/profile-15.jpg"></span>
+
+                            <p>Curtido por <b> GLau.23</b> e <b>
+                                    30 pessoas</b> </p>
+                        </article>
+
+                        <article class="caption">
+                            <p><b>B3a.silva</b> Aqui no Imperial a situação esta deplorável
+                                <span class="harsh-tag">#denuncia</span>
+                            </p>
+                        </article>
+                        <article class="comments text-muted">Visualize todos os 15 comentário</article>
+                    </section>
+
+                    <!-----------FIM FEED------------------------->
+
+                </section>
+
+                <!-----------------------------FIM TODOS FEEDS------------------------->
+
+            </section>
+
+            <!-----------------------------FIM MIDDLE----------------------------------->
+
+
+            <!-----------RIGHT------------------------->
+            <section class="right">
+
+                <article class="heading">
+                </article>
+
+                <!---------------FRIENDS REQUESTS---------------->
+
+            </section>
+    </main>
+
+
+
+    <!--=================== FINALRIGHT========================-->
+
+    <section class="customize-theme">
+        <section class="card">
+            <h2>Customize o tema</h2>
+            <p class="text-muted">Altere sua fonte, cor e fundo!</p>
+
+            <!------------font sizes------------->
+            <section class="font-size">
+                <h4>Fonte</h4>
+                <section>
+                    <h6>Aa</h6>
+                    <article class="choose-size">
+                        <span class="font-size-1"></span>
+                        <span class="font-size-2 active"></span>
+                        <span class="font-size-3"></span>
+                        <span class="font-size-4"></span>
+                        <span class="font-size-5"></span>
+                    </article>
+                    <h3>Aa</h3>
+                </section>
+            </section>
+
+            <!------------------------CORES------------------------->
+
+            <section class="color">
+                <h4>Cor</h4>
+                <article class="choose-color">
+                    <span class="color-1 active"></span>
+                    <span class="color-2"></span>
+                    <span class="color-3"></span>
+                    <span class="color-4"></span>
+                    <span class="color-5"></span>
+                </article>
+            </section>
+
+            <!------------------------BACKGROUND COLORS------------------------->
+
+            <section class="background">
+                <h4>Fundo</h4>
+                <section class="choose-bg">
+                    <article class="bg-1 active">
+                        <span></span>
+                        <h5 for="bg-1">Claro</h5>
+                    </article>
+
+                    <article class="bg-2">
+                        <span></span>
+                        <h5>Escuro</h5>
+                    </article>
+
+                    <article class="bg-3">
+                        <span></span>
+                        <h5 for="bg-3">Totalmente Escuro</h5>
+                    </article>
+
+                </section>
+            </section>
+
+
+        </section>
+    </section>
+    
+
+
+    <script src="../../../js/Publicação/publicacao/index.js"></script>
+
+
+</body>
+
+</html>
