@@ -27,17 +27,12 @@ router.get("/Sobre", function (req, res) {
   res.render("pages/Sobre/sobre");
 });
 
-
-router.get("/login", function (req, res) {
-  res.render("pages/Publicacao/publicacao/index");
-});
-
-router.get("/PublicacaocONFIG", function (req, res) {
+router.get("/PublicacacaoCONFIG", function (req, res) {
   res.render("pages/Publicacao/Config/index");
 });
 
 router.get("/Publicacao", function (req, res) {
-  res.render("pages/Publicacao/index");
+  res.render("pages/Publicacao/publi/index");
 });
 
 router.get("/PublicacaoPERFIL", function (req, res) {
