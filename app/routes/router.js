@@ -19,23 +19,28 @@ router.get("/FaleConoco", function (req, res) {
   res.render("pages/FaleConoco/index");
 });
 
-router.get("/Serviço", function (req, res) {
-  res.render("pages/Serviço/servicos");
-}); //.esse ta dando erro//
+router.get("/Servico", function (req, res) {
+  res.render("pages/Servico/index");
+});
 
 router.get("/Sobre", function (req, res) {
   res.render("pages/Sobre/sobre");
 });
 
-router.get("/login/index", function (req, res) {
+
+router.get("/login", function (req, res) {
   res.render("pages/Publicacao/publicacao/index");
 });
 
-router.get("/Publicacao", function (req, res) {
+router.get("/PublicacaocONFIG", function (req, res) {
   res.render("pages/Publicacao/Config/index");
 });
 
 router.get("/Publicacao", function (req, res) {
+  res.render("pages/Publicacao/index");
+});
+
+router.get("/PublicacaoPERFIL", function (req, res) {
   res.render("pages/Publicacao/Perfil/index");
 });
 
