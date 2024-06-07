@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+        integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="../../img/MicrosoftTeams-image-removebg-preview.png" tyle="image/ x-icon">
+    <link rel="stylesheet" href="../../CSS/esqueceusenha/style.css">
+    <link rel="stylesheet" href="../../CSS/esqueceusenha/index.css">
+
+    <title>Esqueceu senha</title>
+</head>
+
+<body>
+    <main>
+        <section class="box-form">
+            <form action="../../pages/esqueceusenha/senha.ejs" id="form"></form>
+                <section class="form-content">
+                    <h3 class="titulo">Recupere sua conta!</h3>
+                    <p class="sub-titulo">Informe o e-mail associado à sua conta <br>  para alterar sua senha</p></br>
+                    <section class="figura-logo">
+                        <article class="logo-container">
+                            <a href="../../index.html">
+                                <img src="../../img/LOGO2.png">
+                            </a>
+                        </article>
+                    </section>
+                    <article class="form-input">
+                        <label id="labelEmail" for="email">Email <span>*</span> </label>
+                        <input type="text" placeholder="Digite seu email" id="email">
+                        <small id="textEmail"></small>
+                    </article>
+                    </section>
+
+                <input type="submit" value="Enviar" id="Entrar">
+
+                <article id='msgError'></article>
+                <article id='msgSuccess'></article>
+                <small id="textForm"></small>
+                <article class="alternative1">
+                    <span>ou</span>
+                </article>
+                <article class="media">
+                    <a href="#" class="icon">
+                        <img src="../../img/Login/icons8-google-logo.svg">
+                    </a>
+                    <a href="#" class="icon">
+                        <img src="../../img/Login/icons8-linkedin.svg">
+                    </a>
+                    <a href="#" class="icon">
+                        <img src="../../img/Login/icons8-facebook-novo.svg">
+                    </a>
+                </article>
+        </section>
+        </section>
+    </form>
+    </main>
+    <footer></footer>
+    <script src="../../js/esqueceusenha/EMAIL.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.7/inputmask.min.js"></script>
+
+</body>
+
+</html>

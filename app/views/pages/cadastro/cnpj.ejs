@@ -9,31 +9,29 @@
         integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="shortcut icon" href="../../img/MicrosoftTeams-image-removebg-preview.png" tyle="image/ x-icon">
-    <link rel="stylesheet" href="../../CSS/Cadastro/style.css">
-    <link rel="stylesheet" href="../../CSS/Cadastro/index.css">
+    <link rel="stylesheet" href="../../CSS/cnpj/style.css">
+    <link rel="stylesheet" href="../../CSS/cnpj/cnpj.css">
 
-    <title>Cadastro</title>
+    <title>Cadastro Cnpj</title>
 </head>
 
 <body>
     <main>
         <section class="box-form">
-            <section action="/Publicacao" id="form">
+            <form action="../../HTML/Publicacao/publicacao/index.html" id="form">
                 <section class="form-content">
                     <h3 class="titulo">Olá seja bem vindo!</h3>
                     <p class="sub-titulo">Estamos muito animados em ter você aqui!</p>
                     <section class="figura-logo">
                         <article class="logo-container">
-                            <a href="/">
+                            <a href="../cadastro/cnpj.html">
                                 <img src="../../img/LOGO2.png">
                             </a>
                         </article>
                     </section>
                     <p class="register-link">
                         Já tem uma conta?
-                        <a href="/login">Entre</a>
-                        <br>Você é uma empresa?
-                        <a href="/cnpj">Cadastre-se</a>  </br>
+                        <a href="../../pages/login/index.ejs">Entre</a>
                     </p>
                     <article class="form-input">
                         <label id="labelEmail" for="email">Email <span>*</span> </label>
@@ -54,9 +52,9 @@
                     </article>
 
                     <article class="form-input">
-                        <label id="labelData" for="data">Data de nascimento <span>*</span> </label>
-                        <input type="text" placeholder="__/__/____" id="data" maxlength="10">
-                        <small id="textData"></small>
+                        <label id="labelCnpj" for="Cnpj">Cnpj<span>*</span> </label>
+                        <input type="text" placeholder="__.___.___/____-__" id="Cnpj" maxlength="14">
+                        <small id="textCnpj"></small>
                     </article>
 
                     <article class="form-input">
@@ -76,9 +74,6 @@
                     </section>
 
                 </section>
-                <article class="forget-password-link">
-                    <a href="/esqueceusenha/email.ejs">Esqueceu sua senha?</a>
-                </article>
 
                 <input type="submit" value="Entrar" id="Entrar">
 
@@ -104,8 +99,8 @@
     </form>
     </main>
     <footer></footer>
-    <script src="../../js/Cadastro/senha.js"></script>
-    <script src="../../js/Cadastro/validacao.js"></script>
+    <script src="../../js/cnpj/senhacnpj.js"></script>
+    <script src="../../js/cnpj/cnpj.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.7/inputmask.min.js"></script>
 
 </body>

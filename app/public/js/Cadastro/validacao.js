@@ -117,13 +117,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (password.length === 0) {
         setValidation(input, "Campo obrigatório");
     } else if (password.length < 8) {
-        setValidation(input, "A senha deve ter pelo menos 8 caracteres");
+        setValidation(input, "A senha deve ter pelo menos 8 caracteres, letras maiúsculas, minúsculas, números e caracteres especiais");
     } else {
         clearValidation(input);
     }
 }
-
-
   function clearValidation(input) {
     input.style.border = "";
     const errorMessage = input.nextElementSibling;
