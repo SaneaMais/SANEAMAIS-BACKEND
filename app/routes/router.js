@@ -11,6 +11,14 @@ router.get("/cadastro", function (req, res) {
   res.render("pages/cadastro/index");
 });
 
+router.get("/cadastro/cnpj", function (req, res) {
+  res.render("pages/cadastro/cnpj");
+});
+
+router.get("/esqueceusenha/email", function (req, res) {
+  res.render("pages/esqueceusenha/email");
+});
+
 router.get("/login", function (req, res) {
   res.render("pages/login/index");
 });
