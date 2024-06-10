@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const nomeInput = document.getElementById("nome");
     const CnpjInput = document.getElementById("Cnpj");
     const cepInput = document.getElementById("cep");
-    const passwordInput = document.getElementById("senha");
+    const passwordInput = document.getElementById("password");
   
    
     emailInput.addEventListener("input", function () {
@@ -110,18 +110,37 @@ document.addEventListener("DOMContentLoaded", function () {
         setValidation(input, "CEP inválido");
       }
     }
+   
     function validatePassword(input) {
       const password = input.value;
       if (password.length === 0) {
           setValidation(input, "Campo obrigatório");
       } else if (password.length < 8) {
-          setValidation(input, "A senha deve ter pelo menos 8 caracteres, letras maiúsculas, minúsculas, números e caracteres especiais");
+          setValidation(input, "A senha deve ter pelo menos 8 caracteres");
+      } else if (!containsLowerCase(password) || !containsUpperCase(password) || !containsNumber(password) || !containsSpecialCharacter(password)) {
+          setValidation(input, "A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial");
       } else {
           clearValidation(input);
       }
   }
   
-  
+  function containsLowerCase(str) {
+    return /[a-z]/.test(str);
+}
+
+function containsUpperCase(str) {
+    return /[A-Z]/.test(str);
+}
+
+function containsNumber(str) {
+    return /\d/.test(str);
+}
+
+function containsSpecialCharacter(str) {
+    return /[!@#$%^&*]/.test(str);
+}
+
+
     function clearValidation(input) {
       input.style.border = "";
       const errorMessage = input.nextElementSibling;
