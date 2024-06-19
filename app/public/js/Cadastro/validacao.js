@@ -19,8 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   nomeInput.addEventListener("input", function () {
-    nomeInput.value = nomeInput.value.replace(/[^a-zA-Z0-9]/g, '');
-  });
+    nomeInput.value = nomeInput.value.replace(/[^a-zA-Z]/g, '');
+  }); 
 
   dataInput.addEventListener("input", function () {
     dataInput.value = dataInput.value
@@ -45,10 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   nomeInput.addEventListener("blur", function () {
     validateName(nomeInput);
-  });
-
-  numeroInput.addEventListener("blur", function () {
-    validatePhoneNumber(numeroInput);
   });
 
   nomeuInput.addEventListener("blur", function () {
@@ -77,16 +73,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function validatePhoneNumber(input) {
-    const phoneNumber = input.value.replace(/\D/g, "");
-    if (phoneNumber.length === 11) { 
-      clearValidation(input);
-    } else {
-      setValidation(input, "Número de telefone inválido");
-    }
-  }
-  
-
   function validateUsername(input) {
     const username = input.value;
     if (username.length >= 3) {
@@ -98,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function validateName(input) {
     const name = input.value;
-    if (name.length >= 3) {
+    if (name.length > 3) {
       clearValidation(input);
     } else {
       setValidation(input, "Nome inválido");
@@ -167,7 +153,7 @@ function containsSpecialCharacter(str) {
 
   function validateForm() {
     let isValid = true;
-    const inputs = [emailInput, numeroInput, nomeInput, nomeuInput, dataInput, cepInput, passwordInput];
+    const inputs = [emailInput, nomeInput, nomeuInput, dataInput, cepInput, passwordInput];
 
     inputs.forEach(function (input) {
       if (input.value.trim() === "") {
