@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const pool = require("../../config/pool_conexoes")
+const pool = require("../../config/pool_conexoes");
+const usuarioController = require("../controllers/UsuarioController");
 
 router.get("/", function (req, res) {
   res.render("pages/index", {pagina:"home", logado:null});
@@ -39,11 +40,11 @@ router.get("/PublicacacaoCONFIG", function (req, res) {
   res.render("pages/Publicacao/Config/index");
 });
 
-router.get("/Publicacao", function (req, res) {
-  res.render("pages/Publicacao/publi/index");
+router.post("/Publicacao",usuarioController.regrasValidacaoFormCad, function (req, res) {
+ usuarioController.cadastrar(req,res)
 });
 
-router.get("/PiublcacaoPERFIL", function (req, res) {
+router.get("/PublicacaoPERFIL", function (req, res) {
   res.render("pages/Publicacao/Perfil/index");
 });
 
