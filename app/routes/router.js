@@ -43,7 +43,7 @@ router.get("/Publicacao", function (req, res) {
   res.render("pages/Publicacao/publi/index");
 });
 
-router.get("/PublicacaoPERFIL", function (req, res) {
+router.get("/PiublcacaoPERFIL", function (req, res) {
   res.render("pages/Publicacao/Perfil/index");
 });
 

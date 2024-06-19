@@ -8,16 +8,16 @@ const https = require('https');
 const usuarioController = {
 
     regrasValidacaoFormLogin: [
-        body("nome_usu")
+        body("user_usuario")
             .isLength({ min: 8, max: 45 })
             .withMessage("O nome de usuário/e-mail deve ter de 8 a 45 caracteres"),
-        body("senha_usu")
+        body("senha_usuario")
             .isStrongPassword()
             .withMessage("A senha deve ter no mínimo 8 caracteres (mínimo 1 letra maiúscula, 1 caractere especial e 1 número)")
     ],
 
     regrasValidacaoFormCad: [
-        body("nome_usu")
+        body("nome_usuario")
             .isLength({ min: 3, max: 45 }).withMessage("Nome deve ter de 3 a 45 caracteres!"),
         body("nomeusu_usu")
             .isLength({ min: 8, max: 45 }).withMessage("Nome de usuário deve ter de 8 a 45 caracteres!")
@@ -27,7 +27,7 @@ const usuarioController = {
                   throw new Error('Nome de usuário em uso!');
                 }
               }),  
-        body("email_usu")
+        body("email_usuario")
             .isEmail().withMessage("Digite um e-mail válido!")
             .custom(async value => {
                 const nomeUsu = await usuario.findCampoCustom({'email_usuario':value});
@@ -35,21 +35,21 @@ const usuarioController = {
                   throw new Error('E-mail em uso!');
                 }
               }), 
-        body("senha_usu")
+        body("senha_usuario")
             .isStrongPassword()
             .withMessage("A senha deve ter no mínimo 8 caracteres (mínimo 1 letra maiúscula, 1 caractere especial e 1 número)")
     ],
 
 
     regrasValidacaoPerfil: [
-        body("nome_usu")
+        body("nome_usuario")
             .isLength({ min: 3, max: 45 }).withMessage("Mínimo de 3 letras e máximo de 45!"),
         body("nomeusu_usu")
             .isLength({ min: 8, max: 45 }).withMessage("Nome de usuário deve ter de 8 a 45 caracteres!"),
-        body("email_usu")
+        body("email_usuario")
             .isEmail().withMessage("Digite um e-mail válido!"),
-        body("fone_usu")
-            .isLength({ min: 12, max: 13 }).withMessage("Digite um telefone válido!"),
+        body("telefone_usuario")
+            .isLength({ min: 11, max: 13 }).withMessage("Digite um telefone válido!"),
         verificarUsuAutorizado([1, 2, 3], "pages/restrito"),
     ],
 
@@ -59,7 +59,7 @@ const usuarioController = {
             return res.render("pages/login", { listaErros: erros, dadosNotificacao: null  })
         }
         if (req.session.autenticado.autenticado != null) {
-            res.redirect("/");
+            res.redirect("/PiublcacaoPERFIL");
         } else {
             res.render("pages/login", { listaErros: null,
                  dadosNotificacao: { titulo: "Falha ao logar!", mensagem: "Usuário e/ou senha inválidos!", tipo: "error" } })
@@ -71,9 +71,11 @@ const usuarioController = {
         const erros = validationResult(req);
         var dadosForm = {
             user_usuario: req.body.nomeusu_usu, 
-            senha_usuario: bcrypt.hashSync(req.body.senha_usu, salt),
-            nome_usuario: req.body.nome_usu,
-            email_usuario: req.body.email_usu,
+            senha_usuario: bcrypt.hashSync(req.body.senha_usuario, salt),
+            nome_usuario: req.body.nome_usuario,
+            email_usuario: req.body.email_usuario,
+            cep_usuario: req.body.cep_usuario,
+            data_nasc_usuario: req.body.data_nasc_usuario,
         };
         if (!erros.isEmpty()) {
             return res.render("pages/cadastro", { listaErros: erros, dadosNotificacao: null, valores: req.body })
