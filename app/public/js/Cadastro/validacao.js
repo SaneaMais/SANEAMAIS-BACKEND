@@ -7,8 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   const emailInput = document.getElementById("email");
-  const numeroInput = document.getElementById("numero");
-  const nomeInput = document.getElementById("nome");
+  const nomeuInput = document.getElementById("nomeu");
+  const nomeInput = document.getElementById("nome")
   const dataInput = document.getElementById("data");
   const cepInput = document.getElementById("cep");
   const passwordInput = document.getElementById("password");
@@ -18,13 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
     emailInput.value = emailInput.value.toLowerCase();
   });
 
-  numeroInput.addEventListener("input", function () {
-    numeroInput.value = numeroInput.value
-      .replace(/\D/g, '')
-      .replace(/(\d{2})(\d{4,5})(\d{4})/, '($1) $2-$3');
+  nomeInput.addEventListener("input", function () {
+    nomeInput.value = nomeInput.value.replace(/[^a-zA-Z0-9]/g, '');
   });
 
- 
   dataInput.addEventListener("input", function () {
     dataInput.value = dataInput.value
       .replace(/\D/g, '')
@@ -38,20 +35,24 @@ document.addEventListener("DOMContentLoaded", function () {
       .replace(/(\d{5})(\d{3})/, '$1-$2');
   });
 
-  nomeInput.addEventListener("input", function () {
-    nomeInput.value = nomeInput.value.replace(/[^a-zA-Z0-9]/g, '');
+  nomeuInput.addEventListener("input", function () {
+    nomeuInput.value = nomeuInput.value.replace(/[^a-zA-Z0-9]/g, '');
   });
 
   emailInput.addEventListener("blur", function () {
     validateEmail(emailInput);
   });
 
+  nomeInput.addEventListener("blur", function () {
+    validateName(nomeInput);
+  });
+
   numeroInput.addEventListener("blur", function () {
     validatePhoneNumber(numeroInput);
   });
 
-  nomeInput.addEventListener("blur", function () {
-    validateUsername(nomeInput);
+  nomeuInput.addEventListener("blur", function () {
+    validateUsername(nomeuInput);
   });
 
   dataInput.addEventListener("blur", function () {
@@ -89,6 +90,15 @@ document.addEventListener("DOMContentLoaded", function () {
   function validateUsername(input) {
     const username = input.value;
     if (username.length >= 3) {
+      clearValidation(input);
+    } else {
+      setValidation(input, "Nome de usuário inválido");
+    }
+  }
+
+  function validateName(input) {
+    const name = input.value;
+    if (name.length >= 3) {
       clearValidation(input);
     } else {
       setValidation(input, "Nome inválido");
@@ -157,7 +167,7 @@ function containsSpecialCharacter(str) {
 
   function validateForm() {
     let isValid = true;
-    const inputs = [emailInput, numeroInput, nomeInput, dataInput, cepInput, passwordInput];
+    const inputs = [emailInput, numeroInput, nomeInput, nomeuInput, dataInput, cepInput, passwordInput];
 
     inputs.forEach(function (input) {
       if (input.value.trim() === "") {
