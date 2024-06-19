@@ -17,7 +17,7 @@ var password = document.getElementById("password");
         inputEmail.style.border = "";
         return "email";
       }  else {
-        messageEmail.textContent = "Formato inválido ( digite seu E-mail )";
+        messageEmail.textContent = "Formato inválido ( digite seu E-mail ou nome de usuário )";
         messageEmail.style.color = "red";
         messageEmail.style.fontSize = "12px";
         inputEmail.style.border = "1px solid red";
@@ -43,7 +43,7 @@ var password = document.getElementById("password");
       var inputType = validateInput();
       senhaValida();
       if (inputType === "invalido") {
-        messageEmail.textContent = "inválido (E-mail ou número de telefone)";
+        messageEmail.textContent = "inválido (E-mail ou nome de u)";
         messageEmail.style.color = "red";
         messageEmail.style.fontSize = "12px";
         inputEmail.style.border = "1px solid red";
