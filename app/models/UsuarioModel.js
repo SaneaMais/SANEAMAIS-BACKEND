@@ -1,6 +1,6 @@
 var pool = require("../../config/pool_conexoes");
 
-    const usuarioModel = {
+    const UsuarioModel = {
         create:async (usuario) => {
             try {
                 const [result] = await pool.query(
@@ -108,4 +108,4 @@ var pool = require("../../config/pool_conexoes");
         },
     };
 
-    module.exports = usuarioModel
+    module.exports = UsuarioModel;

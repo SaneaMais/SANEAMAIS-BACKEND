@@ -5,7 +5,7 @@ const {
   verificarUsuAutenticado,
   limparSessao,
   gravarUsuAutenticado,
-  verificarUsuAutenticado,
+
 } = require("../models/autenticador_middleware");
 
 const pool = require("../../config/pool_conexoes");
