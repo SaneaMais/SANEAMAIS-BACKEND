@@ -1,10 +1,10 @@
-const usuario = require("../models/UsuarioModel");
+const usuario = require("../models/usuarioModel");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 var salt = bcrypt.genSaltSync(12);
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const https = require('https');
-const usuarioModel = require("../models/UsuarioModel");
+const usuarioModel = require("../models/usuarioModel");
 
 const usuarioController = {
 
