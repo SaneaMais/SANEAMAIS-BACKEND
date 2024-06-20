@@ -1,6 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
+const {
+  verificarUsuAutenticado,
+  limparSessao,
+  gravarUsuAutenticado,
+  verificarUsuAutenticado,
+} = require("../models/autenticador_middleware");
+
 const pool = require("../../config/pool_conexoes");
 const usuarioController = require("../controllers/UsuarioController");
 
@@ -40,7 +47,7 @@ router.get("/PublicacacaoCONFIG", function (req, res) {
   res.render("pages/Publicacao/Config/index");
 });
 
-router.post("/Publicacao",usuarioController.regrasValidacaoFormCad, function (req, res) {
+router.post("/Publicacao",usuarioController.regrasValidacaoFormCad, gravarUsuAutenticado, function (req, res) {limparSessao,
  usuarioController.cadastrar(req,res)
 });
 

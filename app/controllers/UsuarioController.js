@@ -7,6 +7,15 @@ const https = require('https');
 
 const usuarioController = {
 
+    CriarUsuario: async (req,res) => {
+        const {data_nasc} = req.body
+        if (data_nasc) {
+            const date = new Date(data_nasc)
+            req.body.data_nasc = date.toISOString().split('T')[0]
+        }
+    },
+
+
     regrasValidacaoFormLogin: [
         body("user_usuario")
             .isLength({ min: 8, max: 45 })
@@ -15,6 +24,8 @@ const usuarioController = {
             .isStrongPassword()
             .withMessage("A senha deve ter no mínimo 8 caracteres (mínimo 1 letra maiúscula, 1 caractere especial e 1 número)")
     ],
+
+
 
     regrasValidacaoFormCad: [
         body("nome_usuario")
