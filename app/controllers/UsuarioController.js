@@ -114,9 +114,9 @@ const usuarioController = {
         .isEmail()
         .withMessage("Email inválido"), 
 
-        body("user")
+       /* body("user")
           .isUser()
-          .withMessage("Usuário inválido"),
+          .withMessage("Usuário inválido"), /** */
 
         body("senha")
         .isLength({ min: 8, max: 30})
@@ -130,4 +130,4 @@ const usuarioController = {
     
 }
 
-module.exports = UsuarioController;
+module.exports = usuarioController;
