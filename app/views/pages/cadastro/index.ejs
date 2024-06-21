@@ -16,6 +16,30 @@
 </head>
 
 <body>
+    <%
+    let msgErro = {"nome":"", "senha":"","user":"","email":"", senha:""}
+    let avisoErro = {"nome":"", "senha":"",user"","email":"", senha""}
+    if(listaErros){    
+        listaErros.errors.forEach(function(itemErro){
+            if(itemErro.path == "nome"){
+                avisoErro.nome = "erro";
+                msgErro.nome += " "+itemErro.msg
+            }
+            if(itemErro.path == "senha"){
+                avisoErro.senha = "erro";
+                msgErro.senha = itemErro.msg
+            }
+            if(itemErro.path == "user"){
+                avisoErro.user = "erro";
+                msgErro.user = itemErro.msg
+            }
+            if(itemErro.path == "email"){
+                avisoErro.email = "erro";
+                msgErro.email= itemErro.msg
+            }
+        })
+    }
+    %>
     <main>
         <section class="box-form">
             <form action="/Publicacao" id="form" method="post">
@@ -37,25 +61,28 @@
 
                     <article class="form-input">
                         <label id="labelNome" for="nome">Nome completo <span>*</span> </label>
-                        <input type="text" placeholder="Nome de usuário " id="nome" name="nome">
+                   //   <input type="text" placeholder="Nome" value="<%= valores.nome %>"  class=" <%= //avisoErro.nome %>" id="nome" name="nome"/>
+                        <span> <%= msgErro.nome %> </span><br>
                         <small id="textNome"></small>
                     </article>
 
                     <article class="form-input">
                         <label id="labelEmail" for="email">Email <span>*</span> </label>
-                        <input type="text" placeholder="Digite seu email" id="email" name="email">
-                        <small id="textEmail"></small>
+                        <input type="text" placeholder="Digite seu email" value="<%= valores.email %>"  class=" <%= avisoErro.email %>" id="email" name="email"/>
+                        <span> <%= //msgErro.email %> </span><br>
+                        <small id="textNome"></small>
                     </article>
 
                     <article class="form-input">
                         <label id="labelNome" for="nomeu">Nome de usuário <span>*</span> </label>
-                        <input type="text" placeholder="Nome de usuário " id="nomeu" name="user">
+                        <input type="text" placeholder="Nome de usuário " value="<%= valores.user %>"  class=" <%= avisoErro.user %>" id="user" name="user"/>
+                        <span> <%= msgErro.user %> </span><br>
                         <small id="textNome"></small>
                     </article>
 
                     <article class="form-input">
                         <label id="labelData" for="data">Data de nascimento <span>*</span> </label>
-                        <input type="text" placeholder="__/__/____" id="data" maxlength="10" name="data_nasc">
+                        <input type="text" placeholder="__/__/____" id="data_nasc" maxlength="10" name="data_nasc">
                         <small id="textData"></small>
                     </article>
 
@@ -68,8 +95,9 @@
                         <article class="input__wrapper">
                             <img alt="Eye Icon" title="Eye Icon" src="../../img/Login/eye-off.svg" class="input__icon">
                             <label id="labelSenha" for="senha">senha <span>*</span> </label>
-                            <input type="password" placeholder="Senha" id="password" class="input__field"
+                            <input type="password" placeholder="Senha" value="<%= valores.senha %>" id="password" class=" <%= avisoErro.senha %>"
                                 maxlength="30" name="senha">
+                                <span> <%= msgErro.senha %> </span><br>
                             <small id="textPassword"></small>
                         </article>
 
