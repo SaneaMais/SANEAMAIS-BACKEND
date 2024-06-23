@@ -1,5 +1,5 @@
 const { validationResult } = require("express-validator");
-const usuario = require("./usuarioModel");
+const usuario = require("./UsuarioModel");
 const bcrypt = require("bcryptjs");
 
 verificarUsuAutenticado = (req, res, next) => {
@@ -21,7 +21,7 @@ gravarUsuAutenticado = async (req, res, next) => {
     erros = validationResult(req)
     if (erros.isEmpty()) {
         var dadosForm = {
-            email_usuario: req.body.user,
+            email_usuario: req.body.email,
             senha_usuario: req.body.senha,
         };
         var results = await usuario.findUserEmail(dadosForm);

@@ -16,9 +16,11 @@ router.get("/", function (req, res) {
 });
 
 router.get("/cadastro", function (req, res) {
-  res.render("pages/cadastro/index");
+  res.render("pages/cadastro/index", { listaErros: null, valores: { nome: "", user: "", email: "", senha: "" } });
 });
 
+
+ 
 router.get("/cadastro/cnpj", function (req, res) {
   res.render("pages/cadastro/cnpj");
 });
@@ -47,8 +49,12 @@ router.get("/PublicacacaoCONFIG", function (req, res) {
   res.render("pages/Publicacao/Config/index");
 });
 
-router.post("/Publicacao",usuarioController.regrasValidacaoFormCad, gravarUsuAutenticado, function (req, res) {limparSessao,
- usuarioController.cadastrar(req,res)
+router.get("/Publicacao",function (req, res) {
+  res.render("pages/Publicacao/Perfil/index");
+ });
+
+router.post("/Publicacao",usuarioController.regrasValidacaoFormCad, gravarUsuAutenticado, async function (req, res) {limparSessao,
+usuarioController.cadastrar(req,res)
 });
 
 router.get("/PublicacaoPERFIL", function (req, res) {

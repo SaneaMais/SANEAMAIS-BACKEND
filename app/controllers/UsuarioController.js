@@ -1,10 +1,10 @@
-const usuario = require("../models/usuarioModel");
+const usuario = require("../models/UsuarioModel");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
-var salt = bcrypt.genSaltSync(12);
+const salt = bcrypt.genSaltSync(12);
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const https = require('https');
-const usuarioModel = require("../models/usuarioModel");
+const UsuarioModel = require("../models/UsuarioModel");
 
 const usuarioController = {
 
@@ -79,7 +79,7 @@ const usuarioController = {
         body("email")
             .isEmail().withMessage("Digite um e-mail válido!")
             .custom(async value => {
-                const email = await UsuarioModel.findCampoEmail(value)
+                const email = await UsuarioModel.findUserEmail(value)
                 if (email.length > 0) {
                   throw new Error('E-mail em uso!');
                 }
@@ -114,7 +114,7 @@ const usuarioController = {
         .isEmail()
         .withMessage("Email inválido"), 
 
-       /* body("user")
+       /*body("user")
           .isUser()
           .withMessage("Usuário inválido"), /** */
 
@@ -126,7 +126,34 @@ const usuarioController = {
         .withMessage("Senha inválida! (mínimo 1 letra maiúscula, 1 caractere especial e 1 número)"),
         
     ],
+/*
 
+    cadastrar: (req, res) => {
+        const erros = validationResult(req);
+        console.log(erros);
+        var dadosForm = {
+            user_usuario: req.body.user_usuario,
+            senha_usuario: bcrypt.hashSync(req.body.senha, salt),
+            nome_usuario: req.body.nome_usuario,
+            email_usuario: req.body.email_usuario,
+        };
+        if (!erros.isEmpty()) {
+            console.log(erros);
+            return res.render("pages/cadastro", { listaErros: erros, valores: req.body })
+        }
+
+        // Log dos dados recebidos
+    console.log("Dados recebidos:", req.body);
+
+        try {
+            let create = usuario.create(dadosForm);
+            res.redirect("/")
+        } catch (e) {
+            console.log(e);
+            res.render("pages/Publicacao", { listaErros: erros, valores: req.body })
+        }
+    }
+*/
     
 }
 

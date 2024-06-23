@@ -4,9 +4,10 @@ var pool = require("../../config/pool_conexoes");
         create:async (usuario) => {
             try {
                 const [result] = await pool.query(
-                    'INSERT INTO USUARIOS (`nome_usuario`, `id_usuario`, `user_usuario`, `data_nasc_usuario`, `senha_usuario`,`email_usuario`, `cep_usuario`, `uf_usuario`, `bairro_usuario`, `logradouro_usuario`, `cidade_usuario`, `foto_usuario`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)',
-                    [usuario.nome, usuario.id, usuario.user, usuario.data_nasc, usuario.email, usuario.cep. usuario.uf, usuario.logradouro, usuario.bairro, usuario.cidade, usuario.foto, /*bcrypt.hashSync(*/usuario.senha/*, salt) */, usuario.type]
+                    'INSERT INTO USUARIOS ( `id_usuario`,`nome_usuario`, `data_nasc_usuario`,`foto_usuario`,`cidade_usuario`,`logradouro_usuario`, `bairro_usuario`, `uf_usuario`,`cep_usuario`,`email_usuario`,`senha_usuario`,`user_usuario`, `telefone_usuario`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)',
+                    [usuario.id, usuario.nome, usuario.data_nasc, usuario.foto, usuario.cidade, usuario.logradouro, usuario.bairro, usuario.uf, usuario.cep, usuario.email, usuario.senha, usuario.user, usuario.telefone]
                 );
+                console.log("Dados para inserção:", usuario);
                 return result;
             } catch (error) {
                 throw error;  

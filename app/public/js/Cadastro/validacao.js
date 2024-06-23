@@ -7,11 +7,11 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   const emailInput = document.getElementById("email");
-  const nomeuInput = document.getElementById("nomeu");
+  const userInput = document.getElementById("user");
   const nomeInput = document.getElementById("nome")
-  const dataInput = document.getElementById("data");
+  const dataInput = document.getElementById("data_nasc");
   const cepInput = document.getElementById("cep");
-  const passwordInput = document.getElementById("password");
+  const senhaInput = document.getElementById("senha");
 
  
   emailInput.addEventListener("input", function () {
@@ -35,9 +35,9 @@ document.addEventListener("DOMContentLoaded", function () {
       .replace(/(\d{5})(\d{3})/, '$1-$2');
   });
 
-  nomeuInput.addEventListener("input", function () {
+ /* nomeuInput.addEventListener("input", function () {
     nomeuInput.value = nomeuInput.value.replace(/[^a-zA-Z0-9]/g, '');
-  });
+  });/** */
 
   emailInput.addEventListener("blur", function () {
     validateEmail(emailInput);
@@ -47,8 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
     validateName(nomeInput);
   });
 
-  nomeuInput.addEventListener("blur", function () {
-    validateUsername(nomeuInput);
+  userInput.addEventListener("blur", function () {
+    validateUsername(userInput);
   });
 
   dataInput.addEventListener("blur", function () {
@@ -59,8 +59,9 @@ document.addEventListener("DOMContentLoaded", function () {
     validateCep(cepInput);
   });
 
-  passwordInput.addEventListener("blur", function () {
-    validatePassword(passwordInput);
+  
+  senhaInput.addEventListener("blur", function () {
+    validatesenha(senhaInput);
 });
 
 
@@ -109,13 +110,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
   
-  function validatePassword(input) {
-    const password = input.value;
-    if (password.length === 0) {
+  function validatesenha(input) {
+    const senha = input.value;
+    if (senha.length === 0) {
         setValidation(input, "Campo obrigatório");
-    } else if (password.length < 8) {
+    } else if (senha.length < 8) {
         setValidation(input, "A senha deve ter pelo menos 8 caracteres");
-    } else if (!containsLowerCase(password) || !containsUpperCase(password) || !containsNumber(password) || !containsSpecialCharacter(password)) {
+    } else if (!containsLowerCase(senha) || !containsUpperCase(senha) || !containsNumber(senha) || !containsSpecialCharacter(password)) {
         setValidation(input, "A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial");
     } else {
         clearValidation(input);
@@ -153,7 +154,7 @@ function containsSpecialCharacter(str) {
 
   function validateForm() {
     let isValid = true;
-    const inputs = [emailInput, nomeInput, nomeuInput, dataInput, cepInput, passwordInput];
+    const inputs = [emailInput, nomeInput, userInput, dataInput, cepInput, senhaInput];
 
     inputs.forEach(function (input) {
       if (input.value.trim() === "") {
