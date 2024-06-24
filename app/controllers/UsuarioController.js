@@ -1,41 +1,11 @@
-const usuario = require("../models/UsuarioModel");
+const UsuarioModel = require("../models/UsuarioModel");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const salt = bcrypt.genSaltSync(12);
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const https = require('https');
-const UsuarioModel = require("../models/UsuarioModel");
 
-const usuarioController = {
-
-    CriarUsuario: async (req,res) => {
-        const { data_nasc } = req.body
-        if (data_nasc) {
-            const date = new Date(data_nasc)
-            req.body.data_nasc = date.toISOString().split('T')[0]
-        }
-
-    const errors = validationResult(req);
-    if(!errors.isEmpty()) {
-    return res.render('pages/cadastro' , {
-        dados: req.body,
-        listaErros: errors,
-        logado:null
-    });
-}
-
-    try {
-        const result = await UsuarioModel.create({ ...req.body, senha: bcrypt.hashSync(req.body.senha) });
-        req.session.autenticado.id = result[0].insertId
-
-        req.flash('success' , `Bem vindo, ${req.body.nome}`)
-
-        res.redirect('/verificar-autenticacao')
-    } catch (error) {
-        return error;
-    }
-},
-
+const UsuarioController = {
 
     regrasValidacaoFormLogin: [
         body("user")
@@ -43,28 +13,38 @@ const usuarioController = {
             .withMessage("O nome de usuário/e-mail deve ter de 8 a 45 caracteres"),
         body("senha_usuario")
             .isStrongPassword()
-            .withMessage("A senha deve ter no mínimo 8 caracteres (mínimo 1 letra maiúscula, 1 caractere especial e 1 número)")
+            .bail()
+            .matches(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/)
+            .withMessage("Senha inválida! (mínimo 1 letra maiúscula, 1 caractere especial e 1 número)"),
+            
     ],
-
 
 
     regrasValidacaoFormCad: [
         body("nome")
             .isLength({ min: 3, max: 45 }).withMessage("Nome deve ter de 3 a 45 caracteres!"),
-            
-        body("data_nasc")
-            .isLength({ min: 10}).withMessage('Data inválida')
-            .toDate() 
-            .withMessage('Data inválida')
-            .custom( value => {
-                const birthDate = new Date (value);
-                if (isNaN(birthDate.getTime())) {
-                  throw new Error('Data de nascimento inválida!');
+            body("user")
+            .isLength({ min: 3, max: 45 }).withMessage("Nome de usuário deve ter de 3 a 45 caracteres!")
+            .custom(async value => {
+                const user = await Usuario.findUserNome ({'user_usuario' :value});
+                if (user > 0){
+                    throw new Error('Nome de usuário já em uso!');
                 }
+            }),
+
+         body("data_nasc")
+            .isLength({ min: 10}).withMessage('Data inválida')
+           .toDate() 
+           .withMessage('Data inválida')
+           .custom( value => {
+                const birthDate = new Date (value);
+               if (isNaN(birthDate.getTime())) {
+                  throw new Error('Data de nascimento inválida!');
+               }
            const today = new Date();
            let age = today.getFullYear() - birthDate.getFullYear();
-           const monthDiff = today.getMonth() - birthDate.getMonth();
-           if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate()) ) {
+          const monthDiff = today.getMonth() - birthDate.getMonth();
+          if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate()) ) {
             age--;
 
            }
@@ -73,88 +53,76 @@ const usuarioController = {
            }
 
            return true
-            }),  
+          }),  
 
 
         body("email")
             .isEmail().withMessage("Digite um e-mail válido!")
             .custom(async value => {
-                const email = await UsuarioModel.findUserEmail(value)
-                if (email.length > 0) {
+                const email = await UsuarioModel.findUserEmail({'email_usuario' :value});
+                if (email > 0) {
                   throw new Error('E-mail em uso!');
                 }
-                return true;
               }),
 
         body("senha")
-        .isLength({ min: 8, max: 30})
+        .isStrongPassword()
         .withMessage("A senha deve ter no mínimo 8 caracteres")
         .bail()
         .matches(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/)
         .withMessage("Senha inválida! (mínimo 1 letra maiúscula, 1 caractere especial e 1 número)")
     ],
 
+
+
     logar: (req, res) => {
         const erros = validationResult(req);
         if (!erros.isEmpty()) {
             return res.render("pages/login", { listaErros: erros, dados: req.body  })
         }
-        if (req.session.autenticado != null) {
-            return res.render("pages/Publicacao", { listaErros: erros, dados: null  })
+        if (req.session.autenticado.autenticado != null) {
+            return res.redirect("pages/Publicacao");
+        }else {
+            res.render("pages/login", {listaErros: null,
+                dadosNotificacao: {titulo: "falha ao logar!", mensagem: "Usuário e/ou senha inválidos", tipo: "error"}})
         }
-            req.flash('success' , 'Bem vindo!')
-           
-            res.redirect('/verificar-autenticacao')
-
     },
 
 
-    regrasValidacaoFormLogin: [
-        body("email")
-        .isEmail()
-        .withMessage("Email inválido"), 
-
-       /*body("user")
-          .isUser()
-          .withMessage("Usuário inválido"), /** */
-
-        body("senha")
-        .isLength({ min: 8, max: 30})
-        .withMessage("A senha deve ter no mínimo 8 caracteres")
-        .bail()
-        .matches(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/)
-        .withMessage("Senha inválida! (mínimo 1 letra maiúscula, 1 caractere especial e 1 número)"),
-        
-    ],
-/*
-
-    cadastrar: (req, res) => {
-        const erros = validationResult(req);
-        console.log(erros);
-        var dadosForm = {
-            user_usuario: req.body.user_usuario,
-            senha_usuario: bcrypt.hashSync(req.body.senha, salt),
-            nome_usuario: req.body.nome_usuario,
-            email_usuario: req.body.email_usuario,
-        };
-        if (!erros.isEmpty()) {
-            console.log(erros);
-            return res.render("pages/cadastro", { listaErros: erros, valores: req.body })
+    CriarUsuario: (req,res) => {
+        const { data_nasc } = req.body
+        if (data_nasc) {
+            const date = new Date(data_nasc)
+            req.body.data_nasc = date.toISOString().split('T')[0]
         }
 
-        // Log dos dados recebidos
-    console.log("Dados recebidos:", req.body);
-
-        try {
-            let create = usuario.create(dadosForm);
-            res.redirect("/")
-        } catch (e) {
-            console.log(e);
-            res.render("pages/Publicacao", { listaErros: erros, valores: req.body })
-        }
+    const erros = validationResult(req);
+    var dadosForm = {
+        nome_usuario: req.body.nome,
+        senha_usuario: bcrypt.hashSync(req.body.senha, salt),
+        user_usuario: req.body.user,
+        email_usuario: req.body.email,
+        data_nasc_usuario: req.body.data_nasc,
+    };
+      if (!erros.isEmpty()) {
+        return res.render("pages/cadastro/index", {listaErros: erros, dadosNotificacao: null, valores: req.body})
+      }  
+    try {
+        let create = UsuarioModel.create(dadosForm);
+        res.render("pages/cadastro/index", {
+            listaErros: null, dadosNotificacao: {
+                titulo: "Cadastro realizado!", mensagem: "Novo usuário cadastrado com sucesso!", tipo: "success"
+            }, valores: req.body
+        })
+    } catch (error) {
+        console.log(error);
+        res.render("pages/cadastro/index", {
+            listaErros: erros, dadosNotificacao: {
+                titulo: "Erro ao cadastrar!", mensagem: "Verifique os dados digitados ", tipo: "error"
+             }, valores: req.body
+        })
     }
-*/
-    
+}
 }
 
-module.exports = usuarioController;
+module.exports = UsuarioController
