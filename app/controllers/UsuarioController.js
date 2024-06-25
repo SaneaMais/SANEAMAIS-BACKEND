@@ -22,6 +22,7 @@ const UsuarioController = {
         user_usuario: req.body.user,
         email_usuario: req.body.email,
         data_nasc_usuario: req.body.data_nasc,
+        cep_usuario: req.body.cep,
     };
     console.log(dadosForm)
       if (!erros.isEmpty()) {
@@ -64,7 +65,7 @@ const UsuarioController = {
             body("user")
             .isLength({ min: 3, max: 45 }).withMessage("Nome de usuário deve ter de 3 a 45 caracteres!")
             .custom(async value => {
-                const user = await Usuario.findUserNome (value)
+                const user = await UsuarioModel.findUserNome (value)
                 if (user > 0){
                     throw new Error('Nome de usuário já em uso!');
                 }

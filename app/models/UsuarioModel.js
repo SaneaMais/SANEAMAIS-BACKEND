@@ -4,8 +4,7 @@ var pool = require("../../config/pool_conexoes");
         create:async (usuario) => {
             try {
                 const [result] = await pool.query(
-                    'INSERT INTO USUARIOS ( `id_usuario`,`nome_usuario`, `data_nasc_usuario`,`foto_usuario`,`cidade_usuario`,`logradouro_usuario`, `bairro_usuario`, `uf_usuario`,`cep_usuario`,`email_usuario`,`senha_usuario`,`user_usuario`, `telefone_usuario`) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)',
-                    [usuario.id, usuario.nome, usuario.data_nasc, usuario.foto, usuario.cidade, usuario.logradouro, usuario.bairro, usuario.uf, usuario.cep, usuario.email, usuario.senha, usuario.user, usuario.telefone]
+                    'INSERT INTO USUARIOS set ?', [usuario] 
                 );
                 console.log("Dados para inserção:", usuario);
                 return result;

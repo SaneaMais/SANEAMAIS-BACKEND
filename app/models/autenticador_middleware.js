@@ -1,6 +1,6 @@
 const { validationResult } = require("express-validator");
-const usuario = require("./UsuarioModel");
 const bcrypt = require("bcryptjs");
+const UsuarioModel = require("./UsuarioModel");
 
 verificarUsuAutenticado = (req, res, next) => {
     if (req.session.autenticado) {
@@ -24,7 +24,7 @@ gravarUsuAutenticado = async (req, res, next) => {
             email_usuario: req.body.email,
             senha_usuario: req.body.senha,
         };
-        var results = await usuario.findUserEmail(dadosForm);
+        var results = await UsuarioModel.findUserEmail(dadosForm);
         var total = Object.keys(results).length;
         if (total == 1) {
             if (bcrypt.compareSync(dadosForm.senha_usuario, results[0].senha_usuario)) {
