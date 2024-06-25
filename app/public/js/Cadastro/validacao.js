@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const dataInput = document.getElementById("data_nasc");
   const cepInput = document.getElementById("cep");
   const senhaInput = document.getElementById("senha");
+  const pswConfirmaSenha = document.querySelector("#confirmasenha")
 
  
   emailInput.addEventListener("input", function () {
@@ -28,6 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
       .replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
   });
 
+  pswConfirmaSenha.addEventListener("paste", function(e){
+    e.preventDefault()
+  })
  
   cepInput.addEventListener("input", function () {
     cepInput.value = cepInput.value
@@ -35,9 +39,9 @@ document.addEventListener("DOMContentLoaded", function () {
       .replace(/(\d{5})(\d{3})/, '$1-$2');
   });
 
- /* nomeuInput.addEventListener("input", function () {
-    nomeuInput.value = nomeuInput.value.replace(/[^a-zA-Z0-9]/g, '');
-  });/** */
+    userInput.addEventListener("input", function () {
+    userInput.value = userInput.value.replace(/[^a-zA-Z0-9]/g, '');
+  });
 
   emailInput.addEventListener("blur", function () {
     validateEmail(emailInput);
