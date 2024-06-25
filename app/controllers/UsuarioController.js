@@ -7,6 +7,44 @@ const https = require('https');
 
 const UsuarioController = {
 
+    CriarUsuario: (req,res) => {
+        const { data_nasc } = req.body
+        if (data_nasc) {
+            const date = new Date(data_nasc)
+            req.body.data_nasc = date.toISOString().split('T')[0]
+        }
+
+    const erros = validationResult(req);
+    console.log(erros)
+    var dadosForm = {
+        nome_usuario: req.body.nome,
+        senha_usuario: bcrypt.hashSync(req.body.senha, salt),
+        user_usuario: req.body.user,
+        email_usuario: req.body.email,
+        data_nasc_usuario: req.body.data_nasc,
+    };
+    console.log(dadosForm)
+      if (!erros.isEmpty()) {
+        return res.render("pages/cadastro/index", {listaErros: erros, dadosNotificacao: null, valores: req.body})
+      }  
+    try {
+        let create = UsuarioModel.create(dadosForm);
+        console.log(create)
+        res.render("pages/cadastro/index", {
+            listaErros: null, dadosNotificacao: {
+                titulo: "Cadastro realizado!", mensagem: "Novo usuário cadastrado com sucesso!", tipo: "success"
+            }, valores: req.body
+        })
+    } catch (error) {
+        console.log(error);
+        res.render("pages/cadastro/index", {
+            listaErros: erros, dadosNotificacao: {
+                titulo: "Erro ao cadastrar!", mensagem: "Verifique os dados digitados ", tipo: "error"
+             }, valores: req.body
+        })
+    }
+},
+
     regrasValidacaoFormLogin: [
         body("user")
             .isLength({ min: 8, max: 45 })
@@ -26,7 +64,7 @@ const UsuarioController = {
             body("user")
             .isLength({ min: 3, max: 45 }).withMessage("Nome de usuário deve ter de 3 a 45 caracteres!")
             .custom(async value => {
-                const user = await Usuario.findUserNome ({'user_usuario' :value});
+                const user = await Usuario.findUserNome (value)
                 if (user > 0){
                     throw new Error('Nome de usuário já em uso!');
                 }
@@ -88,41 +126,6 @@ const UsuarioController = {
         }
     },
 
-
-    CriarUsuario: (req,res) => {
-        const { data_nasc } = req.body
-        if (data_nasc) {
-            const date = new Date(data_nasc)
-            req.body.data_nasc = date.toISOString().split('T')[0]
-        }
-
-    const erros = validationResult(req);
-    var dadosForm = {
-        nome_usuario: req.body.nome,
-        senha_usuario: bcrypt.hashSync(req.body.senha, salt),
-        user_usuario: req.body.user,
-        email_usuario: req.body.email,
-        data_nasc_usuario: req.body.data_nasc,
-    };
-      if (!erros.isEmpty()) {
-        return res.render("pages/cadastro/index", {listaErros: erros, dadosNotificacao: null, valores: req.body})
-      }  
-    try {
-        let create = UsuarioModel.create(dadosForm);
-        res.render("pages/cadastro/index", {
-            listaErros: null, dadosNotificacao: {
-                titulo: "Cadastro realizado!", mensagem: "Novo usuário cadastrado com sucesso!", tipo: "success"
-            }, valores: req.body
-        })
-    } catch (error) {
-        console.log(error);
-        res.render("pages/cadastro/index", {
-            listaErros: erros, dadosNotificacao: {
-                titulo: "Erro ao cadastrar!", mensagem: "Verifique os dados digitados ", tipo: "error"
-             }, valores: req.body
-        })
-    }
-}
 }
 
 module.exports = UsuarioController

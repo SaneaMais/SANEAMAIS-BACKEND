@@ -17,7 +17,7 @@ var pool = require("../../config/pool_conexoes");
         findUserEmail: async (usuario, id) => {
             try {
                 const [linhas] = await pool.query(
-                    `SELECT * FROM USUARIOS; WHERE email_usuario = ? ${id?'AND id_usuario !=?': ''}` , [usuario, id]
+                    `SELECT * FROM USUARIOS WHERE email_usuario = ? ${id?'AND id_usuario !=?': ''}` , [usuario, id]
                    
                 )
                 return linhas;
@@ -29,7 +29,7 @@ var pool = require("../../config/pool_conexoes");
         findUserNome: async (usuario, id) => {
             try {
                 const [linhas] = await pool.query(
-                    `SELECT * FROM USUARIOS; WHERE nome_usuario = ? ${id?'AND id_usuario !=?': ''}` , [usuario, id]
+                    `SELECT * FROM USUARIOS WHERE nome_usuario = ? ${id?'OR id_usuario !=?': ''}` , [usuario, id]
                    
                 )
                 return linhas;
@@ -41,7 +41,7 @@ var pool = require("../../config/pool_conexoes");
         findUserUsuario: async (usuario, id) => {
             try {
                 const [linhas] = await pool.query(
-                    `SELECT * FROM USUARIOS; WHERE user_usuario = ? ${id?'AND id_usuario !=?': ''}` , [usuario, id]
+                    `SELECT * FROM USUARIOS WHERE user_usuario = ? ${id?'OR id_usuario !=?': ''}` , [usuario, id]
                    
                 )
                 return linhas;
@@ -53,7 +53,7 @@ var pool = require("../../config/pool_conexoes");
         findUserDataNasc: async (usuario, id) => {
             try {
                 const [linhas] = await pool.query(
-                    `SELECT * FROM USUARIOS; WHERE data_nasc_usuario = ? ${id?'AND id_usuario !=?': ''}` , [usuario, id]
+                    `SELECT * FROM USUARIOS WHERE data_nasc_usuario = ? ${id?'AND id_usuario !=?': ''}` , [usuario, id]
                    
                 )
                 return linhas;
@@ -65,7 +65,7 @@ var pool = require("../../config/pool_conexoes");
         findUserCEP: async (usuario, id) => {
             try {
                 const [linhas] = await pool.query(
-                    `SELECT * FROM USUARIOS; WHERE cep_usuario = ? ${id?'AND id_usuario !=?': ''}` , [usuario, id]
+                    `SELECT * FROM USUARIOS WHERE cep_usuario = ? ${id?'AND id_usuario !=?': ''}` , [usuario, id]
                    
                 )
                 return linhas;
@@ -76,7 +76,7 @@ var pool = require("../../config/pool_conexoes");
         findUserEmail: async (usuario, id) => {
             try {
                 const [linhas] = await pool.query(
-                    `SELECT * FROM USUARIOS; WHERE email_usuario = ? ${id?'AND user_usuario !=?': ''}` , [usuario, id]
+                    `SELECT * FROM USUARIOS WHERE email_usuario = ? ${id?'AND user_usuario !=?': ''}` , [usuario, id]
                    
                 )
                 return linhas;

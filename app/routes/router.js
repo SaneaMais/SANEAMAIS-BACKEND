@@ -54,7 +54,7 @@ router.get("/Publicacao",function (req, res) {
  });
 
 router.post("/Publicacao",usuarioController.regrasValidacaoFormCad, gravarUsuAutenticado, async function (req, res) {limparSessao,
-usuarioController.cadastrar(req,res)
+usuarioController.CriarUsuario(req,res)
 });
 
 router.get("/PublicacaoPERFIL", function (req, res) {
