@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   nomeInput.addEventListener("input", function () {
-      nomeInput.value = nomeInput.value.replace(/[^a-zA-Z/s]/, '');
+      nomeInput.value = nomeInput.value.replace(/[^a-zA-Z/s]/+$, '');
   });
 
   dataInput.addEventListener("input", function () {
@@ -155,24 +155,15 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function validateForm() {
-    let isValid = true;
-    const inputs = [emailInput, nomeInput, userInput, dataInput, cepInput, senhaInput, pswConfirmaSenha];
+      let isValid = true;
+      const inputs = [emailInput, nomeInput, userInput, dataInput, cepInput, senhaInput, pswConfirmaSenha];
 
-    inputs.forEach(function (input) {
-        if (input && input.value && input.value.trim() === "") {
-            setValidation(input, "Campo obrigatório");
-            isValid = false;
-        }
-    });
-
-    // Verificar validação específica para o nome de usuário
-    validateUsername(userInput);
-
-    // Verificar se as senhas coincidem
-    if (isValid && verificaConfirmaSenha()) {
-        form.submit();
-    }
-  }
+      inputs.forEach(function (input) {
+          if (input.value.trim() === "") {
+              setValidation(input, "Campo obrigatório");
+              isValid = false;
+          }
+      });
 
       // Verificar validação específica para o nome de usuário
       validateUsername(userInput);
@@ -180,21 +171,20 @@ document.addEventListener("DOMContentLoaded", function () {
       if (isValid && verificaConfirmaSenha()) {
           form.submit();
       }
-  
+  }
 
   function verificaConfirmaSenha() {
-    let campoSenha = document.getElementById('senha');
-    let valorSenha = campoSenha.value.trim(); // Remove espaços em branco do início e fim
-    let campoConfirmaSenha = document.getElementById('confirmasenha');
-    let valorConfirmaSenha = campoConfirmaSenha.value.trim(); // Remove espaços em branco do início e fim
+      let campoSenha = document.getElementById('senha');
+      let valorSenha = campoSenha.value;
 
-    if (valorSenha === valorConfirmaSenha) {
-        clearValidation(campoConfirmaSenha); // Limpa qualquer mensagem de validação anterior
-        return true;
-    } else {
-        setValidation(campoConfirmaSenha, "Confirmação de senha incorreta");
-        return false;
-    }
-}
+      let campoConfirmaSenha = document.getElementById('confirmasenha');
+      let valorConfirmaSenha = campoConfirmaSenha.value;
 
+      if (valorSenha === valorConfirmaSenha) {
+          return true;
+      } else {
+          setValidation(campoConfirmaSenha, "Confirmação de senha incorreta");
+          return false;
+      }
+  }
 });

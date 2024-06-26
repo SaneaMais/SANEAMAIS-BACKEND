@@ -19,9 +19,7 @@ router.get("/cadastro", function (req, res) {
   res.render("pages/cadastro/index", { listaErros: null, valores: { nome: "", user: "", email: "", senha: "" } });
 });
 
-router.post("/cadastro",usuarioController.regrasValidacaoFormCad, gravarUsuAutenticado, async function (req, res) {limparSessao,
-  usuarioController.CriarUsuario(req,res)
-  });
+
  
 router.get("/cadastro/cnpj", function (req, res) {
   res.render("pages/cadastro/cnpj");
@@ -52,7 +50,7 @@ router.get("/PublicacacaoCONFIG", function (req, res) {
 });
 
 router.get("/Publicacao",function (req, res) {
-  res.render("pages/Publicacao/publi/index");
+  res.render("pages/Publicacao/Perfil/index");
  });
 
 router.post("/Publicacao",usuarioController.regrasValidacaoFormCad, gravarUsuAutenticado, async function (req, res) {limparSessao,

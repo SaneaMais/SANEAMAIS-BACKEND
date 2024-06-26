@@ -31,7 +31,7 @@ const UsuarioController = {
     try {
         let create = UsuarioModel.create(dadosForm);
         console.log(create)
-        res.render("pages/Publicacao/publi/index", {
+        res.render("pages/cadastro/index", {
             listaErros: null, dadosNotificacao: {
                 titulo: "Cadastro realizado!", mensagem: "Novo usuário cadastrado com sucesso!", tipo: "success"
             }, valores: req.body
@@ -63,7 +63,7 @@ const UsuarioController = {
         body("nome")
             .isLength({ min: 3, max: 45 }).withMessage("Nome deve ter de 3 a 45 caracteres!"),
             body("user")
-            .isLength({ min: 3, max: 20 }).withMessage("Nome de usuário deve ter de 3 a 20 caracteres!")
+            .isLength({ min: 3, max: 45 }).withMessage("Nome de usuário deve ter de 3 a 45 caracteres!")
             .custom(async value => {
                 const user = await UsuarioModel.findUserNome (value)
                 if (user > 0){
@@ -120,7 +120,7 @@ const UsuarioController = {
             return res.render("pages/login", { listaErros: erros, dados: req.body  })
         }
         if (req.session.autenticado.autenticado != null) {
-            return res.redirect("pages/Publicacao/publi/index");
+            return res.redirect("pages/Publicacao");
         }else {
             res.render("pages/login", {listaErros: null,
                 dadosNotificacao: {titulo: "falha ao logar!", mensagem: "Usuário e/ou senha inválidos", tipo: "error"}})
