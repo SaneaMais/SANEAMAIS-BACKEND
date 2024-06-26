@@ -88,11 +88,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function validateName(input) {
-    const name = input.value;
-    if (name.length > 3) {
+    const name = input.value.trim();
+    if (name.length >= 3) {
       clearValidation(input);
     } else {
-      setValidation(input, "Nome inválido");
+      setValidation(input, "Nome deve ter no minímo 3 letras");
     }
   }
 
