@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   
     nomeInput.addEventListener("input", function () {
-      nomeInput.value = nomeInput.value.replace(/[^a-zA-Z]/g, '');
+      nomeInput.value = nomeInput.value.replace(/[^a-zA-Z\s]/g, '');
     }); 
   
     dataInput.addEventListener("input", function () {
@@ -40,7 +40,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   
       userInput.addEventListener("input", function () {
-      userInput.value = userInput.value.replace(/[^a-zA-Z0-9]/g, '');
+      userInput.value = userInput.value.replace(/[^a-zA-Z0-9_-]/g, '');
+      if (userInput.value.length > 20) {
+        userInput.value = userInput.value.substring(0, 20);
+      }
     });
   
     emailInput.addEventListener("blur", function () {
