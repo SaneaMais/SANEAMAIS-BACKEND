@@ -2,6 +2,7 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const UsuarioModel = require("./UsuarioModel");
 
+
 verificarUsuAutenticado = (req, res, next) => {
     if (req.session.autenticado) {
         var autenticado = req.session.autenticado;
@@ -61,3 +62,4 @@ module.exports = {
     gravarUsuAutenticado,
     verificarUsuAutorizado
 }
+
