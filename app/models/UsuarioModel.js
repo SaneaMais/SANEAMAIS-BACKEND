@@ -6,7 +6,6 @@ var pool = require("../../config/pool_conexoes");
                 const [result] = await pool.query(
                     'INSERT INTO USUARIOS set ?', [usuario] 
                 );
-                console.log("Dados para inserção:", usuario);
                 return result;
             } catch (error) {
                 throw error;  
