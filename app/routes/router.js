@@ -19,7 +19,6 @@ router.get("/cadastro", function (req, res) {
   res.render("pages/cadastro/index", { listaErros: null, valores: { nome: "", user: "", email: "", senha: "" } });
 });
 
-
  
 router.get("/cadastro/cnpj", function (req, res) {
   res.render("pages/cadastro/cnpj");
