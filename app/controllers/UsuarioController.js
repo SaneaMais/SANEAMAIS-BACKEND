@@ -23,7 +23,7 @@ const UsuarioController = {
         user_usuario: req.body.user,
         email_usuario: req.body.email,
         data_nasc_usuario: req.body.data_nasc,
-        cep_usuario: req.body.cep, 
+        cep_usuario: req.body.cep,
     };
     console.log(dadosForm)
       if (!erros.isEmpty()) {
@@ -32,14 +32,11 @@ const UsuarioController = {
     try {
         let create = UsuarioModel.create(dadosForm);
         console.log(create)
-        
-        res.render("pages/index", {
+        res.render("pages/cadastro/index", {
             listaErros: null, dadosNotificacao: {
                 titulo: "Cadastro realizado!", mensagem: "Novo usuário cadastrado com sucesso!", tipo: "success"
             }, valores: req.body
         })
-
-   
     } catch (error) {
         console.log(error);
         res.render("pages/cadastro/index", {
@@ -69,8 +66,8 @@ const UsuarioController = {
             body("user")
             .isLength({ min: 8, max: 45 }).withMessage("Nome de usuário deve ter de 8 a 45 caracteres!")
             .custom(async value => {
-                const user = await UsuarioModel.findUserNome (value)
-                if (user > 0){
+                const user = await UsuarioModel.findUserUsuario({'user_usuario':value});
+                if (user > 0) {
                     throw new Error('Nome de usuário já em uso!');
                 }
             }),
