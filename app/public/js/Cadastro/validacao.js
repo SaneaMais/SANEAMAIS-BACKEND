@@ -97,14 +97,47 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function validateDate(input) {
-    const date = input.value.replace(/\D/g, "");
-    const birthDate = new Date(input.value.split('/').reverse().join('-'));
-    if (date.length === 8 && !isNaN(birthDate.getTime()) && checkAge(birthDate)) {
-      clearValidation(input);
-    } else {
-      setValidation(input, "Data de nascimento inválida ou menor de 16 anos");
+    const date = input.value.trim();
+    const parts = date.split('/');
+    
+    // Verifica se a data está no formato correto (DD/MM/AAAA)
+    if (parts.length !== 3) {
+      setValidation(input, "Formato de data inválido");
+      return;
     }
+  
+    const day = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1; // Mês é base 0 no Date
+    const year = parseInt(parts[2], 10);
+  
+    // Verifica se a data é válida
+    const isValidDate = day > 0 && day <= 31 && month >= 0 && month < 12 && year > 1900;
+  
+    if (!isValidDate) {
+      setValidation(input, "Data de nascimento inválida");
+      return;
+    }
+  
+    // Verifica se a pessoa tem pelo menos 16 anos
+    const birthDate = new Date(year, month, day);
+    if (!checkAge(birthDate)) {
+      setValidation(input, "Você deve ter pelo menos 16 anos");
+      return;
+    }
+  
+    clearValidation(input);
   }
+  
+  function checkAge(birthDate) {
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age >= 16;
+  }
+  
 
   function validateCep(input) {
     const cep = input.value.replace(/\D/g, "");
