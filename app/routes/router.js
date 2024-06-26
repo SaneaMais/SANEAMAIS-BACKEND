@@ -22,6 +22,9 @@ router.get("/cadastro", function (req, res) {
    });
 });
 
+router.post("/cadastro",usuarioController.regrasValidacaoFormCad, gravarUsuAutenticado, async function (req, res) {limparSessao,
+  usuarioController.CriarUsuario(req,res)
+  });
  
 router.get("/cadastro/cnpj", function (req, res) {
   res.render("pages/cadastro/cnpj");
