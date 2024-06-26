@@ -65,7 +65,7 @@ const UsuarioController = {
             body("user")
             .isLength({ min: 3, max: 20 }).withMessage("Nome de usuário deve ter de 3 a 20 caracteres!")
             .custom(async value => {
-                const user = await UsuarioModel.findCampoCustom({'user_usuario':value});
+                const user = await UsuarioModel.findUserNome (value)
                 if (user > 0){
                     throw new Error('Nome de usuário já em uso!');
                 }
@@ -98,7 +98,7 @@ const UsuarioController = {
         body("email")
             .isEmail().withMessage("Digite um e-mail válido!")
             .custom(async value => {
-                const email = await UsuarioModel.findCampoCustom({'email_usuario' :value});
+                const email = await UsuarioModel.findUserEmail({'email_usuario' :value});
                 if (email > 0) {
                   throw new Error('E-mail em uso!');
                 }

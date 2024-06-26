@@ -16,10 +16,7 @@ router.get("/", function (req, res) {
 });
 
 router.get("/cadastro", function (req, res) {
-  res.render("pages/cadastro/index", { listaErros: null,
-    dadosNotificacao: null,
-     valores: { nome: "", user: "", email: "", senha: "" },
-   });
+  res.render("pages/cadastro/index", { listaErros: null, valores: { nome: "", user: "", email: "", senha: "" } });
 });
 
 router.post("/cadastro",usuarioController.regrasValidacaoFormCad, gravarUsuAutenticado, async function (req, res) {limparSessao,
