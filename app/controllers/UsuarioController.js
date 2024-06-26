@@ -5,6 +5,7 @@ const salt = bcrypt.genSaltSync(12);
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const https = require('https');
 
+
 const UsuarioController = {
 
     CriarUsuario: (req,res) => {
@@ -63,10 +64,10 @@ const UsuarioController = {
         body("nome")
             .isLength({ min: 3, max: 45 }).withMessage("Nome deve ter de 3 a 45 caracteres!"),
             body("user")
-            .isLength({ min: 3, max: 45 }).withMessage("Nome de usuário deve ter de 3 a 45 caracteres!")
+            .isLength({ min: 8, max: 45 }).withMessage("Nome de usuário deve ter de 8 a 45 caracteres!")
             .custom(async value => {
-                const user = await UsuarioModel.findUserNome (value)
-                if (user > 0){
+                const user = await UsuarioModel.findUserUsuario({'user_usuario':value});
+                if (user > 0) {
                     throw new Error('Nome de usuário já em uso!');
                 }
             }),

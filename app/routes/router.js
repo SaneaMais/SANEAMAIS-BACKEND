@@ -16,7 +16,10 @@ router.get("/", function (req, res) {
 });
 
 router.get("/cadastro", function (req, res) {
-  res.render("pages/cadastro/index", { listaErros: null, valores: { nome: "", user: "", email: "", senha: "" } });
+  res.render("pages/cadastro/index", { 
+    listaErros: null, 
+    dadosNotificacao: null,
+    valores: { nome: "", user: "", email: "", senha: "" } });
 });
 
 
@@ -60,6 +63,7 @@ usuarioController.CriarUsuario(req,res)
 router.get("/PublicacaoPERFIL", function (req, res) {
   res.render("pages/Publicacao/Perfil/index");
 });
+
 
 
 module.exports = router;

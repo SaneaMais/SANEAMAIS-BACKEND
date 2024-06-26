@@ -12,6 +12,11 @@
     <link rel="stylesheet" href="../../CSS/Cadastro/style.css">
     <link rel="stylesheet" href="../../CSS/Cadastro/index.css">
 
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script>
+    <script src="js/script.js"></script>
+    
+
+
     <title>Cadastro</title>
 </head>
 
@@ -26,22 +31,40 @@
         listaErros.errors.forEach(function(itemErro){
             if(itemErro.path == "nome"){
                 avisoErro.nome = "erro";
-                msgErro.nome += " "+itemErro.msg
+                msgErro.nome += `* ${itemErro.msg} <br>`;
             }
             if(itemErro.path == "senha"){
                 avisoErro.senha = "erro";
-                msgErro.senha = itemErro.msg
+                msgErro.senha = `* ${itemErro.msg} <br>`;
             }
             if(itemErro.path == "user"){
                 avisoErro.user = "erro";
-                msgErro.user = itemErro.msg
-            }
+                msgErro.user = `* ${itemErro.msg} <br>`;
+
             if(itemErro.path == "email"){
                 avisoErro.email = "erro";
-                msgErro.email= itemErro.msg
+                msgErro.email= `* ${itemErro.msg} <br>`;
             }
-        })
+        }
+
+       })
+        if(msgErro != ""){
+            %>
+            <script>
+                    let msgErro ="<%= msgErro %>"
+                    notify("Erro(s) no preenchimento","Verifique o(s) campo(s) <br>  " + msgErro.replace(/&lt;/g,"<").replace(/&gt;/g,">"), "error", "center", 5000)                        
+                </script>
+            <%
+            }
     }
+    if (dadosNotificacao) { %>
+        <script>
+                notify("<%= dadosNotificacao.titulo%>","<%= dadosNotificacao.mensagem%>", "<%= dadosNotificacao.tipo%>", "center")
+                if("<%= dadosNotificacao.tipo %>" == "success"){
+                    setTimeout(function(){window.location="/sair"}, 3000)
+                }                        
+        </script>
+    <% } %>
     %>
     <main>
         <section class="box-form">
