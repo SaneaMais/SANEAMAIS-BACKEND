@@ -120,21 +120,19 @@
                     <section class="form-input">
                         <article class="input__wrapper">
                             <img alt="Eye Icon" title="Eye Icon" src="../../img/Login/eye-off.svg" class="input__icon">
-                            <label id="labelSenha" for="senha">senha <span>*</span> </label>
-                            <input type="password" placeholder="Senha" value="<%= valores.senha %>" id="senha" class=" <%= avisoErro.senha %>"
-                                maxlength="30" name="senha">
-                                <span> <%= msgErro.senha %> </span><br>
+                            <label id="labelSenha" for="senha">Senha <span>*</span></label>
+                            <input type="password" placeholder="Senha" value="<%= valores.senha %>" id="senha" class="<%= avisoErro.senha %>" maxlength="30" name="senha">
+                            <span><%= msgErro.senha %></span><br>
                             <small id="textPassword"></small>
                         </article>
-                        <article class="form-input">
-                            <label id="Labelconfirmasenha" for="confirmasenha"> Confirma senha <span>*</span> </label>
-                            <input type="password" placeholder="Confirme sua senha" value="<%= valores.confirmasenha %>" id="confirmasenha" class="<%= avisoErro.confirmasenha %>" 
-                             maxlength="30"  name="confirmasenha">
-                             <span> <%= msgErro.confirmasenha %> </span>
+                        <article class="input__wrapper">
+                            <img alt="Eye Icon" title="Eye Icon" src="../../img/Login/eye-off.svg" class="input__icon">
+                            <label id="Labelconfirmasenha" for="confirmasenha">Confirme a senha <span>*</span></label>
+                            <input type="password" placeholder="Confirme sua senha" value="<%= valores.confirmasenha %>" id="confirmasenha" class="<%= avisoErro.confirmasenha %>" maxlength="30" name="confirmasenha">
+                            <span><%= msgErro.confirmasenha %></span>
                             <small id="textconfirmesenha"></small>
                         </article>
-    
-                    </section>
+                    </section>                    
 
                 </section>
 

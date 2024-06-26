@@ -98,10 +98,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function validateDate(input) {
     const date = input.value.replace(/\D/g, "");
-    if (date.length === 8) {
+    const birthDate = new Date(input.value.split('/').reverse().join('-'));
+    if (date.length === 8 && !isNaN(birthDate.getTime()) && checkAge(birthDate)) {
       clearValidation(input);
     } else {
-      setValidation(input, "Data de nascimento inválida");
+      setValidation(input, "Data de nascimento inválida ou menor de 16 anos");
     }
   }
 

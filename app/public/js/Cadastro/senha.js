@@ -1,25 +1,23 @@
-const input = document.querySelectorAll(".input__field");
-const inputIcon = document.querySelectorAll(".input__icon");
+document.addEventListener("DOMContentLoaded", function() {
+    const input = document.querySelectorAll(".input__wrapper input[type='password']");
+    const inputIcon = document.querySelectorAll(".input__icon");
 
-inputIcon.forEach((item, i) => {
-    item.addEventListener("click", (e) => {
+    inputIcon.forEach((item, i) => {
+        item.addEventListener("click", (e) => {
+            e.preventDefault();
 
-        e.preventDefault();
+            const inputField = input[i];
+            const isPassword = inputField.getAttribute('type') === 'password';
 
-        item.setAttribute(
-            'src',
-            input[i].getAttribute('type') === 'password' ?
+            item.setAttribute(
+                'src',
+                isPassword ? '../../img/Login/eye.svg' : '../../img/Login/eye-off.svg'
+            );
 
-                '../../img/Login/eye.svg'
-                : '../../img/Login/eye-off.svg'
-        );
-
-        input[i].setAttribute(
-            'type',
-            input[i].getAttribute('type') === 'password' ?
-                'text'
-                :
-                'password'
-        );
+            inputField.setAttribute(
+                'type',
+                isPassword ? 'text' : 'password'
+            );
+        });
     });
-})
+});
