@@ -127,11 +127,11 @@
                             <small id="textPassword"></small>
                         </article>
                         <article class="form-input">
-                            <label id="confirmasenha"> Confirma senha <span>*</span> </label>
-                            <input type="password" placeholder="Confirme sua senha" id="confirmasenha" size="10"  name="confirmasenha">
+                            <label id="Labelconfirmasenha" for="confirmasenha"> Confirma senha <span>*</span> </label>
+                            <input type="password" placeholder="Confirme sua senha" value="<%= valores.confirmasenha %>" id="confirmasenha" class="<%= avisoErro.confirmasenha %>" 
+                             maxlength="30"  name="confirmasenha">
+                             <span> <%= msgErro.confirmasenha %> </span>
                             <small id="textconfirmesenha"></small>
-                            <label for=""></label>
-                            <p id="mensagem"></p>
                         </article>
     
                     </section>
