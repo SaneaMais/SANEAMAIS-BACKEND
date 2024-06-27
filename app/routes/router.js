@@ -33,8 +33,18 @@ router.get("/esqueceusenha/email", function (req, res) {
 });
 
 router.get("/login", function (req, res) {
-  res.render("pages/login/index");
+  res.render("pages/login/index", { listaErros: null, dadosNotificacao: null });
 });
+
+router.post(
+  "/login",
+  usuarioController.regrasValidacaoFormLogin,
+  gravarUsuAutenticado,
+  function (req, res) {limparSessao,
+    usuarioController.logar(req, res);
+  }
+);
+
 
 router.get("/FaleConoco", function (req, res) {
   res.render("pages/FaleConoco/index");
