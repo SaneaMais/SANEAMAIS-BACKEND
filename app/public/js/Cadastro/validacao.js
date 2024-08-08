@@ -27,12 +27,26 @@ document.addEventListener("DOMContentLoaded", function () {
       .replace(/\D/g, '')
       .replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
   });
- 
-  cepInput.addEventListener("input", function () {
-    cepInput.value = cepInput.value
-      .replace(/\D/g, '')
-      .replace(/(\d{5})(\d{3})/, '$1-$2');
+
+
+  let url ='https://servicodados.ibge.gov.br/api/v1/localidades/estados/SP/municipios';
+
+  $.getJSON(url, function(data){
+
+    let conteudo = '<ul>';
+    $.each(data, function(v,val){
+      conteudo += '<li>' +val.nome+'</li>';
+    });
+    conteudo += '</ul>';
+
+    $("cidade").ejs(conteudo);
+
   });
+  //  cidadeInput.addEventListener("input", function () {
+    // cidadeInput.value = cidadeInput.value
+      // .replace(/\D/g, '')
+      // .replace(/(\d{5})(\d{3})/, '$1-$2');
+  //  });
 
   userInput.addEventListener("input", function () {
     userInput.value = userInput.value.replace(/[^a-zA-Z0-9_-]/g, '');

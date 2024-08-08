@@ -117,24 +117,33 @@
                         <small id="textNome"></small>
                     </article>
 
-                    <article class="form-input">
+                    
+                    <article class="form-input"> 
                         <label id="labelNome" for="user">Nome de usuário <span>*</span> </label>
                         <input type="text" placeholder="Nome de usuário " value="<%= valores.user %>"  class=" <%= avisoErro.user %>" id="user" name="user" class="<%= cssErroBorda.user %>">
                         <span class="<%= avisoErro.user %>"><%= msgErro.user %></span><br>
                         <small id="textNome"></small>
                     </article>
-
+                   
+                
+                    
+                    
                     <article class="form-input">
                         <label id="labelData" for="data">Data de nascimento <span>*</span> </label>
                         <input type="text" placeholder="__/__/____" id="data_nasc" maxlength="10" name="data_nasc">
                         <small id="textData"></small>
                     </article>
-
+                
+                    
                     <article class="form-input">
-                        <label id="labelCep" for="cep">Cep <span>*</span> </label>
-                        <input type="text" placeholder="Cep" id="cep" maxlength="9" name="cep" value="<%= valores.cep %>" >
-                        <small id="textCep"></small>
+                        <small id="textCidade"></small>
+                        <label id="labelCidade" for="cidade">Cidade <span>*</span> </label>
+                        <select name="cidade" id="cidade"></select>
+                        <!-- <input type="text" placeholder="Cidade" id="cidade" maxlength="9" name="cidade" value="<%= valores.cidade %>" > -->
+                        
+                    </select>
                     </article>
+                
 
                     <section class="form-input">
                         <article class="input__wrapper">
@@ -165,6 +174,7 @@
     </form>
     </main>
     <footer></footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="../../js/Cadastro/senha.js"></script>
     <script src="../../js/Cadastro/validacao.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.7/inputmask.min.js"></script>
