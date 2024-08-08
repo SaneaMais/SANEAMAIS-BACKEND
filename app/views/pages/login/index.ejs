@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
   <link rel="stylesheet" href="../../CSS/login/index.css">
   <link rel="stylesheet" href="../../CSS/login/style.css">
   <link rel="shortcut icon" href="../../img/MicrosoftTeams-image-removebg-preview.png" tyle="image/ x-icon">
@@ -13,77 +13,64 @@
 <body>
   <main>
     <% 
-    let avisoErro = {"email":"","user":"", "senha":""}
-    let msgErro = ""
-        if(listaErros){
-            listaErros.errors.forEach(function(itemErro){
-                if(itemErro.path == "email"){
-                    avisoErro.email = "erro";
-                    msgErro += `* ${itemErro.msg} <br>`
-                }
-                if(itemErro.path == "senha"){
-                    avisoErro.senha = "erro";
-                    msgErro += `* ${itemErro.msg} <br>`
-                }
-            })
-            if(msgErro != ""){
-            %>
-                <script>
-                    let msgErro ="<%= msgErro %>"
-                    notify("Erro(s) no preenchimento", 
-                           "Verifique o(s) campo(s) <br> " + msgErro.replace(/&lt;/g,"<").replace(/&gt;/g,">"), 
-                           "error", "center", 5000)                        
-                </script>
-            <%
-            }
-        }
-        if (dadosNotificacao) { %>
-            <script>
-                    notify("<%= dadosNotificacao.titulo%>","<%= dadosNotificacao.mensagem%>", "<%= dadosNotificacao.tipo%>", "center")
-                    if("<%= dadosNotificacao.tipo %>" == "success"){
-                        setTimeout(function(){window.location="/"}, 3000)
-                    }                        
-            </script>
-        <% } %>    
+    var msgErro = {user:"",email:"", senha:"", senha:""}
+    var avisoErro = {user:"",email:"", senha:"", senha:""}
+    var cssErroBorda = {user:"",email:"", senha:"", senha:""}
+    let valores = {user:"",email:"", senha:"", senha:""}
 
+    if(dados && dados!=null){
+        valores = dados
+    }
+
+    if(listaErros){
+        listaErros.errors.forEach((itemErro)=>{
+           if(itemErro.path == "email"){
+                msgErro.email = itemErro.msg
+                avisoErro.email = "erroForm"
+                cssErroBorda.email = "erroInput"
+                %>
+                    <script>notify('Verifique o campo email', '<%= msgErro.email %>', 'error'  )</script>
+                
+            } else if(itemErro.path == "senha"){
+                msgErro.senha = itemErro.msg
+                avisoErro.senha = "erroForm"
+                cssErroBorda.senha = "erroInput"
+                %>
+                    <script>notify('Verifique o campo senha', '<%= msgErro.senha %>', 'error'  )</script>
+                    <%
+            }
+        });
+    } 
+   
+%>
     <form action="/Publicacao" id="form">
       <section class="box-form">
         <article class="form-content">
           <h3 class="titulo">Olá seja bem vindo!</h3>
           <p class="sub-titulo">Estamos muito animados em ter você aqui!</p>
           <article id="msgError"></article>
-          <article>
-            <label id="labelEmail" for="email">E-mail ou número de telefone <span>*</span> </label>
-            <input type="email" placeholder="Digite seu email ou telefone" class="inputs" autocomplete="off"  id="inputEmail" required>
-            <p id="messageEmail"></p>
-          </article> 
+
+
+            <label id="labelEmail" for="email">E-mail <span>*</span> </label>
+            <input type="email" placeholder="Digite seu email ou nome de usuário" value="<%=valores.email%>"  class="<%= cssErroBorda.email %>">
+            <span class="<%= avisoErro.email %>"><%= msgErro.email %></span>
+
           <article class="form-input">
             <article class="input__wrapper">
-              <label id="labelSenha" for="senha">Senha<span>*</span> </label>
-              <input type="password" placeholder="Senha" id="password" class="input__field" maxlength="25"
-                 pattern=".{8,}" required>
-              <p id="messageSenha"></p>
               <img alt="Eye Icon" title="Eye Icon" src="../../img/Login/eye-off.svg" class="input__icon">
+              <label id="labelSenha" for="senha">Senha<span>*</span> </label>
+              <input type="password" placeholder="Senha"  maxlength="25" value="<%=valores.senha%>" id="password"  class="<%= cssErroBorda.senha %>" autocomplete="off">
+                 <span class="<%= avisoErro.senha %>"><%= msgErro.senha %></span>
             </article>
           </article>
+
+
           <article class="forget-password-link">
             <a href="/esqueceusenha/email">Esqueceu sua senha?</a>
           </article>
           <input type="submit" value="Entrar" id="Entrar">
-          <article class="alternative1">
-            <span>ou</span>
-          </article>
-          <article class="media">
-            <a href="#" class="icon">
-              <img src="../../img/Login/icons8-google-logo.svg">
-            </a>
-            <a href="#" class="icon">
-              <img src="../../img/Login/icons8-linkedin.svg">
-            </a>
-            <a href="#" class="icon">
-              <img src="../../img/Login/icons8-facebook-novo.svg">
-            </a>
-          </article>
+          
+          
         </article>
         <article class="container-img">
           <article class="logo">

@@ -17,8 +17,11 @@ router.get("/", function (req, res) {
 
 router.get("/cadastro", function (req, res) {
   res.render("pages/cadastro/index", { 
+    logado:null,
+    retorno:null,
     listaErros: null, 
     dadosNotificacao: null,
+    dados: null,
     valores: { nome: "", user: "", email: "", senha: "" } });
 });
 
@@ -33,7 +36,7 @@ router.get("/esqueceusenha/email", function (req, res) {
 });
 
 router.get("/login", function (req, res) {
-  res.render("pages/login/index", { listaErros: null, dadosNotificacao: null });
+  res.render("pages/login/index", { listaErros: null, dadosNotificacao: null, dados:null});
 });
 
 router.post(

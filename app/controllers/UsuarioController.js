@@ -27,22 +27,22 @@ const UsuarioController = {
     };
     console.log(dadosForm)
       if (!erros.isEmpty()) {
-        return res.render("pages/cadastro/index", {listaErros: erros, dadosNotificacao: null, valores: req.body})
+        return res.render("pages/cadastro/index", {listaErros: erros, dadosNotificacao: null, valores: req.body, dados:null})
       }  
     try {
         let create = UsuarioModel.create(dadosForm);
         console.log(create)
         res.render("pages/cadastro/index", {
-            listaErros: null, dadosNotificacao: {
+            listaErros: null, dados:null, dadosNotificacao: {
                 titulo: "Cadastro realizado!", mensagem: "Novo usuário cadastrado com sucesso!", tipo: "success"
             }, valores: req.body
         })
     } catch (error) {
         console.log(error);
         res.render("pages/cadastro/index", {
-            listaErros: erros, dadosNotificacao: {
+            listaErros: erros, dados:null, dadosNotificacao: {
                 titulo: "Erro ao cadastrar!", mensagem: "Verifique os dados digitados ", tipo: "error"
-             }, valores: req.body
+             }, valores: req.body 
         })
     }
 },
