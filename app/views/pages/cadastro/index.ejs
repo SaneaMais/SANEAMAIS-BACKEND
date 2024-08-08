@@ -38,51 +38,42 @@
     if(listaErros){
         listaErros.errors.forEach((itemErro)=>{
             if(itemErro.path == "nome"){
-                msgErro.nome = itemErro.msg
-                avisoErro.nome = "erroForm"
-                cssErroBorda.nome = "erroInput"
-                %>
-                    <script>notify('Verifique o campo nome', '<%= msgErro.nome %>', 'error'  )</script>
-                <%
-            } else if(itemErro.path == "email"){
-                msgErro.email = itemErro.msg
-                avisoErro.email = "erroForm"
-                cssErroBorda.email = "erroInput"
-                %>
-                    <script>notify('Verifique o campo email', '<%= msgErro.email %>', 'error'  )</script>
-                <%
-               
-            } else if(itemErro.path == "senha"){
-                msgErro.senha = itemErro.msg
-                avisoErro.senha = "erroForm"
-                cssErroBorda.senha = "erroInput"
-                %>
-                    <script>notify('Verifique o campo senha', '<%= msgErro.senha %>', 'error'  )</script>
-                <%
-                
-            } else if(itemErro.path == "confirmasenha"){
-                msgErro["confirmasenha"] = itemErro.msg
-                avisoErro["confirmasenha"] = "erroForm"
-                cssErroBorda["confirmasenha"] = "erroInput"
-                %>
-                    <script>notify('Verifique se as senhas estão iguais', '<%= msgErro["confirmasenha"] %>', 'error'  )</script>
-                <%
-                
+                avisoErro.nome = "erro";
+                msgErro.nome += `* ${itemErro.msg} <br>`;
             }
-        });
-    } 
-   
-%>
-<% if (dadosNotificacao) { %>
-    <script>
-            notify("<%= dadosNotificacao.titulo%>","<%= dadosNotificacao.mensagem%>", "<%= dadosNotificacao.tipo%>", "right")
-            if("<%= dadosNotificacao.tipo %>" == "success"){
-                setTimeout(function(){window.location="/sair"}, 3000)
-            }                        
-    </script>
-<% } %>
+            if(itemErro.path == "senha"){
+                avisoErro.senha = "erro";
+                msgErro.senha = `* ${itemErro.msg} <br>`;
+            }
+            if(itemErro.path == "user"){
+                avisoErro.user = "erro";
+                msgErro.user = `* ${itemErro.msg} <br>`;
 
-   
+            if(itemErro.path == "email"){
+                avisoErro.email = "erro";
+                msgErro.email= `* ${itemErro.msg} <br>`;
+            }
+        }
+
+       })
+        if(msgErro != ""){
+            %>
+            <script>
+                    let msgErro ="<%= msgErro %>"
+                    notify("Erro(s) no preenchimento","Verifique o(s) campo(s) <br>  " + msgErro.replace(/&lt;/g,"<").replace(/&gt;/g,">"), "error", "center", 5000)                        
+                </script>
+            <%
+            }
+    }
+    if (dadosNotificacao) { %>
+        <script>
+                notify("<%= dadosNotificacao.titulo%>","<%= dadosNotificacao.mensagem%>", "<%= dadosNotificacao.tipo%>", "center")
+                if("<%= dadosNotificacao.tipo %>" == "success"){
+                    setTimeout(function(){window.location="/sair"}, 3000)
+                }                        
+        </script>
+    <% } %>
+    %>
     <main>
         <section class="box-form">
             <form action="/Publicacao" id="form" method="post">
@@ -104,16 +95,16 @@
 
                     <article class="form-input">
                         <label id="labelNome" for="nome">Nome completo <span>*</span> </label>
-                        <input type="text" placeholder="Digite seu nome" value="<%= valores.nome %>"  class=" <%= avisoErro.nome %>" id="nome" name="nome" class="<%= cssErroBorda.nome %>">
-                        <span class="<%= avisoErro.nome %>"><%= msgErro.nome %></span><br>
+                        <input type="text" placeholder="Digite seu nome" value="<%= valores.nome %>"  class=" <%= avisoErro.nome %>" id="nome" name="nome"/>
+                        <span> <%= msgErro.nome %> </span><br>
                         <small id="textNome"></small>
                     </article>
 
 
                     <article class="form-input">
                         <label id="labelEmail" for="email">Email <span>*</span> </label>
-                        <input type="text" placeholder="Digite seu email" value="<%= valores.email %>"  class=" <%= avisoErro.email %>" id="email" name="email" class="<%= cssErroBorda.email %>">
-                        <span class="<%= avisoErro.email %>"><%= msgErro.email %></span><br>
+                        <input type="text" placeholder="Digite seu email" value="<%= valores.email %>"  class=" <%= avisoErro.email %>" id="email" name="email"/>
+                        <span> <%= msgErro.email %> </span><br>
                         <small id="textNome"></small>
                     </article>
 
