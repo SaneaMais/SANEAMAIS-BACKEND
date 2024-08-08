@@ -8,6 +8,64 @@ const https = require('https');
 
 const UsuarioController = {
 
+
+    logar: (req, res) => {
+        const erros = validationResult(req);
+        if (!erros.isEmpty()) {
+            return res.render("pages/login/index", { pagina: "login", dados: req.body, listaErros: erros, logado: null, dadosNotificacao: null })
+        }
+        if (req.session.autenticado != null) {
+                console.log(req.session.autenticado.tipo)
+            if (req.session.autenticado.tipo == 1) {
+                res.render("pages/perfil", { pagina: "home", listaErros: null,logado: null, dados: null, dadosNotificacao:{titulo: "success", mensagem: "bem-vindo de volta ", tipo:"success"}})
+
+
+            // } else if (req.session.autenticado.tipo == 3) {
+            //  res.render("pages/adm/template-adm", { listaErros: null,logado: null, pagina:"index", dados: null, dadosNotificacao:{titulo: "success", mensagem: "bem-vindo adm ", tipo:"success"}});
+        //    } else {
+                // res.render("pages/login", { listaErros: null,logado: null, dados: null,dadosNotificacao:{titulo: "error", mensagem: "Usuário não permitido", tipo:"erros"} })
+            }
+            
+        }else {
+            res.render("pages/login", { listaErros: null, dados: null,logado:null, dadosNotificacao:{titulo: "error", mensagem: "Usuário ou senha invalido ", tipo:"erros"} })
+        }
+
+    },
+
+     regrasValidacaoFormLogin: [
+        body("user")
+            .isLength({ min: 8, max: 45 })
+            .withMessage("O nome de usuário deve ter de 8 a 45 caracteres"),
+        body("email")
+            .isEmail()
+            .withMessage("Email invalido "),
+        body("senha")
+            .isStrongPassword()
+            .bail()
+            .matches(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/)
+            .withMessage("Senha inválida! (mínimo 1 letra maiúscula, 1 caractere especial e 1 número)"),
+            
+    ],
+
+    regrasValidacao: [
+        body("email")
+            .isEmail()
+            .withMessage("Email invalido ")
+            .custom(async (value) => {
+                const email = await tarefasModel.findByEmail(value)
+                if (email.length > 0) {
+                    throw new Error('Email já utilizado.');
+                }
+                return true;
+
+            }),
+
+        body("senha")
+            .isLength({ min: 8, max: 30 })
+            .withMessage("senha invalido, deve conter pelo menos 8 digitos "),
+
+    ],
+    
     CriarUsuario: (req,res) => {
         const { data_nasc } = req.body
         if (data_nasc) {
@@ -47,17 +105,6 @@ const UsuarioController = {
     }
 },
 
-    regrasValidacaoFormLogin: [
-        body("user")
-            .isLength({ min: 8, max: 45 })
-            .withMessage("O nome de usuário/e-mail deve ter de 8 a 45 caracteres"),
-        body("senha_usuario")
-            .isStrongPassword()
-            .bail()
-            .matches(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/)
-            .withMessage("Senha inválida! (mínimo 1 letra maiúscula, 1 caractere especial e 1 número)"),
-            
-    ],
 
 
     regrasValidacaoFormCad: [
@@ -115,18 +162,6 @@ const UsuarioController = {
 
 
 
-    logar: (req, res) => {
-        const erros = validationResult(req);
-        if (!erros.isEmpty()) {
-            return res.render("pages/login", { listaErros: erros, dados: req.body  })
-        }
-        if (req.session.autenticado.autenticado != null) {
-            return res.redirect("pages/Publicacao");
-        }else {
-            res.render("pages/login", {listaErros: null,
-                dadosNotificacao: {titulo: "falha ao logar!", mensagem: "Usuário e/ou senha inválidos", tipo: "error"}})
-        }
-    },
 
 }
 
