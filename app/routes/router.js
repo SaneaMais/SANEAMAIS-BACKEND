@@ -37,7 +37,7 @@ router.get("/esqueceusenha/email", function (req, res) {
 });
 
 router.get("/login", function (req, res) {
-  res.render("pages/login/index", { listaErros: null, dadosNotificacao: null });
+  res.render("pages/login/index", { listaErros: null, dadosNotificacao: null, dados:null});
 });
 
 router.post(
