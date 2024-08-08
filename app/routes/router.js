@@ -26,6 +26,7 @@ router.get("/cadastro", function (req, res) {
 });
 
 
+
  
 router.get("/cadastro/cnpj", function (req, res) {
   res.render("pages/cadastro/cnpj");

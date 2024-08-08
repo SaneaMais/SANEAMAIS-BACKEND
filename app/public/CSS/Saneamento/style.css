@@ -14,11 +14,12 @@ footer{
 
 .sanea .sanea-text > h3 {
   color: #84bc26;
-  text-align: center;
+  text-align: left;
 }
 
 .sanea .sanea-text > p {
   text-align: justify;
+  font-size: 1.2rem;
 
 }
 .container-img{
@@ -29,6 +30,13 @@ footer{
 
 .container-img img{
   width: 100%;
+
+}
+
+.container-img .conscien img{
+  border:dashed 8px;
+    border-radius:10px;
+    border-color: #84bc26;
 
 }
 
@@ -88,7 +96,7 @@ footer{
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 10px;
+  padding: 50px;
 }
 
 .dados .dados-item {
@@ -113,6 +121,75 @@ footer{
   font-size: 28px;
   color: #ffffff;
 }
+
+.wrapper{
+  padding: 10px 10%;
+}
+#card-area{
+  padding: 50px 0;
+}
+.box-area{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 40px;
+  margin-top: 50px;
+}
+.box {
+border-radius: 10px;
+position: relative;
+overflow: hidden;
+box-shadow: 5px 5px 25px rgba(132, 188, 38);
+}
+.box img{
+  width: 100%;
+  border-radius: 10px;
+  display: block;
+  transition: transform 0.5s;
+}
+.overlay {
+width: 100%;
+height: 0;
+background: linear-gradient(transparent,#84bc26 100%);
+border-radius: 10px;
+position: absolute;
+left: 0;
+bottom: 0;
+overflow: hidden;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+padding: 0 40px;
+text-align: center;
+font-size: 14px;
+transition: height 0.5s;
+}
+.overlay h3 {
+color: #070045;
+font-weight: 500;
+margin-bottom: 5px;
+margin-top: 80%;
+font-family: 'Bebas Neue', sans-serif;
+font-size: 30px;
+letter-spacing: 2px;
+}
+.overlay a {
+margin-top: 10px;
+color: #262626;
+text-decoration: none;
+font-size: 14px;
+background: #fff;
+border-radius: 50px;
+text-align: center;
+padding: 5px 15px;
+}
+.box:hover img{
+  transform: scale(1.1);
+}
+.box:hover .overlay{
+  height: 100%;
+}
+
 
 
 /* Criando 3 tamanho de tela para ajustamentos futuros  */
