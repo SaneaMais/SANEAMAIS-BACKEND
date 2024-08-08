@@ -27,38 +27,30 @@ const UsuarioController = {
     };
     console.log(dadosForm)
       if (!erros.isEmpty()) {
-        return res.render("pages/cadastro/index", {listaErros: erros, dadosNotificacao: null, valores: req.body})
+        return res.render("pages/cadastro/index", {listaErros: erros, dadosNotificacao: null, valores: req.body, dados:null})
       }  
     try {
         let create = UsuarioModel.create(dadosForm);
         console.log(create)
-        res.render("pages/Publicacao/publi/index", { //DO CADASTRO PRA OUTRA PAGINA
-            listaErros: null, dadosNotificacao: {
+        res.render("pages/cadastro/index", {
+            listaErros: null, dados:null, dadosNotificacao: {
                 titulo: "Cadastro realizado!", mensagem: "Novo usuário cadastrado com sucesso!", tipo: "success"
             }, valores: req.body
         })
     } catch (error) {
         console.log(error);
         res.render("pages/cadastro/index", {
-            listaErros: erros, dadosNotificacao: {
+            listaErros: erros, dados:null, dadosNotificacao: {
                 titulo: "Erro ao cadastrar!", mensagem: "Verifique os dados digitados ", tipo: "error"
-             }, valores: req.body
+             }, valores: req.body 
         })
     }
 },
 
     regrasValidacaoFormLogin: [
-        body("email")
-            .isEmail().withMessage("Digite um e-mail válido!")
-            .custom(async value => {
-                const email = await UsuarioModel.findUserEmail({'email_usuario' :value});
-                if (email > 0) {
-                  throw new Error('E-mail em uso!');
-                }
-            }),
         body("user")
-            .isLength({ min: 4, max: 45 })
-            .withMessage("O nome de usuário/e-mail deve ter de 4 a 45 caracteres"),
+            .isLength({ min: 8, max: 45 })
+            .withMessage("O nome de usuário/e-mail deve ter de 8 a 45 caracteres"),
         body("senha_usuario")
             .isStrongPassword()
             .bail()
@@ -129,7 +121,7 @@ const UsuarioController = {
             return res.render("pages/login", { listaErros: erros, dados: req.body  })
         }
         if (req.session.autenticado.autenticado != null) {
-            return res.redirect("pages/Publicacao/publi/index");
+            return res.redirect("pages/Publicacao");
         }else {
             res.render("pages/login", {listaErros: null,
                 dadosNotificacao: {titulo: "falha ao logar!", mensagem: "Usuário e/ou senha inválidos", tipo: "error"}})

@@ -17,10 +17,14 @@ router.get("/", function (req, res) {
 
 router.get("/cadastro", function (req, res) {
   res.render("pages/cadastro/index", { 
+    logado:null,
+    retorno:null,
     listaErros: null, 
     dadosNotificacao: null,
+    dados: null,
     valores: { nome: "", user: "", email: "", senha: "" } });
 });
+
 
 
  

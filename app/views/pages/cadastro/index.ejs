@@ -12,60 +12,74 @@
     <link rel="stylesheet" href="../../CSS/Cadastro/style.css">
     <link rel="stylesheet" href="../../CSS/Cadastro/index.css">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script>
-    <script src="js/script.js"></script>
-    
-
+   
+     <script src="js/script.js"></script>
+    <script src="js/Cadastro/script.js"></script>
 
     <title>Cadastro</title>
 </head>
 
 <body>
     <%
-    let msgErro = {nome:"", senha:"",user:"",email:"", senha:""}
-    let avisoErro = {nome:"", senha:"",user:"",email:"", senha:""}
-    let valores = {nome:"", email:"", senha:"", user:"", cep: "" } 
+    var msgErro = {nome:"", senha:"",user:"",email:"", senha:"", confirmasenha:""}
+    var avisoErro = {nome:"", senha:"",user:"",email:"", senha:"", confirmasenha: ""}
+    var cssErroBorda = {nome:"", senha:"",user:"",email:"", senha:"", confirmasenha:""}
+    let valores = {nome:"", senha:"",user:"",email:"", senha:"", confirmasenha:""}
+
+    if(dados && dados!=null){
+        valores = dados
+    }
+
     if(listaErros){
-    }
-    if(listaErros && listaErros.errors){    
-        listaErros.errors.forEach(function(itemErro){
+        listaErros.errors.forEach((itemErro)=>{
             if(itemErro.path == "nome"){
-                avisoErro.nome = "erro";
-                msgErro.nome += `* ${itemErro.msg} <br>`;
+                msgErro.nome = itemErro.msg
+                avisoErro.nome = "erroForm"
+                cssErroBorda.nome = "erroInput"
+                %>
+                    <script>notify('Verifique o campo nome', '<%= msgErro.nome %>', 'error'  )</script>
+                <%
+            } else if(itemErro.path == "email"){
+                msgErro.email = itemErro.msg
+                avisoErro.email = "erroForm"
+                cssErroBorda.email = "erroInput"
+                %>
+                    <script>notify('Verifique o campo email', '<%= msgErro.email %>', 'error'  )</script>
+                <%
+               
+            } else if(itemErro.path == "senha"){
+                msgErro.senha = itemErro.msg
+                avisoErro.senha = "erroForm"
+                cssErroBorda.senha = "erroInput"
+                %>
+                    <script>notify('Verifique o campo senha', '<%= msgErro.senha %>', 'error'  )</script>
+                <%
+                
+            } else if(itemErro.path == "confirmasenha"){
+                msgErro["confirmasenha"] = itemErro.msg
+                avisoErro["confirmasenha"] = "erroForm"
+                cssErroBorda["confirmasenha"] = "erroInput"
+                %>
+                    <script>notify('Verifique se as senhas estão iguais', '<%= msgErro["confirmasenha"] %>', 'error'  )</script>
+                <%
+                
             }
-            if(itemErro.path == "senha"){
-                avisoErro.senha = "erro";
-                msgErro.senha = `* ${itemErro.msg} <br>`;
-            }
-            if(itemErro.path == "user"){
-                avisoErro.user = "erro";
-                msgErro.user = `* ${itemErro.msg} <br>`;
+        });
+    } 
+   
+%>
+<% if (dadosNotificacao) { %>
+    <script>
+            notify("<%= dadosNotificacao.titulo%>","<%= dadosNotificacao.mensagem%>", "<%= dadosNotificacao.tipo%>", "center")
+            if("<%= dadosNotificacao.tipo %>" == "success"){
+                setTimeout(function(){window.location="/sair"}, 3000)
+            }                        
+    </script>
+<% } %>
 
-            if(itemErro.path == "email"){
-                avisoErro.email = "erro";
-                msgErro.email= `* ${itemErro.msg} <br>`;
-            }
-        }
-
-       })
-        if(msgErro != ""){
-            %>
-            <script>
-                    let msgErro ="<%= msgErro %>"
-                    notify("Erro(s) no preenchimento","Verifique o(s) campo(s) <br>  " + msgErro.replace(/&lt;/g,"<").replace(/&gt;/g,">"), "error", "center", 5000)                        
-                </script>
-            <%
-            }
-    }
-    if (dadosNotificacao) { %>
-        <script>
-                notify("<%= dadosNotificacao.titulo%>","<%= dadosNotificacao.mensagem%>", "<%= dadosNotificacao.tipo%>", "center")
-                if("<%= dadosNotificacao.tipo %>" == "success"){
-                    setTimeout(function(){window.location="/sair"}, 3000)
-                }                        
-        </script>
-    <% } %>
-    %>
+   
     <main>
         <section class="box-form">
             <form action="/Publicacao" id="form" method="post">
@@ -87,22 +101,23 @@
 
                     <article class="form-input">
                         <label id="labelNome" for="nome">Nome completo <span>*</span> </label>
-                        <input type="text" placeholder="Digite seu nome" value="<%= valores.nome %>"  class=" <%= avisoErro.nome %>" id="nome" name="nome"/>
-                        <span> <%= msgErro.nome %> </span><br>
+                        <input type="text" placeholder="Digite seu nome" value="<%= valores.nome %>"  class=" <%= avisoErro.nome %>" id="nome" name="nome" class="<%= cssErroBorda.nome %>">
+                        <span class="<%= avisoErro.nome %>"><%= msgErro.nome %></span><br>
                         <small id="textNome"></small>
                     </article>
 
+
                     <article class="form-input">
                         <label id="labelEmail" for="email">Email <span>*</span> </label>
-                        <input type="text" placeholder="Digite seu email" value="<%= valores.email %>"  class=" <%= avisoErro.email %>" id="email" name="email"/>
-                        <span> <%= msgErro.email %> </span><br>
+                        <input type="text" placeholder="Digite seu email" value="<%= valores.email %>"  class=" <%= avisoErro.email %>" id="email" name="email" class="<%= cssErroBorda.email %>">
+                        <span class="<%= avisoErro.email %>"><%= msgErro.email %></span><br>
                         <small id="textNome"></small>
                     </article>
 
                     <article class="form-input">
                         <label id="labelNome" for="user">Nome de usuário <span>*</span> </label>
-                        <input type="text" placeholder="Nome de usuário " value="<%= valores.user %>"  class=" <%= avisoErro.user %>" id="user" name="user"/>
-                        <span> <%= msgErro.user %> </span><br>
+                        <input type="text" placeholder="Nome de usuário " value="<%= valores.user %>"  class=" <%= avisoErro.user %>" id="user" name="user" class="<%= cssErroBorda.user %>">
+                        <span class="<%= avisoErro.user %>"><%= msgErro.user %></span><br>
                         <small id="textNome"></small>
                     </article>
 
@@ -117,20 +132,21 @@
                         <input type="text" placeholder="Cep" id="cep" maxlength="9" name="cep" value="<%= valores.cep %>" >
                         <small id="textCep"></small>
                     </article>
+
                     <section class="form-input">
                         <article class="input__wrapper">
                             <img alt="Eye Icon" title="Eye Icon" src="../../img/Login/eye-off.svg" class="input__icon">
                             <label id="labelSenha" for="senha">Senha <span>*</span></label>
-                            <input type="password" placeholder="Senha" value="<%= valores.senha %>" id="senha" class="<%= avisoErro.senha %>" maxlength="30" name="senha">
-                            <span><%= msgErro.senha %></span><br>
+                            <input type="password" placeholder="Senha" value="<%= valores.senha %>" id="senha" class="<%= avisoErro.senha %>" maxlength="30" name="senha" class="<%= cssErroBorda.senha %>">
+                            <span class="<%= avisoErro.senha %>"><%= msgErro.senha %></span><br>
                             <small id="textPassword"></small>
                         </article>
                         <article class="input__wrapper">
                             <img alt="Eye Icon" title="Eye Icon" src="../../img/Login/eye-off.svg" class="input__icon">
                             <label id="Labelconfirmasenha" for="confirmasenha">Confirme a senha <span>*</span></label>
-                            <input type="password" placeholder="Confirme sua senha" value="<%= valores.confirmasenha %>" id="confirmasenha" class="<%= avisoErro.confirmasenha %>" maxlength="30" name="confirmasenha">
-                            <span><%= msgErro.confirmasenha %></span>
-                            <small id="textconfirmesenha"></small>
+                            <input type="password" placeholder="Confirme sua senha" value="<%= valores.confirmasenha %>" id="confirmasenha" class="<%= avisoErro.confirmasenha %>" maxlength="30" name="confirmasenha" class="<%= cssErroBorda.confirmasenha %>">
+                            <span class="<%= avisoErro.confirmasenha %>"><%= msgErro.confirmasenha %></span><br>
+                            <small id="textconfirmasenha"></small>
                         </article>
                     </section>                    
 
