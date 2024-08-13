@@ -124,6 +124,40 @@
                         <input type="text" placeholder="__/__/____" id="data_nasc" maxlength="10" name="data_nasc">
                         <small id="textData"></small>
                     </article>
+
+                    <!-- <article class="form-imput"> -->
+                        <label id="labelCidade" for="cidade">Cidade <span>*</span> </label>
+                        <input type="text" list="lista">
+
+                        <datalist id="lista">
+                            <option value="Barueri"></option>
+                            <option value="Osasco"></option>
+                            <option value="Carapicuiba"></option>
+                            <option value="Mooca"></option>
+                            <option value="Sorocaba"></option>
+
+                        </datalist>
+
+                        <script>
+                            const callApi = async () => {
+                                const data = await fetch("https://gist.github.com/letanure/3012978.js");
+                                const dataJson = await data.json();
+                                 console.log(dataJson.message);
+                                let lista = document.querySelector("#lista");
+                                console.log(lista);
+                                dataJson.message.forEach(item => {
+                                    let element = document.createElement("option");
+                                    element.value = item;
+                                    console.log(element);
+                                    lista.appendChild(element);
+                                    
+                                });
+                            }
+
+                            callApi();
+                        </script>
+                        
+                    <!-- </article> -->
                 
                     <section class="form-input">
                         <article class="input__wrapper">
