@@ -135,30 +135,24 @@
                         <input type="text" list="lista">
 
                         <datalist id="lista">
-                            <option value="Barueri"></option>
-                            <option value="Osasco"></option>
-                            <option value="Carapicuiba"></option>
-                            <option value="Mooca"></option>
-                            <option value="Sorocaba"></option>
-
                         </datalist>
-
+ 
                         <script>
                             const callApi = async () => {
-                                const data = await fetch("https://gist.github.com/letanure/3012978.js");
+                                const data = await fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados/35/municipios",);
                                 const dataJson = await data.json();
-                                 console.log(dataJson.message);
+                                console.log(dataJson[0]);
                                 let lista = document.querySelector("#lista");
                                 console.log(lista);
-                                dataJson.message.forEach(item => {
+                                 dataJson.forEach(item => {
                                     let element = document.createElement("option");
-                                    element.value = item;
+                                    element.value = item.nome;
                                     console.log(element);
                                     lista.appendChild(element);
-                                    
+                                   
                                 });
                             }
-
+ 
                             callApi();
                         </script>
                         
