@@ -48,3 +48,15 @@ a {
   text-decoration: none;
   color: var(--blue-2);
 }
+
+.erroForm {
+  color: red;
+  display: block;
+  font-weight: bolder;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.erroInput {
+  border: solid 2px red !important;
+}
