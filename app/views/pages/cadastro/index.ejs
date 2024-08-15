@@ -167,12 +167,39 @@
                             <small id="textPassword"></small>
                         </article>
                         <article class="input__wrapper">
+
                             <img alt="Eye Icon" title="Eye Icon" src="../../img/Login/eye-off.svg" class="input__icon">
                             <label id="Labelconfirmasenha" for="confirmasenha">Confirme a senha <span>*</span></label>
                             <input type="password" placeholder="Confirme sua senha" value="<%= valores.confirmasenha %>" id="confirmasenha" class="<%= avisoErro.confirmasenha %>" maxlength="30" name="confirmasenha" class="<%= cssErroBorda.confirmasenha %>">
                             <span class="<%= avisoErro.confirmasenha %>"><%= msgErro.confirmasenha %></span><br>
                             <small id="textconfirmasenha"></small>
                         </article>
+
+
+                        <script>
+                            // Selecionando o input text dentro do artigo
+                            const Labelconfirmasenha = document.querySelector('article input[type="text"]');
+                    
+                            // Adiciona um ouvinte de evento para prevenir a ação de colar
+                            Labelconfirmasenha.addEventListener('paste', function(event) {
+                                // Previne a ação padrão de colar
+                                event.preventDefault();
+                                // alert('Colar não é permitido neste campo.');
+                            });
+                    
+                            // Também pode desativar o Ctrl + V usando keydown, se desejar
+                            document.addEventListener('keydown', function(event) {
+                                if (event.ctrlKey && event.key === 'v') {
+                                    // Verifica se o foco está no inputField
+                                    if (document.activeElement === confirmasenha) {
+                                        event.preventDefault();
+                                        alert('Ctrl + V não é permitido neste campo.');
+                                    }
+                                }
+                            });
+                        </script>
+
+
                     </section>                    
 
                 </section>
