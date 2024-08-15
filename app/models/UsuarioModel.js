@@ -60,10 +60,10 @@ var pool = require("../../config/pool_conexoes");
             }
         },
 
-        findUserCEP: async (usuario, id) => {
+        findUsercidade: async (usuario, id) => {
             try {
                 const [linhas] = await pool.query(
-                    `SELECT * FROM USUARIOS WHERE cep_usuario = ? ${id?'AND id_usuario !=?': ''}` , [usuario, id]
+                    `SELECT * FROM USUARIOS WHERE cidade_usuario = ? ${id?'AND id_usuario !=?': ''}` , [usuario, id]
                    
                 )
                 return linhas;

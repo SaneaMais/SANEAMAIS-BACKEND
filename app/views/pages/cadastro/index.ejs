@@ -74,7 +74,7 @@
         <script>
                 notify("<%= dadosNotificacao.titulo%>","<%= dadosNotificacao.mensagem%>", "<%= dadosNotificacao.tipo%>", "center")
                 if("<%= dadosNotificacao.tipo %>" == "success"){
-                    setTimeout(function(){window.location="/sair"}, 3000)
+                    setTimeout(function(){window.location="/Publicacao"}, 3000)
                 }                        
         </script>
     <% } %>
@@ -132,8 +132,8 @@
 
                     <!-- <article class="form-imput"> -->
                         <label id="labelCidade" for="cidade">Cidade <span>*</span> </label>
-                        <input type="text" list="lista">
-
+                        <input type="text" list="lista"  placeholder="cidade " value="<%= valores.cidade %>"  class=" <%= avisoErro.user %>" id="cidade" name="cidade" class="<%= cssErroBorda.user %>">
+                        <span class="<%= avisoErro.cidade %>"><%= msgErro.cidade %></span><br>
                         <datalist id="lista">
                         </datalist>
  

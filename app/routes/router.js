@@ -25,6 +25,9 @@ router.get("/cadastro", function (req, res) {
     valores: { nome: "", user: "", email: "", senha: "" } });
 });
 
+router.post('/cadastro', usuarioController.regrasValidacaoFormLogin, function (req, res) {
+  usuarioController.logar(req, res);
+})
 
 
  

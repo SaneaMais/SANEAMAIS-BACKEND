@@ -23,7 +23,7 @@ const UsuarioController = {
             user_usuario: req.body.user,
             email_usuario: req.body.email,
             data_nasc_usuario: req.body.data_nasc,
-            cep_usuario: req.body.cep,
+            cidade_usuario: req.body.cidade,
         };
         console.log(dadosForm)
         if (!erros.isEmpty()) {
