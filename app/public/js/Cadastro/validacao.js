@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const userInput = document.getElementById("user");
   const nomeInput = document.getElementById("nome")
   const dataInput = document.getElementById("data_nasc");
-  const cepInput = document.getElementById("cep");
   const senhaInput = document.getElementById("senha");
   const confirmarSenhaInput = document.getElementById("confirmasenha");
 
@@ -26,12 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
     dataInput.value = dataInput.value
       .replace(/\D/g, '')
       .replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
-  });
- 
-  cepInput.addEventListener("input", function () {
-    cepInput.value = cepInput.value
-      .replace(/\D/g, '')
-      .replace(/(\d{5})(\d{3})/, '$1-$2');
   });
 
   userInput.addEventListener("input", function () {
@@ -55,10 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   dataInput.addEventListener("blur", function () {
     validateDate(dataInput);
-  });
-
-  cepInput.addEventListener("blur", function () {
-    validateCep(cepInput);
   });
 
   senhaInput.addEventListener("blur", function () {
@@ -139,15 +128,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   
 
-  function validateCep(input) {
-    const cep = input.value.replace(/\D/g, "");
-    if (cep.length === 8) {
-      clearValidation(input);
-    } else {
-      setValidation(input, "CEP inválido");
-    }
-  }
-  
   function validateSenha(input) {
     const senha = input.value;
     if (senha.length === 0) {
@@ -200,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function validateForm() {
     let isValid = true;
-    const inputs = [emailInput, nomeInput, userInput, dataInput, cepInput, senhaInput, confirmarSenhaInput];
+    const inputs = [emailInput, nomeInput, userInput, dataInput, senhaInput, confirmarSenhaInput];
 
     inputs.forEach(function (input) {
       if (input.value.trim() === "") {

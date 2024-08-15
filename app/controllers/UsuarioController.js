@@ -110,57 +110,67 @@ const UsuarioController = {
     regrasValidacaoFormCad: [
         body("nome")
             .isLength({ min: 3, max: 45 }).withMessage("Nome deve ter de 3 a 45 caracteres!"),
-            body("user")
+        body("user")
             .isLength({ min: 8, max: 45 }).withMessage("Nome de usuário deve ter de 8 a 45 caracteres!")
             .custom(async value => {
-                const user = await UsuarioModel.findUserUsuario({'user_usuario':value});
+                const user = await UsuarioModel.findUserUsuario({ 'user_usuario': value });
                 if (user > 0) {
                     throw new Error('Nome de usuário já em uso!');
                 }
             }),
 
-         body("data_nasc")
-            .isLength({ min: 10}).withMessage('Data inválida')
-           .toDate() 
-           .withMessage('Data inválida')
-           .custom( value => {
-                const birthDate = new Date (value);
-               if (isNaN(birthDate.getTime())) {
-                  throw new Error('Data de nascimento inválida!');
-               }
-           const today = new Date();
-           let age = today.getFullYear() - birthDate.getFullYear();
-          const monthDiff = today.getMonth() - birthDate.getMonth();
-          if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate()) ) {
-            age--;
+        body("data_nasc")
+            .isLength({ min: 10 }).withMessage('Data inválida')
+            .toDate()
+            .withMessage('Data inválida')
+            .custom(value => {
+                const birthDate = new Date(value);
+                if (isNaN(birthDate.getTime())) {
+                    throw new Error('Data de nascimento inválida!');
+                }
+                const today = new Date();
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const monthDiff = today.getMonth() - birthDate.getMonth();
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
 
-           }
-           if (age < 16) {
-            throw new Error('Você deve ter pelo menos 16 anos!');
-           }
+                }
+                if (age < 16) {
+                    throw new Error('Você deve ter pelo menos 16 anos!');
+                }
 
-           return true
-          }),  
+                return true
+            }),
 
 
         body("email")
             .isEmail().withMessage("Digite um e-mail válido!")
             .custom(async value => {
-                const email = await UsuarioModel.findUserEmail({'email_usuario' :value});
+                const email = await UsuarioModel.findUserEmail({ 'email_usuario': value });
                 if (email > 0) {
-                  throw new Error('E-mail em uso!');
+                    throw new Error('E-mail em uso!');
                 }
-              }),
+            }),
 
         body("senha")
-        .isStrongPassword()
-        .withMessage("A senha deve ter no mínimo 8 caracteres")
-        .bail()
-        .matches(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/)
-        .withMessage("Senha inválida! (mínimo 1 letra maiúscula, 1 caractere especial e 1 número)")
+            .isStrongPassword()
+            .withMessage("A senha deve ter no mínimo 8 caracteres")
+            .bail()
+            .matches(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/)
+            .withMessage("Senha inválida! (mínimo 1 letra maiúscula, 1 caractere especial e 1 número)")
     ],
 
-
+    regrasValidacaoFormLogin: [
+        body("email")
+            .isEmail()
+            .withMessage("Email invalido "),
+        body("senha")
+            .isLength({ min: 8, max: 30 })
+            .withMessage("Senha inválida, deve conter pelo menos 8 caracteres")
+            .bail()
+            .matches(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/)
+            .withMessage("Senha inválida, deve conter pelo menos 1 letra, 1 número e 1 caractere especial"),
+    ],
 
 
 }

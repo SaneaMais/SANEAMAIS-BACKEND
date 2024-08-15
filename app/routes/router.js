@@ -37,17 +37,12 @@ router.get("/esqueceusenha/email", function (req, res) {
 });
 
 router.get("/login", function (req, res) {
-  res.render("pages/login/index", { listaErros: null, dadosNotificacao: null, dados:null});
+  res.render("pages/login/index", { listaErros: null, dadosNotificacao: null, dados:null, pagina:"login", logado:null});
 });
 
-router.post(
-  "/login",
-  usuarioController.regrasValidacaoFormLogin,
-  gravarUsuAutenticado,
-  function (req, res) {limparSessao,
-    usuarioController.logar(req, res);
-  }
-);
+router.post('/login', usuarioController.regrasValidacaoFormLogin, function (req, res) {
+  usuarioController.logar(req, res);
+})
 
 
 router.get("/FaleConoco", function (req, res) {
@@ -70,7 +65,7 @@ router.get("/Publicacao",function (req, res) {
   res.render("pages/Publicacao/Perfil/index");
  });
 
-router.post("/Publicacao",usuarioController.regrasValidacaoFormCad, gravarUsuAutenticado, async function (req, res) {limparSessao,
+router.post("/Publicacao",usuarioController.regrasValidacaoFormCad, async function (req, res) {limparSessao,
 usuarioController.CriarUsuario(req,res)
 });
 

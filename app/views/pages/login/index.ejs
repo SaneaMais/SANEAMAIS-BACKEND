@@ -8,15 +8,26 @@
   <link rel="stylesheet" href="../../CSS/login/index.css">
   <link rel="stylesheet" href="../../CSS/login/style.css">
   <link rel="shortcut icon" href="../../img/MicrosoftTeams-image-removebg-preview.png" tyle="image/ x-icon">
+
+  
+  <link rel="stylesheet" href="/CSS/notify.css">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+      <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+      <script src="/js/notify.js"></script>
+      <link rel="stylesheet" href="/css/notify.css">
+
+  
   <title>Login</title>
 </head>
 <body>
   <main>
     <% 
-    var msgErro = {email:"", senha:"", senha:""}
-    var avisoErro = {email:"", senha:"", senha:""}
-    var cssErroBorda = {email:"", senha:"", senha:""}
-    let valores = {email:"", senha:"", senha:""}
+    var msgErro = {email:"", senha:""}
+    var avisoErro = {email:"", senha:""}
+    var cssErroBorda = {email:"", senha:""}
+    let valores = {email:"", senha:""}
 
     if(dados && dados!=null){
         valores = dados
@@ -29,21 +40,23 @@
                 avisoErro.email = "erroForm"
                 cssErroBorda.email = "erroInput"
                 %>
-                    <script>notify('Verifique o campo email', '<%= msgErro.email %>', 'error'  )</script>
+                <script>notify('Verifique o campo email', '<%= msgErro.email %>', 'error'  )</script>
+            <%
                 
             } else if(itemErro.path == "senha"){
                 msgErro.senha = itemErro.msg
                 avisoErro.senha = "erroForm"
                 cssErroBorda.senha = "erroInput"
                 %>
-                    <script>notify('Verifique o campo senha', '<%= msgErro.senha %>', 'error'  )</script>
-                    <%
+                <script>notify('Verifique o campo senha', '<%= msgErro.senha %>', 'error'  )</script>
+            <%
+              
             }
         });
     } 
    
 %>
-    <form action="/Publicacao" id="form">
+    <form action="login" method="post" id="form">
       <section class="box-form">
         <article class="form-content">
           <h3 class="titulo">Olá seja bem vindo!</h3>
@@ -52,7 +65,7 @@
 
 
             <label id="labelEmail" for="email">E-mail <span>*</span> </label>
-            <input type="email" placeholder="Digite seu email ou nome de usuário" value="<%=valores.email%>"  class="<%= cssErroBorda.email %>">
+            <input type="email" placeholder="Digite seu email ou nome de usuário" value="<%=valores.email%>" name="email"  class="<%= cssErroBorda.email %>">
             <span class="<%= avisoErro.email %>"><%= msgErro.email %></span>
 
           <article class="form-input">
@@ -63,7 +76,7 @@
               <p id="messageSenha"></p>
               <img alt="Eye Icon" title="Eye Icon" src="../../img/Login/eye-off.svg" class="input__icon">
               <label id="labelSenha" for="senha">Senha<span>*</span> </label>
-              <input type="password" placeholder="Senha"  maxlength="25" value="<%=valores.senha%>" id="password"  class="<%= cssErroBorda.senha %>" autocomplete="off">
+              <input type="password" placeholder="Senha"  maxlength="25" value="<%=valores.senha%>" id="password" name="senha" class="<%= cssErroBorda.senha %>" autocomplete="off">
                  <span class="<%= avisoErro.senha %>"><%= msgErro.senha %></span>
             </article>
           </article>
@@ -100,8 +113,11 @@
         </article>
     </form>
   </main>
-  <script src="../../js/login/senha.js"></script>
-  <script src="../../js/login/val.js"></script>
+  <script src="/js/login/senha.js"></script>
+  <script src="/js/login/val.js"></script>
+
+  <script src="/js/notify.js"></script>
+
 </body>
 
 </html>
