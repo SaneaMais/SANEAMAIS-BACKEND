@@ -65,7 +65,7 @@ router.get("/PublicacacaoCONFIG", function (req, res) {
 });
 
 router.get("/Publicacao",function (req, res) {
-  res.render("pages/Publicacao/Perfil/index");
+  res.render("pages/Publicacao/publi/index", { listaErros: null, dadosNotificacao: null, dados:null, logado:null} );
  });
 
 router.post("/Publicacao",usuarioController.regrasValidacaoFormCad, async function (req, res) {limparSessao,

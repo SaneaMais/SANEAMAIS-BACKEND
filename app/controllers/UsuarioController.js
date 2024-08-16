@@ -90,7 +90,7 @@ const UsuarioController = {
         try {
             let create = UsuarioModel.create(dadosForm);
             console.log(create)
-            res.render("pages/cadastro/index", {
+            res.render("pages/Publicacao/publi/index", {
                 listaErros: null, dados: null, dadosNotificacao: {
                     titulo: "Cadastro realizado!", mensagem: "Novo usuário cadastrado com sucesso!", tipo: "success"
                 }, valores: req.body

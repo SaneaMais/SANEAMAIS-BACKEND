@@ -43,7 +43,7 @@ var password = document.getElementById("password");
       var inputType = validateInput();
       senhaValida();
       if (inputType === "invalido") {
-        messageEmail.textContent = "inválido (E-mail ou nome de u)";
+        messageEmail.textContent = "inválido (E-mail incorreto)";
         messageEmail.style.color = "red";
         messageEmail.style.fontSize = "12px";
         inputEmail.style.border = "1px solid red";

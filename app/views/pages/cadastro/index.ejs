@@ -61,24 +61,9 @@
         }
 
        })
-        if(msgErro != ""){
-            %>
-            <script>
-                    let msgErro ="<%= msgErro %>"
-                    notify("Erro(s) no preenchimento","Verifique o(s) campo(s) <br>  " + msgErro.replace(/&lt;/g,"<").replace(/&gt;/g,">"), "error", "center", 5000)                        
-                </script>
-            <%
-            }
+      
     }
-    if (dadosNotificacao) { %>
-        <script>
-                notify("<%= dadosNotificacao.titulo%>","<%= dadosNotificacao.mensagem%>", "<%= dadosNotificacao.tipo%>", "center")
-                if("<%= dadosNotificacao.tipo %>" == "success"){
-                    setTimeout(function(){window.location="/Publicacao"}, 3000)
-                }                        
-        </script>
-    <% } %>
-    %>
+%>
     <main>
         <section class="box-form">
             <form action="/Publicacao" id="form" method="post">
