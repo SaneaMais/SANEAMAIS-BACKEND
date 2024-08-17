@@ -1,110 +1,43 @@
-var pool = require("../../config/pool_conexoes");
+const pool = require("../../config/pool_conexoes");
 
-    const UsuarioModel = {
-        create:async (usuario) => {
-            try {
-                const [result] = await pool.query(
-                    'INSERT INTO USUARIOS set ?', [usuario] 
-                );
-                return result;
-            } catch (error) {
-                throw error;  
+const UsuarioModel = {
+    create: async (data) => {
+        try {
+            if (!data.nasc) {
+                throw new Error('Data de nascimento não pode ser nula.');
             }
-        },
 
-        findUserEmail: async (usuario, id) => {
-            try {
-                const [linhas] = await pool.query(
-                    `SELECT * FROM USUARIOS WHERE email_usuario = ? ${id?'AND id_usuario !=?': ''}` , [usuario, id]
-                   
-                )
-                return linhas;
-            } catch (error) {
-                return error;
-            }
-        },
+            await pool.query(
+                'INSERT INTO USUARIOS (`nome_usuario`, `email_usuario`, `user_usuario`, `data_nasc_usuario`, `cidade_usuario`, `senha_usuario` ) VALUES (?, ?, ?, ?, ?, ?)',
+                [data.nome, data.email, data.user, data.nasc, data.cidade, data.senha]
+            );
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
 
-        findUserNome: async (usuario, id) => {
-            try {
-                const [linhas] = await pool.query(
-                    `SELECT * FROM USUARIOS WHERE nome_usuario = ? ${id?'OR id_usuario !=?': ''}` , [usuario, id]
-                   
-                )
-                return linhas;
-            } catch (error) {
-                return error;
-            }
-        },
+    findUserByUsername: async (username) => {
+        try {
+            const [rows] = await pool.query('SELECT * FROM USUARIOS WHERE user_usuario = ?', [username]);
+            return rows;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
 
-        findUserUsuario: async (usuario, id) => {
-            try {
-                const [linhas] = await pool.query(
-                    `SELECT * FROM USUARIOS WHERE user_usuario = ? ${id?'OR id_usuario !=?': ''}` , [usuario, id]
-                   
-                )
-                return linhas;
-            } catch (error) {
-                return error;
-            }
-        },
+    findUserEmail: async (email, id) => {
+        try {
+            const [rows] = await pool.query(
+                `SELECT * FROM USUARIOS WHERE email_usuario = ? ${id ? 'AND id_usuario != ?' : ''}`, [email, id]
+            );
+            return rows;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    },
+};
 
-        findUserDataNasc: async (usuario, id) => {
-            try {
-                const [linhas] = await pool.query(
-                    `SELECT * FROM USUARIOS WHERE data_nasc_usuario = ? ${id?'AND id_usuario !=?': ''}` , [usuario, id]
-                   
-                )
-                return linhas;
-            } catch (error) {
-                return error;
-            }
-        },
-
-        findUsercidade: async (usuario, id) => {
-            try {
-                const [linhas] = await pool.query(
-                    `SELECT * FROM USUARIOS WHERE cidade_usuario = ? ${id?'AND id_usuario !=?': ''}` , [usuario, id]
-                   
-                )
-                return linhas;
-            } catch (error) {
-                return error;
-            }
-        },
-        findUserEmail: async (usuario, id) => {
-            try {
-                const [linhas] = await pool.query(
-                    `SELECT * FROM USUARIOS WHERE email_usuario = ? ${id?'AND user_usuario !=?': ''}` , [usuario, id]
-                   
-                )
-                return linhas;
-            } catch (error) {
-                return error;
-            }
-        },
-
-
-        update: async (usuario, id) => {
-            try {
-                const [linhas] = await pool.query(`UPDATE usuario SET ? WHERE id_usuario = ?` , [usuario, id]
-                )
-                return linhas;
-            } catch (error) {
-                return error;
-            }
-        },
-
-        delete: async (id) => {
-            try {
-                const [resultados] = await pool.query(
-                    "UPDATE usuario SET status_usuario = 0 WHERE id_usuario = ? ", [id]
-                )
-                return resultados;
-            } catch (error) {
-                console.log(error);
-                return error;
-            }
-        },
-    };
-
-    module.exports = UsuarioModel;
+module.exports = UsuarioModel;

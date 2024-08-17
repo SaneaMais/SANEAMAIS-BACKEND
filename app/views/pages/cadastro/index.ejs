@@ -14,59 +14,93 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script>
-   
-     <script src="js/script.js"></script>
+
+    <script src="js/script.js"></script>
     <script src="js/Cadastro/script.js"></script>
 
+    <!-- ----------------------notificação---------------------------------->
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
     <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
     <script src="/js/notify.js"></script>
     <link rel="stylesheet" href="/css/notify.css">
 
-
+    <!-- ----------------------notificação---------------------------------->
 
     <title>Cadastro</title>
 </head>
 
 <body>
     <%
-    var msgErro = {nome:"", senha:"",user:"",email:"", senha:"", confirmasenha:""}
-    var avisoErro = {nome:"", senha:"",user:"",email:"", senha:"", confirmasenha: ""}
-    var cssErroBorda = {nome:"", senha:"",user:"",email:"", senha:"", confirmasenha:""}
-    let valores = {nome:"", senha:"",user:"",email:"", senha:"", confirmasenha:""}
+var msgErro = {nome:"", email:"",user:"",nasc:"",cidade:"", senha:"","c-senha":""}
+var cssErro = {nome:"",email:"",user:"",nasc:"",cidade:"",senha:"","c-senha":""}
+var cssErroBorda = {nome:"",email:"",user:"",nasc:"",cidade:"",senha:"","c-senha":""}
+let valorCampos = {nome:"",email:"",user:"",nasc:"",cidade:"",senha:"","c-senha":""}
+if(dados && dados!=null){
+    valorCampos = dados
+}
 
-    if(dados && dados!=null){
-        valores = dados
-    }
-
-    if(listaErros){
-        listaErros.errors.forEach((itemErro)=>{
-            if(itemErro.path == "nome"){
-                avisoErro.nome = "erro";
-                msgErro.nome += `* ${itemErro.msg} <br>`;
+if(listaErros){
+    listaErros.errors.forEach((itemErro)=>{
+        if(itemErro.path == "nome"){
+            msgErro.nome = itemErro.msg
+            cssErro.nome = "erroForm"
+            cssErroBorda.nome = "erroInput"
+            %>
+            <script>notify('Verifique o campo nome', '<%= msgErro.nome %>', 'error')</script>
+            <%
+        } else if (itemErro.path == "email") {
+            msgErro.email = itemErro.msg
+            cssErro.email = "erroForm"
+            cssErroBorda.email = "erroInput"
+            %>
+            <script>notify('Verifique o campo email', '<%= msgErro.email %>', 'error')</script>
+            <%
+        } else if(itemErro.path == "user"){
+            msgErro.user = itemErro.msg
+            cssErro.user = "erroForm"
+            cssErroBorda.user = "erroInput"
+            %>
+            <script>notify('Verifique o campo Nome de usuário', '<%= msgErro.user %>', 'error')</script>
+            <%
+        } else if (itemErro.path == "nasc") {
+            msgErro.nasc = itemErro.msg
+            cssErro.nasc = "erroForm"
+            cssErroBorda.nasc = "erroInput"
+            %>
+            <script>notify('Verifique o campo data de nascimento', '<%= msgErro.nasc %>', 'error')</script>
+            <%
+        } else if (itemErro.path == "cidade") {
+            msgErro.nasc = itemErro.msg
+            cssErro.nasc = "erroForm"
+            cssErroBorda.nasc = "erroInput"
+            %>
+            <script>notify('Verifique o campo cidade', '<%= msgErro.nasc %>', 'error')</script>
+            <%
+        }else if(itemErro.path == "senha"){
+                msgErro.senha = itemErro.msg
+                cssErro.senha = "erroForm"
+                cssErroBorda.senha = "erroInput"
+                %>
+                    <script>notify('Verifique o campo senha', '<%= msgErro.senha %>', 'error'  )</script>
+                <%
+                
+            } else if(itemErro.path == "c-senha"){
+                msgErro["c-senha"] = itemErro.msg
+                cssErro["c-senha"] = "erroForm"
+                cssErroBorda["c-senha"] = "erroInput"
+                %>
+                    <script>notify('Verifique se as senhas estão iguais', '<%= msgErro["c-senha"] %>', 'error'  )</script>
+                <%
+                
             }
-            if(itemErro.path == "senha"){
-                avisoErro.senha = "erro";
-                msgErro.senha = `* ${itemErro.msg} <br>`;
-            }
-            if(itemErro.path == "user"){
-                avisoErro.user = "erro";
-                msgErro.user = `* ${itemErro.msg} <br>`;
-
-            if(itemErro.path == "email"){
-                avisoErro.email = "erro";
-                msgErro.email= `* ${itemErro.msg} <br>`;
-            }
-        }
-
-       })
-      
-    }
+    });
+}
 %>
+
     <main>
         <section class="box-form">
-            <form action="/Publicacao" id="form" method="post">
+            <form action="cadastro" method="post" id="form">
                 <section class="form-content">
                     <h3 class="titulo">Olá seja bem vindo!</h3>
                     <p class="sub-titulo">Estamos muito animados em ter você aqui!</p>
@@ -78,132 +112,76 @@
                         </article>
                     </section>
                     <br class="register-link">
-                        Já tem uma conta?<a href="/login">Entre</a>
-                        <br>Você é uma empresa?
+                    Já tem uma conta?<a href="/login">Entre</a>
+                    <br>Você é uma empresa?
                     <a href="/cadastro/cnpj">Cadastre-se</a></br>
                     </p>
+                    <!-- ---------------------------------------nome------------------------------------------------->
+                    <br><label id="nome" for="data">Nome <span>*</span> </label>
+                    <input type="text" name="nome" id="nome" placeholder="Seu nome" value="<%=valorCampos.nome%>"
+                        class="<%= cssErroBorda.nome %>" maxlength="100" autocomplete="off">
+                    <span class="<%= cssErro.nome %>">
+                        <%= msgErro.nome %>
+                    </span>
+                    <!-- ---------------------------------------nome------------------------------------------------------>
 
-                    <article class="form-input">
-                        <label id="labelNome" for="nome">Nome completo <span>*</span> </label>
-                        <input type="text" placeholder="Digite seu nome" value="<%= valores.nome %>"  class=" <%= avisoErro.nome %>" id="nome" name="nome"/>
-                        <span> <%= msgErro.nome %> </span><br>
-                        <small id="textNome"></small>
-                    </article>
-
-
-                    <article class="form-input">
-                        <label id="labelEmail" for="email">Email <span>*</span> </label>
-                        <input type="text" placeholder="Digite seu email" value="<%= valores.email %>"  class=" <%= avisoErro.email %>" id="email" name="email"/>
-                        <span> <%= msgErro.email %> </span><br>
-                        <small id="textNome"></small>
-                    </article>
-
-                    
-                    <article class="form-input"> 
-                        <label id="labelNome" for="user">Nome de usuário <span>*</span> </label>
-                        <input type="text" placeholder="Nome de usuário " value="<%= valores.user %>"  class=" <%= avisoErro.user %>" id="user" name="user" class="<%= cssErroBorda.user %>">
-                        <span class="<%= avisoErro.user %>"><%= msgErro.user %></span><br>
-                        <small id="textNome"></small>
-                    </article>
-                   
-                
-                    
-                    
+                    <!-- ---------------------------------------email----------------------------------------------------->
+                    <br><label id="email" for="data">Email <span>*</span> </label>
+                    <input type="text" name="email" id="email" class="<%= cssErroBorda.email %>"
+                        placeholder="Seu e-mail" value="<%=valorCampos.email%>">
+                    <span class="<%= cssErro.email %>">
+                        <%= msgErro.email %>
+                    </span>
+                    <!-- ---------------------------------------email----------------------------------------------------->
+                    <!-- ---------------------------------------nomeUsuário----------------------------------------------->
+                    <br><label id="user" for="data">Nome de usuário <span>*</span> </label>
+                    <input type="text" name="user" id="user" placeholder="Nome de usuário" value="<%=valorCampos.user%>"
+                        class="<%= cssErroBorda.user %>" maxlength="100" autocomplete="off">
+                    <span class="<%= cssErro.user %>">
+                        <%= msgErro.user %>
+                    </span>
+                    <!-- ---------------------------------------nomeUsuário------------------------------------------------>
+                    <!-- ---------------------------------------DataDeNasc------------------------------------------------->
                     <article class="form-input">
                         <label id="labelData" for="data">Data de nascimento <span>*</span> </label>
-                        <input type="text" placeholder="__/__/____" id="data_nasc" maxlength="10" name="data_nasc">
-                        <small id="textData"></small>
+                        <input type="text" placeholder="__/__/____" id="nasc" class="<%= cssErroBorda.nasc %>" maxlength="10" name="nasc">
+                        <span class="<%= cssErro.nasc %>">
+                            <%= msgErro.nasc %>
+                        </span>
                     </article>
-
-                    <!-- <article class="form-imput"> -->
+                    <!-- ---------------------------------------DataDeNasc------------------------------------------------->
+                    <!-- ---------------------------------------cidade----------------------------------------------------->
                         <label id="labelCidade" for="cidade">Cidade <span>*</span> </label>
-                        <input type="text" list="lista"  placeholder="cidade " value="<%= valores.cidade %>"  class=" <%= avisoErro.user %>" id="cidade" name="cidade" class="<%= cssErroBorda.user %>">
-                        <span class="<%= avisoErro.cidade %>"><%= msgErro.cidade %></span><br>
+                        <input type="text" list="lista"  placeholder="cidade " value="<%= valorCampos.cidade %>" id="cidade" name="cidade">
                         <datalist id="lista">
-                        </datalist>
- 
-                        <script>
-                            const callApi = async () => {
-                                const data = await fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados/35/municipios",);
-                                const dataJson = await data.json();
-                                console.log(dataJson[0]);
-                                let lista = document.querySelector("#lista");
-                                console.log(lista);
-                                 dataJson.forEach(item => {
-                                    let element = document.createElement("option");
-                                    element.value = item.nome;
-                                    console.log(element);
-                                    lista.appendChild(element);
-                                   
-                                });
-                            }
- 
-                            callApi();
-                        </script>
-                        
-                    <!-- </article> -->
-                
-                    <section class="form-input">
-                        <article class="input__wrapper">
-                            <img alt="Eye Icon" title="Eye Icon" src="../../img/Login/eye-off.svg" class="input__icon">
+                        </datalist> 
+                    <!-- ---------------------------------------cidade----------------------------------------------------->
+                    <!-- ---------------------------------------passoword-------------------------------------------------->
+                   
+                    <article class="input__wrapper">
+                            <img alt="Eye Icon" title="Eye Icon" src="/img/Login/eye-off.svg" class="input__icon">
                             <label id="labelSenha" for="senha">Senha <span>*</span></label>
-                            <input type="password" placeholder="Senha" value="<%= valores.senha %>" id="senha" class="<%= avisoErro.senha %>" maxlength="30" name="senha" class="<%= cssErroBorda.senha %>">
-                            <span class="<%= avisoErro.senha %>"><%= msgErro.senha %></span><br>
+                            <input type="password" placeholder="Senha" value="<%= valorCampos.senha %>" id="senha"  maxlength="30" name="senha" class="<%= cssErroBorda.senha %>">
+                            <span class="<%= cssErro.senha %>"><%= msgErro.senha %></span><br>
                             <small id="textPassword"></small>
                         </article>
                         <article class="input__wrapper">
-
-                            <img alt="Eye Icon" title="Eye Icon" src="../../img/Login/eye-off.svg" class="input__icon">
-                            <label id="Labelconfirmasenha" for="confirmasenha">Confirme a senha <span>*</span></label>
-                            <input type="password" placeholder="Confirme sua senha" value="<%= valores.confirmasenha %>" id="confirmasenha" class="<%= avisoErro.confirmasenha %>" maxlength="30" name="confirmasenha" class="<%= cssErroBorda.confirmasenha %>">
-                            <span class="<%= avisoErro.confirmasenha %>"><%= msgErro.confirmasenha %></span><br>
-                            <small id="textconfirmasenha"></small>
+                            <img alt="Eye Icon" title="Eye Icon" src="/img/Login/eye-off.svg" class="input__icon">
+                            <label id="Labelc-senha" for="c-senha">Confirme a senha <span>*</span></label>
+                            <input type="password" placeholder="Confirme sua senha" value="<%= valorCampos['c-senha'] %>" id="c-senha" maxlength="30" name="c-senha" class="<%= cssErroBorda['c-senha'] %>">
+                            <span class="<%= cssErro['c-senha'] %>"><%= msgErro['c-senha'] %></span><br>
                         </article>
-
-
-                        <script>
-                            // Selecionando o input text dentro do artigo
-                            const Labelconfirmasenha = document.querySelector('article input[type="text"]');
-                    
-                            // Adiciona um ouvinte de evento para prevenir a ação de colar
-                            Labelconfirmasenha.addEventListener('paste', function(event) {
-                                // Previne a ação padrão de colar
-                                event.preventDefault();
-                                // alert('Colar não é permitido neste campo.');
-                            });
-                    
-                            // Também pode desativar o Ctrl + V usando keydown, se desejar
-                            document.addEventListener('keydown', function(event) {
-                                if (event.ctrlKey && event.key === 'v') {
-                                    // Verifica se o foco está no inputField
-                                    if (document.activeElement === confirmasenha) {
-                                        event.preventDefault();
-                                        alert('Ctrl + V não é permitido neste campo.');
-                                    }
-                                }
-                            });
-                        </script>
-
-
-                    </section>                    
-
-                </section>
-
-                <input type="submit" value="Entrar" id="Entrar">
-
-                <article id='msgError'></article>
-                <article id='msgSuccess'></article>
-                <small id="textForm"></small>
+                    <!-- ---------------------------------------passoword-------------------------------------------------->
+                    <input type="submit" value="Entrar" id="Entrar">
             </form>
         </section>
-    </form>
+        </form>
     </main>
     <footer></footer>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="../../js/Cadastro/senha.js"></script>
-    <script src="../../js/Cadastro/validacao.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="/js/Cadastro/senha.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.7/inputmask.min.js"></script>
 
 </body>
-
 </html>

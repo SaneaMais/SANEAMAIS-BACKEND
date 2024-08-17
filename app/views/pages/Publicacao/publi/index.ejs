@@ -17,14 +17,12 @@
     <link rel="stylesheet" href="../../../CSS/Publicacao/NovoPerfil/style.css">
 
 
-    <!-- -------------------------------------------------------------------------------------------------------------- -->
-
+    <!-- --------------------------------------notificação----------------------------------------------------------------- -->
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
     <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
     <script src="/js/notify.js"></script>
     <link rel="stylesheet" href="/css/notify.css">
-
 
     <!-- -------------------------------------------------------------------------------------------------------------- -->
 
@@ -36,7 +34,7 @@
         <script>
             notify("<%= dadosNotificacao.titulo%>","<%= dadosNotificacao.mensagem%>", "<%= dadosNotificacao.tipo%>", "center")
             if("<%= dadosNotificacao.tipo %>" == "success"){
-                setTimeout(function(){window.location=""}, 3000)
+                setTimeout(3000)
             }                        
         </script>
     <% } %>

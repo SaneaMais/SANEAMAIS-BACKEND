@@ -1,5 +1,5 @@
 .box-form {
-    max-width: 650px;
+    max-width: 500px;
     background: var(--white);
     width: 100%;
     margin: 40px;
@@ -163,3 +163,17 @@ main .alternative1 span::after {
         font-size: 1.8rem;
     }
 }
+/* =======================validator========================= */
+.erroForm {
+    color: red;
+    display: block;
+    font-weight: bolder;
+    width: 100%;
+    font-size: 0.9rem;
+  }
+  
+  .erroInput {
+    border: solid 2px red !important;
+  }
+  
+  /* =======================validator========================= */

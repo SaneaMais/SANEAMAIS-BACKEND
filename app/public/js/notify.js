@@ -1,4 +1,4 @@
-function notify(titulo,  texto, tipo,posicao,duracao=3000) {
+function notify(titulo,  texto, tipo,posicao,duracao=6000) {
     new Notify({
         status: tipo,
         title: titulo,
@@ -12,7 +12,7 @@ function notify(titulo,  texto, tipo,posicao,duracao=3000) {
         gap: 20,
         distance: 20,
         type: 1,
-        position: "right bottom", 
+        position: "center", 
         customWrapper: '',
     })
 }

@@ -1,36 +1,30 @@
 const express = require("express");
 const router = express.Router();
-
-const {
-  verificarUsuAutenticado,
-  limparSessao,
-  gravarUsuAutenticado,
-
-} = require("../models/autenticador_middleware");
-
 const pool = require("../../config/pool_conexoes");
 const usuarioController = require("../controllers/UsuarioController");
 
 router.get("/", function (req, res) {
-  res.render("pages/index", {pagina:"home", logado:null});
+  res.render("pages/index", { pagina: "home", logado: null });
 });
-
+/* --------------------------------------cadastro------------------------------------------------------------------ */
 router.get("/cadastro", function (req, res) {
-  res.render("pages/cadastro/index", { 
-    logado:null,
-    retorno:null,
-    listaErros: null, 
-    dadosNotificacao: null,
-    dados: null,
-    valores: { nome: "", user: "", email: "", senha: "" } });
+  res.render("pages/cadastro/index", {listaErros: null, dadosNotificacao: null, dados: null, pagina: "cadastro", logado: null })
 });
+router.post("/cadastro", usuarioController.regrasValidacao, async function (req, res) {
+  usuarioController.create(req,res)
+});
+/* --------------------------------------cadastro------------------------------------------------------------------ */
 
-router.post('/cadastro', usuarioController.regrasValidacaoFormLogin, function (req, res) {
+
+/* ---------------------------------------login-------------------------------------------------------------------- */
+router.get("/login", function (req, res) {
+  res.render("pages/login/index",{pagina:"login", logado:null, dados: null, listaErros: null, dadosNotificacao: null});
+});
+router.post('/login', usuarioController.regrasValidacaoFormLogin, function (req, res) {
   usuarioController.logar(req, res);
 })
+/* ---------------------------------------login-------------------------------------------------------------------- */
 
-
- 
 router.get("/cadastro/cnpj", function (req, res) {
   res.render("pages/cadastro/cnpj");
 });
@@ -38,15 +32,6 @@ router.get("/cadastro/cnpj", function (req, res) {
 router.get("/esqueceusenha/email", function (req, res) {
   res.render("pages/esqueceusenha/email");
 });
-
-router.get("/login", function (req, res) {
-  res.render("pages/login/index", { listaErros: null, dadosNotificacao: null, dados:null, pagina:"login", logado:null});
-});
-
-router.post('/login', usuarioController.regrasValidacaoFormLogin, function (req, res) {
-  usuarioController.logar(req, res);
-})
-
 
 router.get("/FaleConoco", function (req, res) {
   res.render("pages/FaleConoco/index");
@@ -64,19 +49,20 @@ router.get("/PublicacacaoCONFIG", function (req, res) {
   res.render("pages/Publicacao/Config/index");
 });
 
-router.get("/Publicacao",function (req, res) {
-  res.render("pages/Publicacao/publi/index", { listaErros: null, dadosNotificacao: null, dados:null, logado:null} );
- });
-
-router.post("/Publicacao",usuarioController.regrasValidacaoFormCad, async function (req, res) {limparSessao,
-usuarioController.CriarUsuario(req,res)
+router.get("/publicacao", function (req, res) {
+  const dadosNotificacao = req.session.dadosNotificacao || null;
+  delete req.session.dadosNotificacao; 
+  res.render("pages/Publicacao/publi/index", {
+      listaErros: null,
+      dadosNotificacao: dadosNotificacao,
+      dados: null,
+      pagina: "publicacao",
+      logado: null
+  });
 });
 
 router.get("/PublicacaoPERFIL", function (req, res) {
   res.render("pages/Publicacao/Perfil/index");
 });
 
-
-
 module.exports = router;
-

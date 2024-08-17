@@ -22,20 +22,20 @@ DROP TABLE IF EXISTS `bzudsbddxmqodnzmzk08`.`USUARIOS` ;
 CREATE TABLE IF NOT EXISTS `bzudsbddxmqodnzmzk08`.`USUARIOS` (
   `id_usuario` INT NOT NULL AUTO_INCREMENT,
   `nome_usuario` VARCHAR(45) NOT NULL,
+  `email_usuario` VARCHAR(150) NOT NULL,
+  `user_usuario` VARCHAR(45) NOT NULL,
   `data_nasc_usuario` DATE NOT NULL,
+  `senha_usuario` VARCHAR(512) NOT NULL,
   `foto_usuario` VARCHAR(45) BINARY NULL,
   `cidade_usuario` VARCHAR(45) NOT NULL,
   `logradouro_usuario` VARCHAR(45) NULL,
   `bairro_usuario` VARCHAR(45) NULL,
   `uf_usuario` CHAR(30) NULL,
-  `email_usuario` VARCHAR(150) NOT NULL,
-  `senha_usuario` VARCHAR(512) NOT NULL,
-  `user_usuario` VARCHAR(45) NOT NULL,
   `telefone_usuario` CHAR(11) NULL,
   PRIMARY KEY (`id_usuario`),
   UNIQUE INDEX `idUSUARIOS_UNIQUE` (`id_usuario` ASC) VISIBLE,
   UNIQUE INDEX `email_usuario_UNIQUE` (`email_usuario` ASC) VISIBLE,
-  UNIQUE INDEX `senha_usuario_UNIQUE` (`senha_usuario` ASC) VISIBLE,
+  UNIQUE INDEX `senha_usuario_UNIQUE` (`senha_usuario` ASC) VISIBLE, /* Tem que tirar essa linha */
   UNIQUE INDEX `user_usuario_UNIQUE` (`user_usuario` ASC) VISIBLE,
   UNIQUE INDEX `telefone_usuario_UNIQUE` (`telefone_usuario` ASC) VISIBLE)
 ENGINE = InnoDB;
