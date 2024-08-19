@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const salt = bcrypt.genSaltSync(12);
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const https = require('https');
+const moment = require('moment');
 
 const UsuarioController = {
 
@@ -20,9 +21,14 @@ const UsuarioController = {
                     dadosNotificacao: null
                 });
             }
+            
+            const nascimento = req.body.nasc;
+            const formattedDate = moment(nascimento, 'DD/MM/YYYY').format('YYYY-MM-DD');
+
             try {
                 const resultados = await UsuarioModel.create({
                     ...req.body,
+                    nasc: formattedDate,
                     senha: bcrypt.hashSync(req.body.senha, salt)
                 });
 
@@ -45,10 +51,10 @@ const UsuarioController = {
     regrasValidacao: [
         body("nome")
             .isLength({ min: 3, max: 45 })
-            .withMessage("Nome invalido"),
+            .withMessage("Nome inválido"),
         body("email")
             .isEmail()
-            .withMessage("Email invalido ")
+            .withMessage("Email inválido")
             .custom(async (value) => {
                 const email = await UsuarioModel.findUserEmail(value);
                 if (email.length > 0) {
@@ -68,14 +74,12 @@ const UsuarioController = {
                 return true;
             }),
         body("nasc")
-            .isLength({ min: 10 }).withMessage('Data inválida')
-            .toDate()
-            .withMessage('Data inválida')
             .custom(value => {
-                const birthDate = new Date(value);
-                if (isNaN(birthDate.getTime())) {
+                if (!moment(value, 'DD/MM/YYYY', true).isValid()) {
                     throw new Error('Data de nascimento inválida!');
                 }
+
+                const birthDate = moment(value, 'DD/MM/YYYY').toDate();
                 const today = new Date();
                 let age = today.getFullYear() - birthDate.getFullYear();
                 const monthDiff = today.getMonth() - birthDate.getMonth();
@@ -100,7 +104,7 @@ const UsuarioController = {
             .custom((value, { req }) => {
                 const senha = req.body.senha;
                 if (value != senha) {
-                    throw new Error('Senha diferentes.');
+                    throw new Error('Senhas diferentes.');
                 }
                 return true;
             })
