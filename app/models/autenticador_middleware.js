@@ -32,7 +32,7 @@ gravarUsuAutenticado = async (req, res, next) => {
             ]
         }
 
-        var results = await usuario.findByEmail(req.body.email); 
+        var results = await usuario.findUserEmail(req.body.email); 
         var total = Object.keys(results).length;
         if (total == 1) {
             if (bcrypt.compareSync(req.body.senha, results[0].senha_usuario)) {
@@ -40,7 +40,7 @@ gravarUsuAutenticado = async (req, res, next) => {
                     tipo_autenticacao: 'login',
                     autenticado: results[0].nome_usuario,
                     id: results[0].id_usuario,
-                    tipo: results[0].tipo_usuario
+                    tipo: 1
                 };
             } else {
                 // erro senha incorreta

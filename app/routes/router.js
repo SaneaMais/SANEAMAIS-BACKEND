@@ -53,7 +53,7 @@ router.get("/PublicacacaoCONFIG", function (req, res) {
 router.get("/publicacao", function (req, res) {
   const dadosNotificacao = req.session.dadosNotificacao || null;
   delete req.session.dadosNotificacao; 
-  res.render("pages/Publicacao/publi/index", {
+  res.render("pages/publicacao/publi/index", {
       listaErros: null,
       dadosNotificacao: dadosNotificacao,
       dados: null,

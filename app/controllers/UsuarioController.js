@@ -124,7 +124,7 @@ const UsuarioController = {
         }
         if (req.session.autenticado != null) {
             if (req.session.autenticado.tipo == 1) {
-                res.render("/publicacao", { pagina: "Publicacao", listaErros: null, logado: null, dados: null, dadosNotificacao: { titulo: "success", mensagem: "bem-vindo de volta ", tipo: "success" } })
+                res.render("pages/publicacao/publi/index", { pagina: "Publicacao", listaErros: null, logado: null, dados: null, dadosNotificacao: { titulo: "success", mensagem: "bem-vindo de volta ", tipo: "success" } })
 
             } else if (req.session.autenticado.tipo == 3) {
                 res.render("pages/adm/adm", { listaErros: null, logado: null, pagina: "adm", dados: null, dadosNotificacao: { titulo: "success", mensagem: "bem-vindo adm ", tipo: "success" } });

@@ -27,10 +27,10 @@ const UsuarioModel = {
         }
     },
 
-    findUserEmail: async (email, id) => {
+    findUserEmail: async (email) => {
         try {
             const [rows] = await pool.query(
-                `SELECT * FROM USUARIOS WHERE email_usuario = ? ${id ? 'AND id_usuario != ?' : ''}`, [email, id]
+                `SELECT * FROM USUARIOS WHERE email_usuario = ?  `, [email]
             );
             return rows;
         } catch (error) {
