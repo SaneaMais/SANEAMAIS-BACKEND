@@ -26,11 +26,15 @@ const UsuarioController = {
             const formattedDate = moment(nascimento, 'DD/MM/YYYY').format('YYYY-MM-DD');
 
             try {
-                const resultados = await UsuarioModel.create({
-                    ...req.body,
-                    nasc: formattedDate,
-                    senha: bcrypt.hashSync(req.body.senha, salt)
-                });
+                const resultados = await UsuarioModel.create({...req.body,nasc: formattedDate,senha: bcrypt.hashSync(req.body.senha, salt)});
+
+            //      // Configurar sessão de autenticação
+            // req.session.autenticado = {
+            //     tipo_autenticacao: 'cadastro',
+            //     autenticado: req.body.nome,
+            //     id: resultados.insertId, // Ou o ID retornado após a criação do usuário
+            //     tipo: 1 // Ajuste de acordo com o tipo do usuário recém-criado
+            // };
 
                 req.session.dadosNotificacao = {
                     titulo: "Enviado",
@@ -118,6 +122,18 @@ const UsuarioController = {
         if (!erros.isEmpty()) {
             return res.render("pages/login/index", { pagina: "login", dados: req.body, listaErros: erros, logado: null, dadosNotificacao: null })
         }
+        if (req.session.autenticado != null) {
+            if (req.session.autenticado.tipo == 1) {
+                res.render("/publicacao", { pagina: "Publicacao", listaErros: null, logado: null, dados: null, dadosNotificacao: { titulo: "success", mensagem: "bem-vindo de volta ", tipo: "success" } })
+
+            } else if (req.session.autenticado.tipo == 3) {
+                res.render("pages/adm/adm", { listaErros: null, logado: null, pagina: "adm", dados: null, dadosNotificacao: { titulo: "success", mensagem: "bem-vindo adm ", tipo: "success" } });
+            } else {
+                res.render("pages/login/index", { listaErros: null, logado: null, dados: null, dadosNotificacao: { titulo: "error", mensagem: "Usuário não permitido", tipo: "erros" } })
+            }
+        } else {
+            res.render("pages/login/index", { listaErros: null, dados: null, logado: null, dadosNotificacao: { titulo: "error", mensagem: "Usuário senha invalido ", tipo: "erros" } })
+        }
     },
     regrasValidacaoFormLogin: [
         body("email")
@@ -130,6 +146,20 @@ const UsuarioController = {
             .matches(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/)
             .withMessage("Senha inválida, deve conter pelo menos 1 letra, 1 número e 1 caractere especial"),
     ],
-};
+
+    redirectByType: (req, res) => {
+        const autenticado = req.session.autenticado;
+        if (autenticado.tipo == 1) {
+            res.redirect("/publicacao");
+        } else if (autenticado.tipo == 3) {
+            res.redirect("/adm");
+        } else {
+            res.render("pages/restrito", { autenticado });
+        }
+    }
+
+
+}
 /* --------------------------login----------------------------------------- */
+
 module.exports = UsuarioController;

@@ -25,19 +25,19 @@
   <main>
     <% 
     var msgErro = {email:"", senha:""}
-    var avisoErro = {email:"", senha:""}
+    var cssErro = {email:"", senha:""}
     var cssErroBorda = {email:"", senha:""}
-    let valores = {email:"", senha:""}
+    let valorCampos = {email:"", senha:""}
 
     if(dados && dados!=null){
-        valores = dados
+        valorCampos = dados
     }
 
     if(listaErros){
         listaErros.errors.forEach((itemErro)=>{
            if(itemErro.path == "email"){
                 msgErro.email = itemErro.msg
-                avisoErro.email = "erroForm"
+                cssErro.email = "erroForm"
                 cssErroBorda.email = "erroInput"
                 %>
                 <script>notify('Verifique o campo email', '<%= msgErro.email %>', 'error'  )</script>
@@ -45,7 +45,7 @@
                 
             } else if(itemErro.path == "senha"){
                 msgErro.senha = itemErro.msg
-                avisoErro.senha = "erroForm"
+                cssErro.senha = "erroForm"
                 cssErroBorda.senha = "erroInput"
                 %>
                 <script>notify('Verifique o campo senha', '<%= msgErro.senha %>', 'error'  )</script>
@@ -65,16 +65,18 @@
 
 
             <label id="labelEmail" for="email">E-mail <span>*</span> </label>
-            <input type="email" placeholder="Digite seu email ou nome de usuário" value="<%=valores.email%>" name="email"  class="<%= cssErroBorda.email %>">
-            <span class="<%= avisoErro.email %>"><%= msgErro.email %></span>
+            <input type="email" name="email" id="email" placeholder = "Seu e-mail" value="<%=valorCampos.email%>"  class="<%= cssErroBorda.email %>">
+            <span class="<%= cssErro.email %>"><%= msgErro.email %></span>
+
 
           <article class="form-input">
             <article class="input__wrapper">
               <p id="messageSenha"></p>
               <img alt="Eye Icon" title="Eye Icon" src="../../img/Login/eye-off.svg" class="input__icon">
               <label id="labelSenha" for="senha">Senha<span>*</span> </label>
-              <input type="password" placeholder="Senha"  maxlength="25" value="<%=valores.senha%>" id="password" name="senha" class="<%= cssErroBorda.senha %>" autocomplete="off">
-                 <span class="<%= avisoErro.senha %>"><%= msgErro.senha %></span>
+              <input type="password" name="senha" id="password" placeholder="senha" maxlength="60" value="<%=valorCampos.senha%>" class="<%= cssErroBorda.senha %>" autocomplete="off">
+              <i id="togglePassword" class="fas fa-eye-slash"></i>
+              <span class="<%= cssErro.senha %>"><%= msgErro.senha %></span>
             </article>
           </article>
 
