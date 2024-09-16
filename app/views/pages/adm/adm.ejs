@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADM</title>
+
+
+      <!-- --------------------------------------notificação----------------------------------------------------------------- -->
+
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+      <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+      <script src="/js/notify.js"></script>
+      <link rel="stylesheet" href="/css/notify.css">
+  
+      <!-- ---------------------------------------------------------------------------------------------------------------->
+
+</head>
+<body>
+    
+    <% if (dadosNotificacao) { %>
+        <script>
+            notify("<%= dadosNotificacao.titulo%>","<%= dadosNotificacao.mensagem%>", "<%= dadosNotificacao.tipo%>", "center")
+            if("<%= dadosNotificacao.tipo %>" == "success"){
+                setTimeout(3000)
+            }                        
+        </script>
+    <% } %>
+    
+
+    <h1>Página ADM </h1>
+</body>
+</html>

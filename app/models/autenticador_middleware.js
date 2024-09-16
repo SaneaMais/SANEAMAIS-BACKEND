@@ -20,11 +20,6 @@ limparSessao = (req, res, next) => {
 gravarUsuAutenticado = async (req, res, next) => {
     erros = validationResult(req)
     if (erros.isEmpty()) {
-        /* var dadosForm = {
-            email_usuario: req.body.email,
-            senha_usuario: req.body.senha,
-        }; 
-        var results = await usuario.findByEmail(dadosForm); */
 
         const errorLogin = {
             errors: [
@@ -32,7 +27,7 @@ gravarUsuAutenticado = async (req, res, next) => {
             ]
         }
 
-        var results = await usuario.findUserEmail(req.body.email); 
+        var results = await usuario.findByEmail(req.body.email); 
         var total = Object.keys(results).length;
         if (total == 1) {
             if (bcrypt.compareSync(req.body.senha, results[0].senha_usuario)) {
@@ -40,7 +35,7 @@ gravarUsuAutenticado = async (req, res, next) => {
                     tipo_autenticacao: 'login',
                     autenticado: results[0].nome_usuario,
                     id: results[0].id_usuario,
-                    tipo: 1
+                    tipo: results[0].tipo_usuario_id
                 };
             } else {
                 // erro senha incorreta
@@ -64,8 +59,8 @@ gravarUsuAutenticadoCadastro = (req, res, next) => {
         var autenticado = {
             tipo_autenticacao: 'cadastro',
             autenticado: req.body.nome,
-            // id: results[0].id_usuario,
-            tipo: req.body.type
+           /* id: results[0].id_usuario, */
+            tipo: req.body.tipo_usuario_id
         }
     }
     req.session.autenticado = autenticado

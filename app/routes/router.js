@@ -11,17 +11,16 @@ router.get("/", function (req, res) {
 router.get("/cadastro", function (req, res) {
   res.render("pages/cadastro/index", {listaErros: null, dadosNotificacao: null, dados: null, pagina: "cadastro", logado: null })
 });
-router.post("/cadastro", usuarioController.regrasValidacao, gravarUsuAutenticadoCadastro, async function (req, res) {
+router.post("/cadastro", usuarioController.regrasValidacao,gravarUsuAutenticadoCadastro ,async function (req, res) {
   usuarioController.create(req,res)
 });
 /* --------------------------------------cadastro------------------------------------------------------------------ */
-
 
 /* ---------------------------------------login-------------------------------------------------------------------- */
 router.get("/login", function (req, res) {
   res.render("pages/login/index",{pagina:"login", logado:null, dados: null, listaErros: null, dadosNotificacao: null});
 });
-router.post('/login', usuarioController.regrasValidacaoFormLogin,gravarUsuAutenticado, function (req, res) {
+router.post('/login', usuarioController.regrasValidacaoFormLogin, gravarUsuAutenticado ,function (req, res) {
   usuarioController.logar(req, res);
 })
 /* ---------------------------------------login-------------------------------------------------------------------- */
@@ -75,7 +74,10 @@ router.get('/verificar-autenticacao', verificarUsuAutorizado([1, 3], 'pages/rest
 })
 /* ======================================adm==================================================================*/
 router.get("/adm", verificarUsuAutorizado([3], 'pages/restrito'), function (req, res) {
-  res.render("pages/adm/adm", {dadosNotificacao:null, logado:null, autenticado: req.session.autenticado});
+  const dadosNotificacao = req.session.dadosNotificacao || null;
+  delete req.session.dadosNotificacao; 
+
+  res.render("pages/adm/adm", {dadosNotificacao:dadosNotificacao, logado:null, autenticado: req.session.autenticado});
 })
 
 module.exports = router;

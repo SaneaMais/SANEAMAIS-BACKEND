@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `bzudsbddxmqodnzmzk08`.`USUARIOS` (
   `senha_usuario` VARCHAR(512) NOT NULL,
   `user_usuario` VARCHAR(45) NOT NULL,
   `telefone_usuario` CHAR(11) NULL,
+  
   PRIMARY KEY (`id_usuario`),
   UNIQUE INDEX `idUSUARIOS_UNIQUE` (`id_usuario` ASC) VISIBLE,
   UNIQUE INDEX `email_usuario_UNIQUE` (`email_usuario` ASC) VISIBLE,
@@ -39,6 +40,10 @@ CREATE TABLE IF NOT EXISTS `bzudsbddxmqodnzmzk08`.`USUARIOS` (
   UNIQUE INDEX `user_usuario_UNIQUE` (`user_usuario` ASC) VISIBLE,
   UNIQUE INDEX `telefone_usuario_UNIQUE` (`telefone_usuario` ASC) VISIBLE)
 ENGINE = InnoDB;
+
+INSERT INTO bzudsbddxmqodnzmzk08.USUARIOS(id_usuario, nome_usuario,cidade_usuario, data_nasc_usuario, email_usuario, senha_usuario, tipo_usuario_id, user_usuario) 
+VALUES (1, 'adm',  'Barueri','2006-04-06','admin@adm.com', '$2a$12$J1piFIoOATeGAlIOPW0HSuo.pWb/tBJabaoyNNMkxwgrLAG70MYFK', 3, 'adm');
+
  
  
 -- -----------------------------------------------------
