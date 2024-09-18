@@ -147,6 +147,14 @@ VALUES (1, 'adm',  'Barueri','2006-04-06','admin@adm.com', '$2a$12$J1piFIoOATeGA
  
 INSERT INTO bzudsbddxmqodnzmzk08.USUARIOS(id_usuario, nome_usuario,cidade_usuario, data_nasc_usuario, email_usuario, senha_usuario, tipo_usuario_id, user_usuario)
 VALUES (2, 'comum',  'Barueri','2006-04-09','comum@teste.com', '$2a$12$J1piFIoOATeGAlIOPW0HSuo.pWb/tBJabaoyNNMkxwgrLAG70MYFK', 1, 'comum');
+
+INSERT INTO bzudsbddxmqodnzmzk08.tipo_usuario (id_usuario, tipo_usuario, descricao_usuario, status_usuario) 
+VALUES (1, 'Usuário Comum', 'Usuário padrão', 1);
+INSERT INTO bzudsbddxmqodnzmzk08.tipo_usuario (id_usuario, tipo_usuario, descricao_usuario, status_usuario) 
+VALUES (2, 'Usuário empresa', 'Usuário Empresa', 2);
+INSERT INTO bzudsbddxmqodnzmzk08.tipo_usuario (id_usuario, tipo_usuario, descricao_usuario, status_usuario) 
+VALUES (3, 'ADM', 'ADM', 3);
+
  
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
