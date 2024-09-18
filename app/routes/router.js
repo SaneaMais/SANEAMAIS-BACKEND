@@ -5,7 +5,7 @@ const usuarioController = require("../controllers/UsuarioController");
 const {gravarUsuAutenticado, gravarUsuAutenticadoCadastro, limparSessao, verificarUsuAutorizado} = require('../models/autenticador_middleware');
 
 router.get("/", function (req, res) {
-  res.render("pages/index", { pagina: "home", logado: null });
+  res.render("pages/index", { pagina: "home", logado: null, autenticado: req.session.autenticado });
 });
 /* --------------------------------------cadastro------------------------------------------------------------------ */
 router.get("/cadastro", function (req, res) {
@@ -25,31 +25,31 @@ router.post('/login', usuarioController.regrasValidacaoFormLogin, gravarUsuAuten
 })
 /* ---------------------------------------login-------------------------------------------------------------------- */
 
-router.get("/cadastro/cnpj", function (req, res) {
-  res.render("pages/cadastro/cnpj");
+router.get("/cadastro/cnpj",verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
+  res.render("pages/cadastro/cnpj",{autenticado: req.session.autenticado});
 });
 
-router.get("/esqueceusenha/email", function (req, res) {
-  res.render("pages/esqueceusenha/email");
+router.get("/esqueceusenha/email",verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
+  res.render("pages/esqueceusenha/email",{autenticado: req.session.autenticado});
 });
 
-router.get("/FaleConoco", function (req, res) {
-  res.render("pages/FaleConoco/index");
+router.get("/FaleConoco", verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
+  res.render("pages/FaleConoco/index", {autenticado: req.session.autenticado});
 });
 
-router.get("/Servico", function (req, res) {
-  res.render("pages/Servico/index");
+router.get("/Servico", verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
+  res.render("pages/Servico/index", {autenticado: req.session.autenticado});
 });
 
-router.get("/Sobre", function (req, res) {
-  res.render("pages/Sobre/sobre");
+router.get("/Sobre",verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
+  res.render("pages/Sobre/sobre", {autenticado: req.session.autenticado});
 });
 
-router.get("/PublicacacaoCONFIG", function (req, res) {
-  res.render("pages/Publicacao/Config/index");
+router.get("/PublicacacaoCONFIG",verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
+  res.render("pages/Publicacao/Config/index",{autenticado: req.session.autenticado});
 });
 
-router.get("/publicacao", function (req, res) {
+router.get("/publicacao", verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
   const dadosNotificacao = req.session.dadosNotificacao || null;
   delete req.session.dadosNotificacao; 
   res.render("pages/publicacao/publi/index", {
@@ -57,12 +57,13 @@ router.get("/publicacao", function (req, res) {
       dadosNotificacao: dadosNotificacao,
       dados: null,
       pagina: "publicacao",
-      logado: null
+      logado: null,
+      autenticado: req.session.autenticado
   });
 });
 
-router.get("/PublicacaoPERFIL", function (req, res) {
-  res.render("pages/Publicacao/Perfil/index");
+router.get("/PublicacaoPERFIL" , verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
+  res.render("pages/Publicacao/Perfil/index", {autenticado: req.session.autenticado});
 });
 
 /* =========================================autenticaão===================================================== */
