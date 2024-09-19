@@ -12,6 +12,7 @@
       <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
       <script src="/js/notify.js"></script>
       <link rel="stylesheet" href="/css/notify.css">
+      <link rel="stylesheet" href="../../CSS/adm.css">
   
       <!-- ---------------------------------------------------------------------------------------------------------------->
 
@@ -27,7 +28,70 @@
         </script>
     <% } %>
     
+    <div class="container">
+        <!-- Sidebar (navegacao lateral )-->
+        <nav class="sidebar">
+            <h2>Admin</h2>
+            <ul>
+                <li><a href="#">Usuários</a></li>
+                <li><a href="#">Publicações</a></li>
+                <li><a href="/login">Sair</a></li>
+            </ul>
+        </nav>
 
-    <h1>Página ADM </h1>
+        <!-- Main Content -->
+        <main>
+            <header>
+                <h1>Painel de Administração</h1>
+            </header>
+
+            <!-- Metrics Section (numeros gerais) -->
+            <section class="metrics">
+                <div class="metric">
+                    <span class="metric-value">150</span>
+                    <span class="metric-title">Usuários</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-value">350</span>
+                    <span class="metric-title">Publicações</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-value">5</span>
+                    <span class="metric-title">Administradores</span>
+                </div>
+            </section>
+
+            <!-- User Data Table -->
+            <section class="user-data">
+                <h2>Usuários Cadastrados</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Função</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>João Silva</td>
+                            <td>joao@example.com</td>
+                            <td>Usuário</td>
+                            <td><button class="btn-primary">Editar</button> <button class="btn-danger">Remover</button></td>
+                        </tr>
+                        <tr>
+                            <td>Maria Souza</td>
+                            <td>maria@example.com</td>
+                            <td>Administrador</td>
+                            <td><button class="btn-primary">Editar</button> <button class="btn-danger">Remover</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+    
 </body>
 </html>
+   
