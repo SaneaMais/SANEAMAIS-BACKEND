@@ -55,40 +55,12 @@ main {
     padding: 20px;
 }
 
-header h1 {
-    margin-bottom: 20px;
-}
 
-/* Metrics */
-.metrics {
-    display: flex;
-    justify-content: space-around; /* Altera o espaçamento entre as caixas */
-    margin-bottom: 20px;
-    gap: 10px; /* Define o espaço entre as caixas */
-}
 
-.metric {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    flex: 1; /* Faz com que as caixas tenham o mesmo tamanho */
-}
-
-.metric-value {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-}
-
-.metric-title {
-    font-size: 14px;
-    color: #777;
-}
 /* User Data Table */
 .user-data h2 {
     margin-bottom: 30px;
+    text-align: center;
 }
 
 table {
