@@ -28,52 +28,70 @@
         </script>
     <% } %>
     
-    <div class="container">
-        <!-- Sidebar (navegacao lateral )-->
-        <nav class="sidebar">
-            <h2>Admin</h2>
-            <ul>
-                <li><a href="#">Usuários</a></li>
-                <li><a href="#">Publicações</a></li>
-                <li><a href="/login">Sair</a></li>
-            </ul>
-        </nav>
-
-        <!-- Main Content -->
-        <main>
-        
-
-            <!-- User Data Table -->
-            <section class="user-data">
-                <h2>Usuários Cadastrados</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Email</th>
-                            <th>Função</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>João Silva</td>
-                            <td>joao@example.com</td>
-                            <td>Usuário</td>
-                            <td><button class="btn-primary">Editar</button> <button class="btn-danger">Remover</button></td>
-                        </tr>
-                        <tr>
-                            <td>Maria Souza</td>
-                            <td>maria@example.com</td>
-                            <td>Administrador</td>
-                            <td><button class="btn-primary">Editar</button> <button class="btn-danger">Remover</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-        </main>
-    </div>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin - Usuários</title>
+        <link rel="stylesheet" href="../../CSS/adm.css">
+        <!-- Link para estilos e scripts adicionais -->
+    </head>
+    <body>
+        <div class="container">
+            <nav class="sidebar">
+                <h2>Admin</h2>
+                <ul>
+                    <li><a href="#">Usuários</a></li>
+                    <li><a href="#">Publicações</a></li>
+                    <li><a href="/login">Sair</a></li>
+                </ul>
+            </nav>
     
-</body>
-</html>
-   
+            <main>
+                <section class="user-data">
+                    <h2>Usuários Cadastrados</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Função</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% users.forEach(usuario => { %>
+                                <tr>
+                                    <td><%= usuario.nome %></td>
+                                    <td><%= usuario.email %></td>
+                                    <td><%= usuario.funcao %></td>
+                                    <td>
+                                        <button class="btn-primary">Editar</button>
+                                        <form action="/adm/excluir/<%= usuario.id_usuario %>" method="POST" style="display:inline;">
+                                            <button type="submit" class="btn-danger">Remover</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+    
+                    <% if (paginador) { %>
+                        <div class="paginacao">
+                            <% if (paginador.pagina_atual > 1) { %>
+                                <a href="/adm?pagina=<%= paginador.pagina_atual - 1 %>">Anterior</a>
+                            <% } %>
+                            <span>Página <%= paginador.pagina_atual %> de <%= paginador.total_paginas %></span>
+                            <% if (paginador.pagina_atual < paginador.total_paginas) { %>
+                                <a href="/adm?pagina=<%= paginador.pagina_atual + 1 %>">Próxima</a>
+                            <% } %>
+                        </div>
+                    <% } %>
+                </section>
+            </main>
+        </div>
+    
+    </body>
+    </html>
+    
