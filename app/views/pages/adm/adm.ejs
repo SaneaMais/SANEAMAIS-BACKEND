@@ -5,93 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADM</title>
 
-
-      <!-- --------------------------------------notificação----------------------------------------------------------------- -->
-
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
-      <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
-      <script src="/js/notify.js"></script>
-      <link rel="stylesheet" href="/css/notify.css">
-      <link rel="stylesheet" href="../../CSS/adm.css">
-  
-      <!-- ---------------------------------------------------------------------------------------------------------------->
-
+    <!-- --------------------------------------notificação----------------------------------------------------------------- -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+    <script src="/js/notify.js"></script>
+    <link rel="stylesheet" href="/css/notify.css">
+    <link rel="stylesheet" href="../../CSS/adm.css">
+    <!-- ---------------------------------------------------------------------------------------------------------------->
 </head>
 <body>
-    
+
     <% if (dadosNotificacao) { %>
         <script>
-            notify("<%= dadosNotificacao.titulo%>","<%= dadosNotificacao.mensagem%>", "<%= dadosNotificacao.tipo%>", "center")
-            if("<%= dadosNotificacao.tipo %>" == "success"){
-                setTimeout(3000)
+            notify("<%= dadosNotificacao.titulo %>", "<%= dadosNotificacao.mensagem %>", "<%= dadosNotificacao.tipo %>", "center");
+            if ("<%= dadosNotificacao.tipo %>" === "success") {
+                setTimeout(() => {
+                    location.reload();
+                }, 3000);
             }                        
         </script>
     <% } %>
-    
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Admin - Usuários</title>
-        <link rel="stylesheet" href="../../CSS/adm.css">
-        <!-- Link para estilos e scripts adicionais -->
-    </head>
-    <body>
-        <div class="container">
-            <nav class="sidebar">
-                <h2>Admin</h2>
-                <ul>
-                    <li><a href="#">Usuários</a></li>
-                    <li><a href="#">Publicações</a></li>
-                    <li><a href="/login">Sair</a></li>
-                </ul>
-            </nav>
-    
-            <main>
-                <section class="user-data">
-                    <h2>Usuários Cadastrados</h2>
-                    <table>
-                        <thead>
+
+    <div class="container">
+        <!-- Sidebar (navegacao lateral )-->
+        <nav class="sidebar">
+            <h2>Admin</h2>
+            <ul>
+                <li><a href="#">Usuários</a></li>
+                <li><a href="#">Publicações</a></li>
+                <li><a href="/login">Sair</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main>
+            <!-- User Data Table -->
+            <section class="user-data">
+                <h2>Usuários Cadastrados</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Função</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% usuarios.forEach(usuario => { %>
                             <tr>
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>Função</th>
-                                <th>Ações</th>
+                                <td><%= usuario.nome_usuario %></td>
+                                <td><%= usuario.email_usuario %></td>
+                                <td><%= usuario.tipo_usuario_id === 1 ? 'Administrador' : 'Usuário' %></td>
+                                <td>
+                                    <button class="btn-danger" onclick="removerUsuario(<%= usuario.id_usuario %>)">Remover</button>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <% users.forEach(usuario => { %>
-                                <tr>
-                                    <td><%= usuario.nome %></td>
-                                    <td><%= usuario.email %></td>
-                                    <td><%= usuario.funcao %></td>
-                                    <td>
-                                        <button class="btn-primary">Editar</button>
-                                        <form action="/adm/excluir/<%= usuario.id_usuario %>" method="POST" style="display:inline;">
-                                            <button type="submit" class="btn-danger">Remover</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            <% }) %>
-                        </tbody>
-                    </table>
-    
-                    <% if (paginador) { %>
-                        <div class="paginacao">
-                            <% if (paginador.pagina_atual > 1) { %>
-                                <a href="/adm?pagina=<%= paginador.pagina_atual - 1 %>">Anterior</a>
-                            <% } %>
-                            <span>Página <%= paginador.pagina_atual %> de <%= paginador.total_paginas %></span>
-                            <% if (paginador.pagina_atual < paginador.total_paginas) { %>
-                                <a href="/adm?pagina=<%= paginador.pagina_atual + 1 %>">Próxima</a>
-                            <% } %>
-                        </div>
-                    <% } %>
-                </section>
-            </main>
-        </div>
-    
-    </body>
-    </html>
-    
+                        <% }) %>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function removerUsuario(id) {
+            if (confirm("Tem certeza que deseja remover este usuário?")) {
+                fetch(`/usuario/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert("Usuário removido com sucesso.");
+                        location.reload(); // Recarrega a página para atualizar a lista
+                    } else {
+                        alert("Erro ao remover usuário.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro:", error);
+                    alert("Erro ao remover usuário.");
+                });
+            }
+        }
+    </script>
+</body>
+</html>

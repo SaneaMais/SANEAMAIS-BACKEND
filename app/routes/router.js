@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../../config/pool_conexoes");
 const usuarioController = require("../controllers/UsuarioController");
+const admController = require("../controllers/admController");
 const { gravarUsuAutenticado, gravarUsuAutenticadoCadastro, limparSessao, verificarUsuAutorizado } = require('../models/autenticador_middleware');
 
 router.get("/", function (req, res) {
@@ -74,11 +75,8 @@ router.get('/verificar-autenticacao', verificarUsuAutorizado([1, 3], 'pages/rest
   TarefasControl.redirectByType(req, res)
 })
 /* ======================================adm==================================================================*/
-router.get("/adm", verificarUsuAutorizado([3], 'pages/restrito'), function (req, res) {
-  const dadosNotificacao = req.session.dadosNotificacao || null;
-  delete req.session.dadosNotificacao;
+router.get("/adm", verificarUsuAutorizado([3], 'pages/restrito'), admController.listarUsuarios);
+router.delete("/usuario/:id", verificarUsuAutorizado([3], 'pages/restrito'), admController.removerUsuario);
 
-  res.render("pages/adm/adm", { dadosNotificacao: dadosNotificacao, logado: null, autenticado: req.session.autenticado });
-})
 
 module.exports = router;
