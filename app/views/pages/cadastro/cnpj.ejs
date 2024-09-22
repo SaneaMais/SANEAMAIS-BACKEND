@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -9,8 +6,14 @@
         integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="shortcut icon" href="../../img/MicrosoftTeams-image-removebg-preview.png" tyle="image/ x-icon">
-    <link rel="stylesheet" href="../../CSS/cnpj/style.css">
     <link rel="stylesheet" href="../../CSS/cnpj/cnpj.css">
+    <link rel="stylesheet" href="../../CSS/cnpj/style.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script>
+
+    <script src="js/script.js"></script>
+    <script src="js/Cadastro/script.js"></script>
 
     <title>Cadastro Cnpj</title>
 </head>
@@ -18,7 +21,7 @@
 <body>
     <main>
         <section class="box-form">
-            <form action="../../HTML/Publicacao/publicacao/index.html" id="form">
+            <form action="/cadastro/cnpj" method="post" id="form">
                 <section class="form-content">
                     <h3 class="titulo">Olá seja bem vindo!</h3>
                     <p class="sub-titulo">Estamos muito animados em ter você aqui!</p>
@@ -33,48 +36,27 @@
                         Já tem uma conta?
                         <a href="/login">Entre</a>
                     </p>
-                    <article class="form-input">
-                        <label id="labelEmail" for="email">Email <span>*</span> </label>
-                        <input type="text" placeholder="Digite seu email" id="email">
-                        <small id="textEmail"></small>
+
+                <!-- ---------------------------------------nomeUsuário----------------------------------------------->
+                        <label for="razaosocial">Razão Social <span>*</span></label>
+                        <input type="text" name="razao_social_instituicao" id="razaosocial" placeholder="Razao Social" maxlength="255" required>
                     </article>
-
+                    
                     <article class="form-input">
-                        <label id="labelNumero" for="numero">Número de telefone <span>*</span> </label>
-                        <input type="text" placeholder="Número de telefone" id="numero" maxlength="15">
-                        <small id="textNumero"></small>
+                        <label for="Cnpj">CNPJ <span>*</span></label>
+                        <input type="text" name="cnpj_instituicao" placeholder="__.___.___/____-__" id="Cnpj" maxlength="14" required>
                     </article>
-
+                    
                     <article class="form-input">
-                        <label id="labelNome" for="nome">Nome de usuário <span>*</span> </label>
-                        <input type="text" placeholder="Nome de usuário " id="nome">
-                        <small id="textNome"></small>
+                        <label for="cidade">Cidade <span>*</span></label>
+                        <input type="text" name="cidade" placeholder="Cidade" id="cidade" required>
                     </article>
-
-                    <article class="form-input">
-                        <label id="labelCnpj" for="Cnpj">Cnpj<span>*</span> </label>
-                        <input type="text" placeholder="__.___.___/____-__" id="Cnpj" maxlength="14">
-                        <small id="textCnpj"></small>
+                    
+                    <article class="input__wrapper">
+                        <label for="password">Senha <span>*</span></label>
+                        <input type="password" name="senha" placeholder="Senha" id="password" required>
                     </article>
-
-                    <article class="form-input">
-                        <label id="labelCep" for="cep">Cep <span>*</span> </label>
-                        <input type="text" placeholder="Cep" id="cep" maxlength="9">
-                        <small id="textCep"></small>
-                    </article>
-                    <section class="form-input">
-                        <article class="input__wrapper">
-                            <img alt="Eye Icon" title="Eye Icon" src="../../img/Login/eye-off.svg" class="input__icon">
-                            <label id="labelSenha" for="senha">senha <span>*</span> </label>
-                            <input type="password" placeholder="Senha" id="password" class="input__field"
-                                maxlength="30">
-                            <small id="textPassword"></small>
-                        </article>
-
-                    </section>
-
-                </section>
-
+                    
                 <input type="submit" value="Entrar" id="Entrar">
 
                 <article id='msgError'></article>
@@ -86,8 +68,9 @@
     </form>
     </main>
     <footer></footer>
-    <script src="../../js/cnpj/senhacnpj.js"></script>
-    <script src="../../js/cnpj/cnpj.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="/js/cnpj/senhacnpj.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.7/inputmask.min.js"></script>
 
 </body>

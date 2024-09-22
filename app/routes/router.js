@@ -3,6 +3,7 @@ const router = express.Router();
 const pool = require("../../config/pool_conexoes");
 const usuarioController = require("../controllers/UsuarioController");
 const admController = require("../controllers/admController");
+const InstituController = require('../controllers/InstituController');
 const { gravarUsuAutenticado, gravarUsuAutenticadoCadastro, limparSessao, verificarUsuAutorizado } = require('../models/autenticador_middleware');
 
 router.get("/", function (req, res) {
@@ -26,9 +27,10 @@ router.post('/login', usuarioController.regrasValidacaoFormLogin, gravarUsuAuten
 })
 /* ---------------------------------------login-------------------------------------------------------------------- */
 
-router.get("/cadastro/cnpj", verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
+router.get("/cadastro/cnpj", function (req, res) {
   res.render("pages/cadastro/cnpj", { autenticado: req.session.autenticado });
 });
+router.post("/cadastro/cnpj", InstituController.cadastrar);
 
 router.get("/esqueceusenha/email", verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
   res.render("pages/esqueceusenha/email", { autenticado: req.session.autenticado });
