@@ -27,7 +27,7 @@
     <% } %>
 
     <div class="container">
-        <!-- Sidebar (navegacao lateral )-->
+        <!-- Sidebar (navegacao lateral) -->
         <nav class="sidebar">
             <h2>Admin</h2>
             <ul>
@@ -56,7 +56,15 @@
                             <tr>
                                 <td><%= usuario.nome_usuario %></td>
                                 <td><%= usuario.email_usuario %></td>
-                                <td><%= usuario.tipo_usuario_id === 1 ? 'Administrador' : 'Usuário' %></td>
+                                <td>
+                                    <% if (usuario.tipo_usuario_id === 1) { %>
+                                        Administrador
+                                    <% } else if (usuario.tipo_usuario_id === 2) { %>
+                                        Usuário
+                                    <% } else if (usuario.tipo_usuario_id === 3) { %>
+                                        Empresa
+                                    <% } %>
+                                </td>
                                 <td>
                                     <button class="btn-danger" onclick="removerUsuario(<%= usuario.id_usuario %>)">Remover</button>
                                 </td>
