@@ -58,15 +58,15 @@
                                 <td><%= usuario.email_usuario %></td>
                                 <td>
                                     <% if (usuario.tipo_usuario_id === 1) { %>
-                                        Administrador
-                                    <% } else if (usuario.tipo_usuario_id === 2) { %>
                                         Usuário
-                                    <% } else if (usuario.tipo_usuario_id === 3) { %>
+                                    <% } else if (usuario.tipo_usuario_id === 2) { %>
                                         Empresa
+                                    <% } else if (usuario.tipo_usuario_id === 3) { %>
+                                        Administrador
                                     <% } %>
                                 </td>
                                 <td>
-                                    <button class="btn-danger" onclick="removerUsuario(<%= usuario.id_usuario %>)">Remover</button>
+                                    <button class="btn-danger" onclick="removerUsuario('<%= usuario.id_usuario %>')">Remover</button>
                                 </td>
                             </tr>
                         <% }) %>

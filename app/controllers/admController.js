@@ -21,7 +21,7 @@ const admController = {
     removerUsuario: async (req, res) => {
         const usuarioId = req.params.id; // Obtenha o ID do usuário a ser removido
         try {
-            await admModel.removerUsuario(usuarioId); // Chame o método do modelo
+            await admModel.removerUsuario(usuarioId); 
             res.status(200).json({ message: 'Usuário removido com sucesso.' });
         } catch (error) {
             console.error('Erro ao remover usuário:', error);

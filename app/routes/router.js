@@ -6,6 +6,8 @@ const admController = require("../controllers/admController");
 const InstituController = require('../controllers/InstituController');
 const { gravarUsuAutenticado, gravarUsuAutenticadoCadastro, limparSessao, verificarUsuAutorizado } = require('../models/autenticador_middleware');
 
+const upload = require("../util/uploader")();
+
 router.get("/", function (req, res) {
   res.render("pages/index", { pagina: "home", logado: null, autenticado: req.session.autenticado });
 });
@@ -52,17 +54,13 @@ router.get("/PublicacacaoCONFIG", verificarUsuAutorizado([1, 3], 'pages/restrito
   res.render("pages/Publicacao/Config/index", { autenticado: req.session.autenticado });
 });
 
-router.get("/publicacao", verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
-  const dadosNotificacao = req.session.dadosNotificacao || null;
-  delete req.session.dadosNotificacao;
-  res.render("pages/publicacao/publi/index", {
-    listaErros: null,
-    dadosNotificacao: dadosNotificacao,
-    dados: null,
-    pagina: "publicacao",
-    logado: null,
-    autenticado: req.session.autenticado
-  });
+/* ---------------------------Publicações----------------------------- */
+router.get("/Publicacao", verificarUsuAutenticado, function (req, res) {
+  publiController.buscarPublicacoes(req, res);
+});
+
+router.post("/Publicacao", verificarUsuAutenticado, (req, res) => {
+  publiController.criarPublicacao(req, res);
 });
 
 router.get("/PublicacaoPERFIL", verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
@@ -79,6 +77,12 @@ router.get('/verificar-autenticacao', verificarUsuAutorizado([1, 3], 'pages/rest
 /* ======================================adm==================================================================*/
 router.get("/adm", verificarUsuAutorizado([3], 'pages/restrito'), admController.listarUsuarios);
 router.delete("/usuario/:id", verificarUsuAutorizado([3], 'pages/restrito'), admController.removerUsuario);
+
+
+router.post("/teste", upload("imageInput"), function(req, res){
+  console.log(req.body)
+  console.log(req.file)
+})
 
 
 module.exports = router;
