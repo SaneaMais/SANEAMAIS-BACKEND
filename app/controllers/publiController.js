@@ -10,7 +10,8 @@ exports.criarPublicacao = async (req, res) => {
         return res.status(500).send('Erro no servidor');
     }
 
-    const { comentarios_posts } = req.body;
+    // Capturando os dados do body, incluindo o endereço
+    const { comentarios_posts, endereco_posts } = req.body;
     const USUARIOS_id_usuario1 = req.session.usuarioId;
 
     // Verificando se a imagem foi recebida
@@ -18,12 +19,14 @@ exports.criarPublicacao = async (req, res) => {
 
     console.log('Dados recebidos para criar publicação:', {
         comentarios_posts,
+        endereco_posts,
         USUARIOS_id_usuario1,
         img_posts,
     });
 
     try {
-        await publiModel.create({ comentarios_posts, img_posts, USUARIOS_id_usuario1 });
+        // Passando também o endereço para o modelo
+        await publiModel.create({ comentarios_posts, img_posts, USUARIOS_id_usuario1, endereco_posts });
         return res.redirect("/Publicacao"); 
     } catch (error) {
         console.error('Erro ao criar publicação:', error);

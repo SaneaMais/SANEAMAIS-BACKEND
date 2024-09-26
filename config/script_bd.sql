@@ -1,3 +1,5 @@
+-- MySQL Workbench Forward Engineering
+ 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -61,8 +63,9 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `bzudsbddxmqodnzmzk08`.`POSTS` (
   `id_POSTS` INT NOT NULL AUTO_INCREMENT,
   `comentarios_posts` VARCHAR(255) NULL DEFAULT NULL,
-  `img_posts` BLOB NULL DEFAULT NULL,
+  `img_posts` LONGBLOB NULL DEFAULT NULL,
   `USUARIOS_id_usuario1` INT NOT NULL,
+  `endereco_posts` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_POSTS`),
   UNIQUE INDEX `idPOSTS_UNIQUE` (`id_POSTS` ASC) VISIBLE,
   INDEX `fk_POSTS_USUARIOS1_idx1` (`USUARIOS_id_usuario1` ASC) VISIBLE,
@@ -142,19 +145,6 @@ CREATE TABLE IF NOT EXISTS `bzudsbddxmqodnzmzk08`.`respostas_usu` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
  
- INSERT INTO bzudsbddxmqodnzmzk08.USUARIOS(id_usuario, nome_usuario,cidade_usuario, data_nasc_usuario, email_usuario, senha_usuario, tipo_usuario_id, user_usuario)
-VALUES (1, 'adm',  'Barueri','2006-04-06','admin@adm.com', '$2a$12$J1piFIoOATeGAlIOPW0HSuo.pWb/tBJabaoyNNMkxwgrLAG70MYFK', 3, 'adm');
- 
-INSERT INTO bzudsbddxmqodnzmzk08.USUARIOS(id_usuario, nome_usuario,cidade_usuario, data_nasc_usuario, email_usuario, senha_usuario, tipo_usuario_id, user_usuario)
-VALUES (2, 'comum',  'Barueri','2006-04-09','comum@teste.com', '$2a$12$J1piFIoOATeGAlIOPW0HSuo.pWb/tBJabaoyNNMkxwgrLAG70MYFK', 1, 'comum');
-
-INSERT INTO bzudsbddxmqodnzmzk08.tipo_usuario (id_usuario, tipo_usuario, descricao_usuario, status_usuario) 
-VALUES (1, 'Usuário Comum', 'Usuário padrão', 1);
-INSERT INTO bzudsbddxmqodnzmzk08.tipo_usuario (id_usuario, tipo_usuario, descricao_usuario, status_usuario) 
-VALUES (2, 'Usuário empresa', 'Usuário Empresa', 2);
-INSERT INTO bzudsbddxmqodnzmzk08.tipo_usuario (id_usuario, tipo_usuario, descricao_usuario, status_usuario) 
-VALUES (3, 'ADM', 'ADM', 3);
-
  
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

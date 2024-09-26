@@ -1,29 +1,28 @@
 const pool = require("../../config/pool_conexoes");
 
 const publiModel = {
-    create: async(data) => {
+    create: async (data) => {
         const query = `
-            INSERT INTO POSTS (comentarios_posts, img_posts, USUARIOS_id_usuario1) 
-            VALUES (?, ?, ?)`;
-            try {
-                const [results] = await pool.query(query, [data.comentarios_posts, data.img_posts, data.USUARIOS_id_usuario1]);
-                return results.insertId;
-            } catch (err) {
-                throw err; 
-            }
-        },
+            INSERT INTO POSTS (comentarios_posts, img_posts, USUARIOS_id_usuario1, endereco_posts) 
+            VALUES (?, ?, ?, ?)`;
+        try {
+            const [results] = await pool.query(query, [data.comentarios_posts, data.img_posts, data.USUARIOS_id_usuario1, data.endereco_posts]);
+            return results.insertId;
+        } catch (err) {
+            throw err;
+        }
+    },
 
-    findAll: async() => {
+    findAll: async () => {
         const query = 'SELECT * FROM POSTS ORDER BY id_POSTS DESC';
-        
+
         try {
             const [results] = await pool.query(query);
             return results;
         } catch (err) {
-            throw err; 
+            throw err;
         }
     }
 };
-
 
 module.exports = publiModel;
