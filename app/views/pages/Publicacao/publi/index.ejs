@@ -146,7 +146,7 @@
                         <!-- As publicações vão aparecer aqui -->
                     </div>
                 </section>
-            <form action="/teste" method="post" enctype="multipart/form-data">
+            <form action="/publicacao" method="post" enctype="multipart/form-data">
                 <div id="myModal" class="modal">
                     <div class="modal-content">
                         <div>
@@ -179,12 +179,11 @@
                             </div>
                             <div class="form-publicacao">
                                 <p>Descrição do ocorrido</p>
-                                <textarea id="descricao" rows="4" placeholder="Descrição" name="descricao" required></textarea>
+                                <textarea id="descricao" rows="4" placeholder="Descrição" name="comentarios_posts" required></textarea> 
                                 <div class="error-message" id="descricaoError" style="display: none;">Campo obrigatório</div>
-            
-                                <p>Endereço</p>
-                                <input type="text" id="endereco" placeholder="Endereço"  name="endereco"  required>
-                                <div class="error-message" id="enderecoError" style="display: none;">Campo obrigatório</div>
+
+                                <input type="text" id="endereco" placeholder="Endereço" name="endereco" required> <!-- Mudei aqui -->
+                    <div class="error-message" id="enderecoError" style="display: none;">Campo obrigatório</div>
                             </div>
                         </div>
                     </div>
@@ -281,7 +280,7 @@
                             modalContinua.style.display = "flex";
                         }
                     }
-            /*
+            
                     publishBtn.onclick = function () {
                         var isValid = true;
             
@@ -343,7 +342,7 @@
             
                         publicacoesArea.insertBefore(publicacaoDiv, publicacoesArea.firstChild); // Insere no topo
                     }
-            */
+            
                     backBtn.onclick = function () {
                         confirmModal.style.display = "flex";
                     }

@@ -3,7 +3,8 @@ const router = express.Router();
 const pool = require("../../config/pool_conexoes");
 const usuarioController = require("../controllers/UsuarioController");
 const admController = require("../controllers/admController");
-const InstituController = require('../controllers/InstituController');
+const InstituController = require("../controllers/InstituController");
+const publiController = require("../controllers/publiController");
 const { gravarUsuAutenticado, gravarUsuAutenticadoCadastro, limparSessao, verificarUsuAutorizado } = require('../models/autenticador_middleware');
 
 const upload = require("../util/uploader")();
@@ -55,13 +56,31 @@ router.get("/PublicacacaoCONFIG", verificarUsuAutorizado([1, 3], 'pages/restrito
 });
 
 /* ---------------------------Publicações----------------------------- */
-router.get("/Publicacao", verificarUsuAutenticado, function (req, res) {
-  publiController.buscarPublicacoes(req, res);
+router.get("/publicacao", verificarUsuAutorizado([1, 3], 'pages/restrito'), async (req, res) => {
+  const dadosNotificacao = req.session.dadosNotificacao || null;
+  delete req.session.dadosNotificacao;
+
+  try {
+      const posts = await publiController.buscarPublicacoes(req); // Altere aqui
+      return res.render('pages/publicacao/publi/index', {
+          listaErros: null,
+          dadosNotificacao: dadosNotificacao,
+          dados: posts, // Passa as publicações para a renderização
+          pagina: 'publicacao',
+          logado: req.session.autenticado,
+          autenticado: req.session.autenticado,
+      });
+  } catch (error) {
+      console.error('Erro ao buscar publicações:', error);
+      return res.status(500).send('Erro ao buscar publicações');
+  }
 });
 
-router.post("/Publicacao", verificarUsuAutenticado, (req, res) => {
-  publiController.criarPublicacao(req, res);
+router.post("/publicacao", upload('imageInput'), async (req, res) => {
+  await publiController.criarPublicacao(req, res);
 });
+/* ---------------------------Publicações----------------------------- */
+
 
 router.get("/PublicacaoPERFIL", verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
   res.render("pages/Publicacao/Perfil/index", { autenticado: req.session.autenticado });
@@ -79,10 +98,6 @@ router.get("/adm", verificarUsuAutorizado([3], 'pages/restrito'), admController.
 router.delete("/usuario/:id", verificarUsuAutorizado([3], 'pages/restrito'), admController.removerUsuario);
 
 
-router.post("/teste", upload("imageInput"), function(req, res){
-  console.log(req.body)
-  console.log(req.file)
-})
 
 
 module.exports = router;

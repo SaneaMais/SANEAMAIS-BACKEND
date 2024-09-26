@@ -1,50 +1,44 @@
 const { body, validationResult } = require("express-validator");
-const bcrypt = require("bcryptjs");
-const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
-const https = require('https');
-const moment = require('moment');
-
 const publiModel = require("../models/publiModel");
 
 // Função para criar uma nova publicação
-exports.criarPublicacao = (req, res) => {
+exports.criarPublicacao = async (req, res) => {
+    console.log('req:', req);
+    console.log('res:', res);
+    if (!req || !res) {
+        console.error('Requisição ou resposta indefinida');
+        return res.status(500).send('Erro no servidor');
+    }
+
     const { comentarios_posts } = req.body;
     const USUARIOS_id_usuario1 = req.session.usuarioId;
+
+    // Verificando se a imagem foi recebida
+    const img_posts = req.file ? req.file.buffer : null; // Armazena a imagem como BLOB
 
     console.log('Dados recebidos para criar publicação:', {
         comentarios_posts,
         USUARIOS_id_usuario1,
         img_posts,
     });
-    
-  
-    publiModel.create({ comentarios_posts, USUARIOS_id_usuario1})
-        .then(() => {
-            res.redirect("Publicacao"); 
-        })
-        .catch(error => {
-            console.error(error);
-            res.status(500).send('Erro ao criar publicação');
-        });
-};
 
-// Função para buscar todas as publicações e exibir no feed
-exports.buscarPublicacoes = async (req, res, next) => {
     try {
-        const posts = await publiModel.findAll();
-        console.log('Posts encontrados:', posts); // Verifique o valor de `posts`
-        // req.posts = posts; 
-        res.render("pages/Publicacao/publi/index", { 
-            listaErros: null,
-            pagina: "Publicacao",
-            dadosNotificacao:null,
-            logado: req.session.autenticado,
-            posts: posts 
-          });
+        await publiModel.create({ comentarios_posts, img_posts, USUARIOS_id_usuario1 });
+        return res.redirect("/Publicacao"); 
     } catch (error) {
-        console.error('Erro ao buscar publicações:', error);
-        req.posts = []; // Define como array vazio em caso de erro
-        
+        console.error('Erro ao criar publicação:', error);
+        return res.status(500).send('Erro ao criar publicação');
     }
 };
 
+// Função para buscar todas as publicações e exibir no feed
+exports.buscarPublicacoes = async (req) => {
+    try {
+        const posts = await publiModel.findAll();
+        console.log('Posts encontrados:', posts); // Verifique o valor de `posts`
+        return posts; // Retorne os posts em vez de renderizar
+    } catch (error) {
+        console.error('Erro ao buscar publicações:', error);
+        throw error; 
+    }
+};
