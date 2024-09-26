@@ -7,9 +7,8 @@
     <title>SaneaMais</title>
     <!--iconscout cdn-->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
-        rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="shortcut icon" href="../../../img/MicrosoftTeams-image-removebg-preview.png" tyle="image/ x-icon">
 
     <!--stylesheet-->
@@ -29,7 +28,7 @@
 
 </head>
 
-<body>
+<body class="vertical-line">
 
     <% if (dadosNotificacao) { %>
         <script>
@@ -78,6 +77,7 @@
             </section>
         </section>
     </nav>
+    
 
     <!-------main------------>
     <main>
@@ -103,9 +103,6 @@
                         <span><i class="uil uil-home"></i></span>
                         <h3>Home</h3>
                     </a>
-
-
-                    
                     <a href="/PublicacaoPERFIL" class="menu-item active">
                         <span><i class="uil uil-user-circle"></i></span>
                         <h3>Perfil</h3>
@@ -115,18 +112,21 @@
                         <h3>Configurações</h3>
                     </a>
              </section>
+
+           
+
                 <!------------------ FINAL SIDEBAR-------------------------->
-                <label for="create-post" class="btn btn-primary">Faça sua denúncia</label>
+                <button class="open-modal">Denunciar</button>
             </section>
             <!------------------ END OF LEFT-------------------------->
-
-
+            
+          <h2 class="feed-title">Feed <hr class="horizontal-line"></h2>
 
 
             <!-----------MIDDLE------------------------->
-            <section class="middle">
+            <!-- <section class="middle"> -->
                 <!------------------ STORIES-------------------------->
-                <form class="create-post">
+                <!-- <form class="create-post">
                     <article class="profile-photo">
                         <img src="../../../img/NovoPerfil/profile-2.png">
                     </article>
@@ -134,11 +134,11 @@
                     <input type="submit" value="Postar" class="btn btn-primary">
                 </form>
 
-                </section>
+                </section> -->
      <!------------------ STORIES-------------------------->
 
      <!------------------ PUBLICACAO-------------------------->
-                <button class="open-modal">Fazer uma publicação</button>
+                
 
                 <!-- Área de publicações -->
                 <section class="flex">
@@ -310,7 +310,7 @@
                                 loadingModal.style.display = "none"; // Esconde o modal de carregamento
                                 modalContinua.style.display = "none"; // Fecha o modal de continuação
                                 resetModals(); // Reseta os modais após publicar
-                            }, 6000); // Simula um delay de 6 segundos
+                            },6000); // Simula um delay de 6 segundos
                         }
                     }
             
@@ -320,10 +320,26 @@
                         publicacaoDiv.classList.add("publicacao");
             
                         publicacaoDiv.innerHTML = `
-                            <img src="${imagem}" alt="Imagem da publicação">
-                            <p><strong>Descrição:</strong> ${descricao}</p>
-                            <p><strong>Endereço:</strong> ${endereco}</p>
-                        `;
+    <div class="post-container">
+        <div class="post-header">
+            <img src="../../../img/NovoPerfil/profile-2.png" alt="Foto de Perfil" class="post-img">
+            <div class="post-user-details">
+                <span class="post-user-name">nome_de_usuario</span>
+                <span class="post-user-handle">@usuario</span>
+                <span class="post-endereco">${endereco}</span>
+            </div>
+        </div>
+        <p>${descricao}</p>
+        <img src="${imagem}" alt="Imagem da publicação" class="post-img-publicacao">
+         <div class="post-actions">
+                <a href="#" class="comment-btn"><i class="far fa-comment"></i></a>
+               <a href="#" class="like-btn"><i class="far fa-heart"></i></a>
+                
+            </div>
+    </div>
+   
+`;
+
             
                         publicacoesArea.insertBefore(publicacaoDiv, publicacoesArea.firstChild); // Insere no topo
                     }

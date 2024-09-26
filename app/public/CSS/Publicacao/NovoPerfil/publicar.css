@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2? family= Poppins:wght@300;400;500;600 & display=swap');
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .modal {
@@ -12,6 +14,7 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
+    z-index: 2;
 }
 
 .modal-content {
@@ -28,19 +31,19 @@ body {
 }
 
 .close {
-    background-color: red;
+    background-color: rgb(221, 223, 231);
     color: white;
     border: none;
     padding: 10px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 15px;
     position: absolute;
     top: 10px;
     left: 10px;
 }
 
 .next {
-    background-color: black;
+    background-color: rgb(13, 13, 88);
     color: white;
     border: none;
     padding: 10px;
@@ -58,11 +61,14 @@ body {
 
 .open-modal {
     padding: 10px 20px;
-    background-color: blue;
+    background-color: rgb(13, 13, 88);
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 15px;
+    margin:30px;
+    height: 60px;
+    width: 200px;
 }
 
 .ContainerPublic {
@@ -76,7 +82,7 @@ body {
 }
 
 .select-image-btn {
-    background-color: #007bff;
+    background-color: rgb(13, 13, 88);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -132,6 +138,7 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
+    z-index: 2;
 }
 
 .modal-continua-content {
@@ -201,28 +208,127 @@ body {
     margin-bottom: 10px;
 }
 
+
+
 .publicacoes-area {
-    margin-top: 30px;
+    margin-top: 80px;
 }
 
 .publicacao {
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
     border-radius: 10px;
     padding: 20px;
-    margin-bottom: 20px;
-    max-width: 600px;
+    margin-bottom: 5px;
+    width: 580px;
     height: 100%;
+    position: relative;
+    right: 450px;
 }
 
 .publicacao img {
-    width: 100%;
+    width: 80%;
     border-radius: 10px;
+    margin: 0 auto 10px auto;
 }
 
 .publicacao p {
     margin: 10px 0;
 }
+
+.post-container {
+    width: 100%;
+    max-width: 600px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.post-header {
+    display: flex; /* Alinha a imagem e os detalhes do usuário lado a lado */
+    align-items: center; /* Centraliza verticalmente a imagem do perfil e o nome */
+    margin-bottom: 10px;
+    justify-content: flex-end; 
+    padding-right: 300px;
+}
+
+.post-header img {
+    width: 48px; /* Largura da imagem do perfil */
+    height: 48px; /* Altura da imagem do perfil */
+    border-radius: 50%; /* Deixa a imagem redonda */
+    margin-right: 10px; /* Espaço razoável entre a imagem e os detalhes do usuário */
+    object-fit: cover; /* Garante que a imagem cubra o círculo sem distorcer */
+    object-position: center; /* Centraliza o conteúdo da imagem */
+    background-color: #f0f0f0;
+}
+
+.post-user-details {
+    display: flex;
+    flex-direction: column; /* Organiza os detalhes do usuário verticalmente */
+    justify-content: flex-start; /* Alinha os detalhes ao topo */
+}
+
+.post-user-name {
+    font-weight: bold;
+    font-size: 16px;
+    color: #14171a;
+}
+
+.post-user-handle {
+    font-size: 14px;
+    color: #657786;
+}
+
+.post-endereco {
+    font-size: 12px;
+    color: #999;
+}
+
+.post-img-publicacao {
+    width: 100%; /* Largura da imagem da publicação */
+    max-width: 600px; /* Tamanho máximo da imagem */
+    border-radius: 12px; /* Canto arredondado para a imagem */
+    margin-top: 10px; /* Espaço entre a descrição e a imagem da publicação */
+}
+  
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+    max-width: 100px; /* Define o espaço para os ícones */
+    margin-top: 10px;
+    padding: 15px;
+  }
+  
+  .post-actions a {
+    font-size: 20px; /* Aumenta o tamanho dos ícones */
+    color: #657786;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px; /* Define a largura de cada ícone */
+    transition: color 0.3s ease;
+    text-decoration: none; 
+  }
+  
+  .post-actions a:hover {
+    color: #1da1f2;
+  }
+  
+  /* Específico para os ícones de curtida e comentário */
+  .comment-btn i {
+    margin-left: 5px;
+  }
+  
+  .like-btn i {
+    margin-left: 40px;
+  }
+  
+  .fas {
+    color:#00417e;
+  }
+  
+
+
 
 .loading-modal {
     display: none;
