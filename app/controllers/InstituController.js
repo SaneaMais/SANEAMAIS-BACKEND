@@ -10,6 +10,8 @@ class InstituicaoController {
         const usuarioId = req.session.userId;
 
         try {
+
+            
             await InstituicaoModel.cadastrarInstituicao(razao_social_instituicao, cnpj_instituicao, usuarioId);
             res.redirect('/publicacao');
         } catch (error) {

@@ -7,10 +7,11 @@ const UsuarioModel = {
                 throw new Error('Data de nascimento não pode ser nula.');
             }
 
-            await pool.query(
+            const [resultados] =   await pool.query(
                 'INSERT INTO USUARIOS (`nome_usuario`, `email_usuario`, `user_usuario`, `data_nasc_usuario`, `cidade_usuario`, `senha_usuario`, `tipo_usuario_id` ) VALUES (?, ?, ?, ?, ?, ?, ?)',
                 [data.nome, data.email, data.user, data.nasc, data.cidade, data.senha, data.tipo_usuario_id]
             );
+            return resultados;
         } catch (error) {
             console.log(error);
             throw error;
