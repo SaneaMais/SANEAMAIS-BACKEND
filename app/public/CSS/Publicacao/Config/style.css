@@ -117,18 +117,19 @@ body {
     font-weight: bold;
   }
 
-  button {
+  .enviar {
     display: block;
-    width: 100%;
+    width: 40%;
     padding: 10px;
     background-color: #28a745;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    margin-left: 280px;
   }
 
-  button:hover {
+  .enviar:hover {
     background-color: #218838;
   }
 

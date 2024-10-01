@@ -51,14 +51,9 @@
 
       <!-- Senha Atual -->
       <div class="form-group">
-        <label for="currentPassword">Senha Atual</label>
-        <input type="password" id="currentPassword" name="currentPassword" placeholder="Digite sua senha atual" required>
-      </div>
-
-      <!-- Alterar Nova Senha -->
-      <div class="form-group">
-        <label for="password">Nova Senha (opcional)</label>
-        <input type="password" id="password" name="password" placeholder="Digite sua nova senha">
+        <label for="currentPassword">Senha</label>
+        <input type="password" id="currentPassword" name="currentPassword" placeholder="Senha" required>
+        <span class="aviso">Não preencha este campo para manter a senha atual</span>
       </div>
 
       <!-- Alterar Bio -->
@@ -67,7 +62,7 @@
         <textarea id="bio" name="bio" rows="4" placeholder="Escreva sua bio aqui..."></textarea>
       </div>
 
-      <button type="submit">Salvar Alterações</button>
+      <input type="submit" class="enviar" value="Alterar dados perfil" />
     </form>
   </div>
 
