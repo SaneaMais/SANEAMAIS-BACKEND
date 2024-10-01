@@ -132,7 +132,7 @@
                     <div class="post-header">
                         <img src="data:image/jpeg;base64,<%= postagem.img_posts.toString('base64') %>" alt="Foto de Perfil" class="post-img">
                         <div class="post-user-details">
-                            <span class="post-user-name"><%= postagem.nome_usuario %>"</span>
+                            <span class="post-user-name"><%= postagem.nome_usuario %></span>
                             <span class="post-user-handle"><%= postagem.user_usuario %></span>
                             <span class="post-endereco"><%= postagem.endereco_posts %></span>
                         </div>
@@ -191,7 +191,7 @@
                                 <textarea id="descricao" rows="4" placeholder="Descrição" name="comentarios_posts" required></textarea> 
                                 <div class="error-message" id="descricaoError" style="display: none;">Campo obrigatório</div>
 
-                                <input type="text" id="endereco" placeholder="Endereço" name="endereco" required> <!-- Mudei aqui -->
+                                <input type="text" id="endereco" placeholder="Endereço" name="endereco_posts" required> <!-- Mudei aqui -->
                     <div class="error-message" id="enderecoError" style="display: none;">Campo obrigatório</div>
                             </div>
                         </div>

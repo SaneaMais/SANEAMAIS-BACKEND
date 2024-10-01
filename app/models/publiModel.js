@@ -14,7 +14,17 @@ const publiModel = {
     },
 
     findAll: async () => {
-        const query = 'SELECT * FROM POSTS INNER JOIN USUARIOS ORDER BY id_POSTS DESC';
+        const query = `
+            SELECT 
+                POSTS.id_POSTS,
+                POSTS.comentarios_posts,
+                POSTS.img_posts,
+                POSTS.endereco_posts,
+                USUARIOS.nome_usuario,
+                USUARIOS.user_usuario
+            FROM POSTS
+            INNER JOIN USUARIOS ON POSTS.USUARIOS_id_usuario1 = USUARIOS.id_usuario
+            ORDER BY POSTS.id_POSTS DESC`;
 
         try {
             const [results] = await pool.query(query);
