@@ -1,17 +1,18 @@
 const pool = require("../../config/pool_conexoes");
 
-
-class InstituicaoModel {
-    static async cadastrarInstituicao(razaoSocial, cnpj, usuarioId) {
-        const query = `INSERT INTO INSTITUICOES (razao_social_instituicao, cnpj_instituicao, USUARIOS_id_usuario) VALUES (?, ?, ?)`;
+const InstituicaoModel = {
+    cadastrarInstituicao: async (razao_social_instituicao, cnpj_instituicao, usuarioId) => {
         try {
-            const connection = await pool.getConnection();
-            await connection.query(query, [razaoSocial, cnpj, usuarioId]);
-            connection.release();
+            const [resultados] = await pool.query(
+                'INSERT INTO INSTITUICOES (`razao_social_instituicao`, `cnpj_instituicao`, `USUARIOS_id_usuario`) VALUES (?, ?, ?)',
+                [razao_social_instituicao, cnpj_instituicao, usuarioId]
+            );
+            return resultados;
         } catch (error) {
-            throw new Error('Erro ao cadastrar instituição: ' + error);
+            console.log(error);
+            throw error;
         }
     }
-}
+};
 
 module.exports = InstituicaoModel;
