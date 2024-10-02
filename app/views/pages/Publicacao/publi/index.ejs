@@ -122,39 +122,44 @@
             
           <h2 class="feed-title">Feed <hr class="horizontal-line"></h2>
 
-
-          <% 
-          if(dados){
-            dados.forEach(function(postagem){
                 
-                %>
-                <div class="post-container">
-                    <div class="post-header">
-                        <img src="data:image/jpeg;base64,<%= postagem.img_posts.toString('base64') %>" alt="Foto de Perfil" class="post-img">
-                        <div class="post-user-details">
-                            <span class="post-user-name"><%= postagem.nome_usuario %></span>
-                            <span class="post-user-handle"><%= postagem.user_usuario %></span>
-                            <span class="post-endereco"><%= postagem.endereco_posts %></span>
-                        </div>
-                    </div>
-                    <p><%= postagem.comentarios_posts %></p>
-                    <img src="data:image/jpeg;base64,<%= postagem.img_posts.toString('base64') %>"  alt="Imagem da publicação" class="post-img-publicacao">
-                     <div class="post-actions">
-                            <a href="#" class="comment-btn"><i class="far fa-comment"></i></a>
-                           <a href="#" class="like-btn"><i class="far fa-heart"></i></a>
-                            
-                        </div>
-                </div>
-                <% 
-            })
-          }
-%>
-                <!-- Área de publicações -->
-                <section class="flex">
-                    <div class="publicacoes-area" id="publicacoesArea">
-                        <!-- As publicações vão aparecer aqui -->
-                    </div>
-                </section>
+                        <% 
+                        if(dados){
+                          dados.forEach(function(postagem){
+                                  if(postagem.img_posts == null){
+                                      postagem.img_posts = "img/logo1.png"
+                                  }else{
+                                      postagem.img_posts = "data:image/jpeg;base64"+ postagem.img_posts.toString('base64') 
+                                  }
+                                  if(postagem.foto_usuario == null){
+                                      postagem.foto_usuario = "img/config/foto.png"
+                                  }else{
+                                      postagem.foto_usuario = "data:image/jpeg;base64"+ postagem.img_posts.toString('base64') 
+                                  }
+                              %>
+                              <div class="post-container">
+                                  <div class="post-header">
+                                      <img src="<%= postagem.foto_usuario %>"" alt="Foto de Perfil" class="post-img">
+                                      <div class="post-user-details">
+                                          <span class="post-user-name"><%= postagem.nome_usuario %></span>
+                                          <span class="post-user-handle"><%= postagem.user_usuario %></span>
+                                          <span class="post-endereco"><%= postagem.endereco_posts %></span>
+                                      </div>
+                                  </div>
+                                  <p><%= postagem.comentarios_posts %></p>
+                                  <img src="<%= postagem.img_posts %>"  alt="Imagem da publicação" class="post-img-publicacao">
+                                   <div class="post-actions">
+                                          <a href="#" class="comment-btn"><i class="far fa-comment"></i></a>
+                                         <a href="#" class="like-btn"><i class="far fa-heart"></i></a>
+                                          
+                                      </div>
+                              </div>
+                              <% 
+                          })
+                        }
+              %>
+                
+                
             <form action="/publicacao" method="post" enctype="multipart/form-data">
                 <div id="myModal" class="modal">
                     <div class="modal-content">

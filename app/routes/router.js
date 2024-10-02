@@ -62,6 +62,7 @@ router.get("/publicacao", verificarUsuAutorizado([1, 3], 'pages/restrito'), asyn
 
   try {
       const posts = await publiController.buscarPublicacoes(req); // Altere aqui
+      console.log(posts);
       return res.render('pages/publicacao/publi/index', {
           listaErros: null,
           dadosNotificacao: dadosNotificacao,
