@@ -215,6 +215,8 @@ body {
     display: flex;
     flex-direction: column; /* Organiza as publicações em coluna */
     align-items: center; 
+    max-width: 800px; /* Largura máxima para centralizar */
+    margin: 20px auto;
 }
 
 .publicacao {
@@ -244,15 +246,15 @@ body {
     padding: 15px;
     border-radius: 12px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
-    margin: 0 -550px;
+    margin-bottom: 45px;
+
 }
 
 .post-header {
     display: flex; /* Alinha a imagem e os detalhes do usuário lado a lado */
     align-items: center; /* Centraliza verticalmente a imagem do perfil e o nome */
     margin-bottom: 10px;
-    justify-content: flex-end; 
+
     padding-right: 300px;
 }
 

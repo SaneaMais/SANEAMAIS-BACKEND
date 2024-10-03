@@ -28,7 +28,7 @@
 
 </head>
 
-<body class="vertical-line">
+<body>
 
     <% if (dadosNotificacao) { %>
         <script>
@@ -112,17 +112,17 @@
                         <h3>Configurações</h3>
                     </a>
              </section>
-
-           
+            
+       
 
                 <!------------------ FINAL SIDEBAR-------------------------->
                 <button class="open-modal">Denunciar</button>
-            </section>
+         </section>
             <!------------------ END OF LEFT-------------------------->
             
-          <h2 class="feed-title">Feed <hr class="horizontal-line"></h2>
-
-                
+          
+          <div class="publicacoes-area">
+            <h2 class="feed-title">Feed</h2>
                         <% 
                         if(dados){
                           dados.forEach(function(postagem){
@@ -137,6 +137,7 @@
                                       postagem.foto_usuario = "data:image/jpeg;base64,"+ postagem.foto_usuario.toString('base64') 
                                   }
                               %>
+                           
                               <div class="post-container">
                                   <div class="post-header">
                                       <img src="<%= postagem.foto_usuario %>"" alt="Foto de Perfil" class="post-img">
@@ -154,12 +155,13 @@
                                           
                                       </div>
                               </div>
+                       
                               <% 
                           })
                         }
               %>
-                
-                
+          </div>  
+
             <form action="/publicacao" method="post" enctype="multipart/form-data">
                 <div id="myModal" class="modal">
                     <div class="modal-content">
@@ -332,26 +334,7 @@
                         var publicacaoDiv = document.createElement("div");
                         publicacaoDiv.classList.add("publicacao");
             
-                        publicacaoDiv.innerHTML = `
-    <div class="post-container">
-        <div class="post-header">
-            <img src="../../../img/NovoPerfil/profile-2.png" alt="Foto de Perfil" class="post-img">
-            <div class="post-user-details">
-                <span class="post-user-name">nome_de_usuario</span>
-                <span class="post-user-handle">@usuario</span>
-                <span class="post-endereco">${endereco}</span>
-            </div>
-        </div>
-        <p>${descricao}</p>
-        <img src="${imagem}" alt="Imagem da publicação" class="post-img-publicacao">
-         <div class="post-actions">
-                <a href="#" class="comment-btn"><i class="far fa-comment"></i></a>
-               <a href="#" class="like-btn"><i class="far fa-heart"></i></a>
-                
-            </div>
-    </div>
-   
-`;
+  
 
             
                         publicacoesArea.insertBefore(publicacaoDiv, publicacoesArea.firstChild); // Insere no topo

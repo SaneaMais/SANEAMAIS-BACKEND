@@ -280,6 +280,7 @@ main .container .left .profile {
         bottom: 0;
         right: 0;
     }
+    
 
 
 /*---NOTIFICATION POPUP------*/
@@ -406,33 +407,7 @@ main .container .right {
     color:hsl( 230 , 74%, 39%);
 }
 
-.vertical-line::before,
-.vertical-line::after {
-    content: "";
-    position: fixed;
-    top: 0;
-    height: 100vh;
-    width: 1px; /* Largura da linha */
-    background-color: #ccc ;/* Cor da linha */
-    z-index: 1; 
-}
 
-.vertical-line::before {
-    left: 30%; /* Posição da primeira linha */
-}
-
-.vertical-line::after {
-    right: 30%; /* Posição da segunda linha */
-}
-
-.horizontal-line {
-    width: 105.3%;
-    height: 1px;
-    background-color: #ccc;
-    border: none;
-    margin: 50px 0;
-
-}
 
 .feed-title {
     font-size: 24px;
@@ -458,87 +433,56 @@ main .container .right {
   
      /*//////// RESPONSIVIDADE////////*/
   @media (max-width: 768px) {
-    nav .search-bar {
-        display: none;
-    }
-
-    main .container {
-        grid-template-columns: 0 auto 5rem;
-        gap: 0;
-    }
-
-    main .container .left {
-        grid-column: 3/4;
-        position: fixed;
-        bottom: 0;
-        right: 0;
-    }
-
-
-    .profile-photo img {
-        width: 100px; /* Ajuste o tamanho da imagem para dispositivos móveis */
-    }
-
-    .sidebar {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        align-items: center;
-    }
-    
-
-    .menu-item {
-        width: 100%;
-        text-align: center;
-        padding: 10px;
-    }
-
-    .open-modal {
-        width: 900%;
-        margin-bottom: 90px;
-    }
-
-    .feed-title {
-        text-align: center;
-        font-size: 24px;
-        margin: 20px 0;
-    }
-
     .publicacoes-area {
-        width: 100%;
+        padding: 0 5px; /* Menos padding em telas menores */
     }
 
-    .publicacao {
-        width: 100%;
-        margin: 10px 0;
+    .post-container {
+        padding: 10px; /* Menos padding em postagens menores */
     }
 
-    .publicacao img {
-        width: 100%;
-        height: auto;
+    .post-header img {
+        width: 40px; /* Reduz a largura da imagem do perfil em telas menores */
+        height: 40px; /* Reduz a altura da imagem do perfil em telas menores */
     }
 
-    /* Modais adaptados */
-    .modal-content, .modal-continua-content {
-        width: 90%;
-        max-width: 500px;
-    }
-    .vertical-line::before {
-        left: 10%; /* Posição da primeira linha */
-    }
-    
-    .vertical-line::after {
-        right: 25%; /* Posição da segunda linha */
+    .post-user-name {
+        font-size: 14px; /* Reduz o tamanho da fonte */
     }
 
-    .sidebar {
+    .post-user-handle {
+        font-size: 12px; /* Reduz o tamanho da fonte */
+    }
+    .left {
         display: none;
     }
+}
 
-    main .container .left .profile{
-        display: none;
+@media (max-width: 480px) {
+    .publicacoes-area {
+        max-width: 100%; /* Remove a largura máxima em telas pequenas */
+        padding: 0 10px; /* Mais padding para evitar que o conteúdo encoste nas bordas */
     }
 
+    .post-container {
+        padding: 8px; /* Ajuste do padding em telas muito pequenas */
+    }
+
+    .post-user-name {
+        font-size: 12px; /* Menor tamanho da fonte */
+    }
+
+    .post-user-handle {
+        font-size: 10px; /* Menor tamanho da fonte */
+    }
+
+    .post-actions {
+        flex-direction: column; /* Alinha os ícones verticalmente */
+        align-items: center; /* Centraliza os ícones */
+    }
+    .left {
+        display: none;
+    }
    
 }
 /* ///////////////////////////////////////////////////////////////////////*/
