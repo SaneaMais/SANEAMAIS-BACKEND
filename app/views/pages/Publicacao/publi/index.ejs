@@ -129,12 +129,12 @@
                                   if(postagem.img_posts == null){
                                       postagem.img_posts = "img/logo1.png"
                                   }else{
-                                      postagem.img_posts = "data:image/jpeg;base64"+ postagem.img_posts.toString('base64') 
+                                      postagem.img_posts = "data:image/jpeg;base64,"+ postagem.img_posts.toString('base64') 
                                   }
                                   if(postagem.foto_usuario == null){
                                       postagem.foto_usuario = "img/config/foto.png"
                                   }else{
-                                      postagem.foto_usuario = "data:image/jpeg;base64"+ postagem.img_posts.toString('base64') 
+                                      postagem.foto_usuario = "data:image/jpeg;base64,"+ postagem.foto_usuario.toString('base64') 
                                   }
                               %>
                               <div class="post-container">
@@ -393,7 +393,7 @@
             
             </body>
 
-    <!-- <script src="../../../js/Publicação/publicacao/index.js"></script> -->
+    <script src="../../../js/Publicação/publicacao/index.js"></script>
 
 
 </body>
