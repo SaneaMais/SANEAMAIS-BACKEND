@@ -15,10 +15,86 @@
     <script src="js/script.js"></script>
     <script src="js/Cadastro/script.js"></script>
 
+        <!-- ----------------------notificação---------------------------------->
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+        <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+        <script src="/js/notify.js"></script>
+        <link rel="stylesheet" href="/css/notify.css">
+    
+        <!-- ----------------------notificação---------------------------------->
+    
+
     <title>Cadastro Cnpj</title>
 </head>
 
 <body>
+    <%
+var msgErro = {razao_social_instituicao:"", email:"",user:"",cnpj_instituicao:"",cidade:"", senha:"","c-senha":""}
+var cssErro = {razao_social_instituicao:"", email:"",user:"",cnpj_instituicao:"",cidade:"", senha:"","c-senha":""}
+var cssErroBorda = {razao_social_instituicao:"", email:"",user:"",cnpj_instituicao:"",cidade:"", senha:"","c-senha":""}
+let valorCampos = {razao_social_instituicao:"", email:"",user:"",cnpj_instituicao:"",cidade:"", senha:"","c-senha":""}
+if(dados && dados!=null){
+    valorCampos = dados
+}
+
+if(listaErros){
+    listaErros.errors.forEach((itemErro)=>{
+        if(itemErro.path == "razao_social_instituicao"){
+            msgErro.razao_social_instituicao = itemErro.msg
+            cssErro.razao_social_instituicao = "erroForm"
+            cssErroBorda.razao_social_instituicao = "erroInput"
+            %>
+            <script>notify('Verifique o campo Razao Social', '<%= msgErro.razao_social_instituicao %>', 'error')</script>
+            <%
+        } else if (itemErro.path == "email") {
+            msgErro.email = itemErro.msg
+            cssErro.email = "erroForm"
+            cssErroBorda.email = "erroInput"
+            %>
+            <script>notify('Verifique o campo email', '<%= msgErro.email %>', 'error')</script>
+            <%
+        } else if(itemErro.path == "user"){
+            msgErro.user = itemErro.msg
+            cssErro.user = "erroForm"
+            cssErroBorda.user = "erroInput"
+            %>
+            <script>notify('Verifique o campo Nome de usuário', '<%= msgErro.user %>', 'error')</script>
+            <%
+        } else if (itemErro.path == "cnpj_instituicao") {
+            msgErro.cnpj_instituicao = itemErro.msg
+            cssErro.cnpj_instituicao = "erroForm"
+            cssErroBorda.cnpj_instituicao = "erroInput"
+            %>
+            <script>notify('Verifique o campo cnpj', '<%= msgErro.cnpj_instituicao %>', 'error')</script>
+            <%
+        } else if (itemErro.path == "cidade") {
+            msgErro.nasc = itemErro.msg
+            cssErro.nasc = "erroForm"
+            cssErroBorda.nasc = "erroInput"
+            %>
+            <script>notify('Verifique o campo cidade', '<%= msgErro.nasc %>', 'error')</script>
+            <%
+        }else if(itemErro.path == "senha"){
+                msgErro.senha = itemErro.msg
+                cssErro.senha = "erroForm"
+                cssErroBorda.senha = "erroInput"
+                %>
+                    <script>notify('Verifique o campo senha', '<%= msgErro.senha %>', 'error'  )</script>
+                <%
+                
+            } else if(itemErro.path == "c-senha"){
+                msgErro["c-senha"] = itemErro.msg
+                cssErro["c-senha"] = "erroForm"
+                cssErroBorda["c-senha"] = "erroInput"
+                %>
+                    <script>notify('Verifique se as senhas estão iguais', '<%= msgErro["c-senha"] %>', 'error'  )</script>
+                <%
+                 
+            }
+        });
+    }
+    %>
     <main>
         <section class="box-form">
             <form action="/cadastro/cnpj" method="post" id="form">
@@ -33,39 +109,74 @@
                         </article>
                     </section>
                     <p class="register-link">
-                        Já tem uma conta?
-                        <a href="/login">Entre</a>
+                        Já tem uma conta?<a href="/login">Entre</a>
                     </p>
 
-                <!-- ---------------------------------------nomeUsuário----------------------------------------------->
-                        <article>
-                <label for="razaosocial">Razão Social <span>*</span></label>
-                        <input type="text" name="razao_social_instituicao" id="razaosocial" placeholder="Razao Social" maxlength="255" required>
-                    </article>
-
+                <!-- ---------------------------------------RazaoSocial----------------------------------------------->
+                    <br><label id="razao_social_instituicao" for="data">Razão Social <span>*</span> </label>
+                    <input type="text" name="razao_social_instituicao"  placeholder="Razão Social da empresa" value="<%=valorCampos.razao_social_instituicao%>"
+                        class="<%= cssErroBorda.razao_social_instituicao %>" maxlength="100" autocomplete="off">
+                    <span class="<%= cssErro.razao_social_instituicao %>">
+                        <%= msgErro.razao_social_instituicao %>
+                    </span>
                     <article>
-                    <label  for="data">Email <span>*</span> </label>
-                    <input type="text" name="email" id="email"  placeholder="Seu e-mail" >
-                </article>
+                <!-- ---------------------------------------RazaoSocial----------------------------------------------->
 
-                <br><label  for="data">Nome de usuário <span>*</span> </label>
-                    <input type="text" name="user" id="user" placeholder="Nome de usuário" maxlength="100" autocomplete="off">
-                   
+
+                     <!-- ---------------------------------------email----------------------------------------------------->
+                     <br><label id="email" for="data">Email <span>*</span> </label>
+                     <input type="text" name="email" id="email" class="<%= cssErroBorda.email %>"
+                         placeholder="Seu e-mail" value="<%=valorCampos.email%>">
+                     <span class="<%= cssErro.email %>">
+                         <%= msgErro.email %>
+                     </span>
+                     <!-- ---------------------------------------email----------------------------------------------------->
+                     
+
+                 <!-- ---------------------------------------nomeUsuário----------------------------------------------->
+                 <br><label id="user" for="data">Nome de usuário <span>*</span> </label>
+                 <input type="text" name="user" id="user" placeholder="Nome de usuário" value="<%=valorCampos.user%>"
+                     class="<%= cssErroBorda.user %>" maxlength="100" autocomplete="off">
+                 <span class="<%= cssErro.user %>">
+                     <%= msgErro.user %>
+                 </span>
+                 <!-- ---------------------------------------nomeUsuário------------------------------------------------>
+                 
                     
                     <article class="form-input">
                         <label for="Cnpj">CNPJ <span>*</span></label>
-                        <input type="text" name="cnpj_instituicao" placeholder="__.___.___/____-__" id="Cnpj" maxlength="14" required>
+                        <input type="text" name="cnpj_instituicao" placeholder="__.___.___/____-__" id="Cnpj" maxlength="14" required
+                        value="<%=valorCampos.cnpj_instituicao%>"class="<%= cssErroBorda.cnpj_instituicao%>"  autocomplete="off">
+                 <span class="<%= cssErro.cnpj_instituicao %>">
+                     <%= msgErro.cnpj_instituicao %>
+                 </span>
                     </article>
                     
-                    <article class="form-input">
-                        <label for="cidade">Cidade <span>*</span></label>
-                        <input type="text" name="cidade" placeholder="Cidade" id="cidade" required>
-                    </article>
+                     <!-- ---------------------------------------cidade----------------------------------------------------->
+                     <label id="labelCidade" for="cidade">Cidade <span>*</span> </label>
+                     <input type="text" list="lista"  placeholder="cidade " value="<%= valorCampos.cidade %>" id="cidade" name="cidade">
+                     <datalist id="lista">
+                     </datalist> 
+                 <!-- ---------------------------------------cidade----------------------------------------------------->
+                 
                     
+                    <!-- ---------------------------------------passoword-------------------------------------------------->
+                   
                     <article class="input__wrapper">
-                        <label for="password">Senha <span>*</span></label>
-                        <input type="password" name="senha" placeholder="Senha" id="password" required>
+                        <img alt="Eye Icon" title="Eye Icon" src="/img/Login/eye-off.svg" class="input__icon">
+                        <label id="labelSenha" for="senha">Senha <span>*</span></label>
+                        <input type="password" placeholder="Senha" value="<%= valorCampos.senha %>" id="senha"  maxlength="30" name="senha" class="<%= cssErroBorda.senha %>">
+                        <span class="<%= cssErro.senha %>"><%= msgErro.senha %></span><br>
+                        <small id="textPassword"></small>
                     </article>
+                    <article class="input__wrapper">
+                        <img alt="Eye Icon" title="Eye Icon" src="/img/Login/eye-off.svg" class="input__icon">
+                        <label id="Labelc-senha" for="c-senha">Confirme a senha <span>*</span></label>
+                        <input type="password" placeholder="Confirme sua senha" value="<%= valorCampos['c-senha'] %>" id="c-senha" maxlength="30" name="c-senha" class="<%= cssErroBorda['c-senha'] %>">
+                        <span class="<%= cssErro['c-senha'] %>"><%= msgErro['c-senha'] %></span><br>
+                    </article>
+                <!-- ---------------------------------------passoword-------------------------------------------------->
+                
                     
                 <input type="submit" value="Entrar" id="Entrar">
 
@@ -77,6 +188,7 @@
         </section>
     </form>
     </main>
+
     <footer></footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>

@@ -12,7 +12,22 @@ const InstituicaoModel = {
             console.log(error);
             throw error;
         }
-    }
+    },
+
+    
+    findByCNPJ: async (cnpj_instituicao) => {
+        try {
+            const [resultados] = await pool.query(
+                'SELECT * FROM INSTITUICOES WHERE cnpj_instituicao = ?',
+                [cnpj_instituicao]
+            );
+            return resultados;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+    
 };
 
 module.exports = InstituicaoModel;

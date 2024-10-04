@@ -21,6 +21,13 @@ router.post("/cadastro", usuarioController.regrasValidacao, gravarUsuAutenticado
 });
 /* --------------------------------------cadastro------------------------------------------------------------------ */
 
+router.get("/cadastro/cnpj", function (req, res) {
+  res.render("pages/cadastro/cnpj", { listaErros: null, dadosNotificacao: null, dados: null, pagina: "cadastro/cnpj", autenticado: req.session.autenticado });
+});
+
+router.post("/cadastro/cnpj", InstituController.regrasValidacao, gravarUsuAutenticadoCadastro, async function (req, res) {
+  InstituController.cadastrar(req, res)
+});
 /* ---------------------------------------login-------------------------------------------------------------------- */
 router.get("/login", function (req, res) {
   res.render("pages/login/index", { pagina: "login", logado: null, dados: null, listaErros: null, dadosNotificacao: null });
@@ -29,11 +36,6 @@ router.post('/login', usuarioController.regrasValidacaoFormLogin, gravarUsuAuten
   usuarioController.logar(req, res);
 })
 /* ---------------------------------------login-------------------------------------------------------------------- */
-
-router.get("/cadastro/cnpj", function (req, res) {
-  res.render("pages/cadastro/cnpj", { autenticado: req.session.autenticado });
-});
-router.post("/cadastro/cnpj", InstituController.cadastrar);
 
 router.get("/esqueceusenha/email", verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
   res.render("pages/esqueceusenha/email", { autenticado: req.session.autenticado });
