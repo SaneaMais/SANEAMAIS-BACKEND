@@ -165,11 +165,26 @@ if(listaErros){
                             <span class="<%= cssErro.senha %>"><%= msgErro.senha %></span><br>
                             <small id="textPassword"></small>
                         </article>
+
+                    
+                        
                         <article class="input__wrapper">
                             <img alt="Eye Icon" title="Eye Icon" src="/img/Login/eye-off.svg" class="input__icon">
                             <label id="Labelc-senha" for="c-senha">Confirme a senha <span>*</span></label>
                             <input type="password" placeholder="Confirme sua senha" value="<%= valorCampos['c-senha'] %>" id="c-senha" maxlength="30" name="c-senha" class="<%= cssErroBorda['c-senha'] %>">
                             <span class="<%= cssErro['c-senha'] %>"><%= msgErro['c-senha'] %></span><br>
+
+                            <script>
+                                const artigo = document.getElementById('c-senha');
+                            
+                                artigo.addEventListener('keydown', function(event) {
+                                    // Verifica se a tecla pressionada é V (86) e se a tecla Ctrl está pressionada
+                                    if (event.ctrlKey && event.key === 'v') {
+                                        event.preventDefault(); // Impede a ação de colar
+                                        alert('Não é possivel colar neste campo');
+                                    }
+                                });
+                            </script>
                         </article>
                     <!-- ---------------------------------------passoword-------------------------------------------------->
                     <input type="hidden" name="tipo_usuario_id" value="1">
