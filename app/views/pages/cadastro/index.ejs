@@ -164,6 +164,15 @@ if(listaErros){
                             <input type="password" placeholder="Senha" value="<%= valorCampos.senha %>" id="senha"  maxlength="30" name="senha" class="<%= cssErroBorda.senha %>">
                             <span class="<%= cssErro.senha %>"><%= msgErro.senha %></span><br>
                             <small id="textPassword"></small>
+
+                            
+                           <!-- <input type="password" id="password" placeholder="Password to check..." />            -->
+     <div class="check-results">
+      <span id="upperCase" class="invalid"><i class="bi bi-shield-x"></i> Conter Letra Maiúscula</span>
+      <span id="lowerCase" class="invalid"><i class="bi bi-shield-x"></i> Conter Letra Miúscula</span>
+      <span id="number" class="invalid"><i class="bi bi-shield-x"></i> Conter Número</span>
+      <span id="specialChar" class="invalid"><i class="bi bi-shield-x"></i> Conter Caracter especial</span>
+    </div>
                         </article>
 
                     
@@ -179,7 +188,7 @@ if(listaErros){
                             
                                 artigo.addEventListener('keydown', function(event) {
                                     // Verifica se a tecla pressionada é V (86) e se a tecla Ctrl está pressionada
-                                    if (event.ctrlKey && event.key === 'v') {
+                                    if ((event.ctrlKey && event.key === 'v') || (event.ctrlKey && event.key === 'V')) {
                                         event.preventDefault(); // Impede a ação de colar
                                         alert('Não é possivel colar neste campo');
                                     }
