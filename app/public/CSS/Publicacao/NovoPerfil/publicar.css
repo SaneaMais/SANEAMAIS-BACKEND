@@ -421,3 +421,35 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+
+.reply-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(13, 13, 88); /* Azul para destacar */
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 16px;
+   
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.reply-button i {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.reply-button:hover {
+    background-color: #0056b3; /* Cor mais escura no hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra mais intensa */
+}
+
+.reply-button:active {
+    transform: scale(0.95); /* Efeito de clique */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
