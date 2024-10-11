@@ -182,7 +182,7 @@ if(listaErros){
                         
                             artigo.addEventListener('keydown', function(event) {
                                 // Verifica se a tecla pressionada é V (86) e se a tecla Ctrl está pressionada
-                                if (event.ctrlKey && event.key === 'v') {
+                                if ((event.ctrlKey && event.key === 'v') || (event.ctrlKey && event.key === 'V')) {
                                     event.preventDefault(); // Impede a ação de colar
                                     alert('Não é possivel colar neste campo');
                                 }
