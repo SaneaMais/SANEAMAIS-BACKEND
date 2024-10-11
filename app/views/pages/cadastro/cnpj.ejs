@@ -14,7 +14,7 @@
 
     <script src="js/script.js"></script>
     <script src="js/Cadastro/script.js"></script>
-
+    <script src="js/cnpj/senhacnpj.js"></script>
         <!-- ----------------------notificação---------------------------------->
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
@@ -156,9 +156,30 @@ if(listaErros){
                      <label id="labelCidade" for="cidade">Cidade <span>*</span> </label>
                      <input type="text" list="lista"  placeholder="cidade " value="<%= valorCampos.cidade %>" id="cidade" name="cidade">
                      <datalist id="lista">
+
                      </datalist> 
                  <!-- ---------------------------------------cidade----------------------------------------------------->
-                 
+                 <datalist id="lista">
+                </datalist>
+
+                <script>
+                    const callApi = async () => {
+                        const data = await fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados/35/municipios",);
+                        const dataJson = await data.json();
+                        console.log(dataJson[0]);
+                        let lista = document.querySelector("#lista");
+                        console.log(lista);
+                         dataJson.forEach(item => {
+                            let element = document.createElement("option");
+                            element.value = item.nome;
+                            console.log(element);
+                            lista.appendChild(element);
+                           
+                        });
+                    }
+
+                    callApi();
+                </script>
                     
                     <!-- ---------------------------------------passoword-------------------------------------------------->
                    
@@ -168,6 +189,14 @@ if(listaErros){
                         <input type="password" placeholder="Senha" value="<%= valorCampos.senha %>" id="senha"  maxlength="30" name="senha" class="<%= cssErroBorda.senha %>">
                         <span class="<%= cssErro.senha %>"><%= msgErro.senha %></span><br>
                         <small id="textPassword"></small>
+                                       
+                           <!-- <input type="password" id="password" placeholder="Password to check..." />            -->
+     <div class="check-results">
+        <span id="upperCase" class="invalid"><i class="bi bi-shield-x"></i> Conter Letra Maiúscula</span>
+        <span id="lowerCase" class="invalid"><i class="bi bi-shield-x"></i> Conter Letra Miúscula</span>
+        <span id="number" class="invalid"><i class="bi bi-shield-x"></i> Conter Número</span>
+        <span id="specialChar" class="invalid"><i class="bi bi-shield-x"></i> Conter Caracter especial</span>
+      </div>
                     </article>
 
 
@@ -182,7 +211,7 @@ if(listaErros){
                         
                             artigo.addEventListener('keydown', function(event) {
                                 // Verifica se a tecla pressionada é V (86) e se a tecla Ctrl está pressionada
-                                if (event.ctrlKey && event.key === 'v') {
+                                if ((event.ctrlKey && event.key === 'v') || (event.ctrlKey && event.key === 'V')) {
                                     event.preventDefault(); // Impede a ação de colar
                                     alert('Não é possivel colar neste campo');
                                 }
@@ -206,7 +235,7 @@ if(listaErros){
     <footer></footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="/js/cnpj/senhacnpj.js"></script>
+  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.7/inputmask.min.js"></script>
 
 </body>
