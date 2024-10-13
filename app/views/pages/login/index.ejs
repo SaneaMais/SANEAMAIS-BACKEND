@@ -69,16 +69,15 @@
             <span class="<%= cssErro.email %>"><%= msgErro.email %></span>
 
 
-          <article class="form-input">
+          
             <article class="input__wrapper">
-              <p id="messageSenha"></p>
-              <img alt="Eye Icon" title="Eye Icon" src="../../img/Login/eye-off.svg" class="input__icon">
-              <label id="labelSenha" for="senha">Senha<span>*</span> </label>
-              <input type="password" name="senha" id="password" placeholder="senha" maxlength="60" value="<%=valorCampos.senha%>" class="<%= cssErroBorda.senha %>" autocomplete="off">
-              <i id="togglePassword" class="fas fa-eye-slash"></i>
-              <span class="<%= cssErro.senha %>"><%= msgErro.senha %></span>
+              <img alt="Eye Icon" title="Eye Icon" src="/img/Login/eye-off.svg" class="input__icon">
+              <label id="labelSenha" for="senha">Senha <span>*</span></label>
+              <input type="password" placeholder="Senha" value="<%= valorCampos.senha %>" id="senha"  maxlength="30" name="senha" class="<%= cssErroBorda.senha %>">
+              <span class="<%= cssErro.senha %>"><%= msgErro.senha %></span><br>
+              <small id="textPassword"></small>
             </article>
-          </article>
+          
 
 
           <article class="forget-password-link">
@@ -112,9 +111,10 @@
         </article>
     </form>
   </main>
-  <script src="/js/login/senha.js"></script>
-  <script src="/js/login/val.js"></script>
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="/js/login/senha.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.7/inputmask.min.js"></script>
   <script src="/js/notify.js"></script>
 
 </body>

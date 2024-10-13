@@ -18,13 +18,13 @@ const UsuarioModel = {
         }
     },
 
-    findByEmail: async (email) => {
+    findUserEmail: async (email) => {
         try {
             const [linhas] = await pool.query('SELECT * FROM USUARIOS WHERE email_usuario = ? ', [email]);
             return linhas;
         } catch (error) {
             console.log(error);
-            throw error;
+            throw error;z
         }
     },
 

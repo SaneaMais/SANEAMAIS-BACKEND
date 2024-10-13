@@ -1,175 +1,156 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("form");
-  
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
-      validateForm();
-    });
-  
-    const emailInput = document.getElementById("email");
-    const numeroInput = document.getElementById("numero");
-    const nomeInput = document.getElementById("nome");
-    const CnpjInput = document.getElementById("Cnpj");
-    const cepInput = document.getElementById("cep");
-    const passwordInput = document.getElementById("password");
-  
-   
-    emailInput.addEventListener("input", function () {
-      emailInput.value = emailInput.value.toLowerCase();
-    });
-  
-    numeroInput.addEventListener("input", function () {
-      numeroInput.value = numeroInput.value
-        .replace(/\D/g, '')
-        .replace(/(\d{2})(\d{4,5})(\d{4})/, '($1) $2-$3');
-    });
-  
-    CnpjInput.addEventListener("input", function () {
-      CnpjInput.value = CnpjInput.value
-        .replace(/\D/g, '')
-        .replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
-    });
-  
-    cepInput.addEventListener("input", function () {
-      cepInput.value = cepInput.value
-        .replace(/\D/g, '')
-        .replace(/(\d{5})-(\d{3})/, '$1-$2');
-    });
-  
-    nomeInput.addEventListener("input", function () {
-      nomeInput.value = nomeInput.value.replace(/[^a-zA-Z0-9]/g, '');
-    });
-  
-    emailInput.addEventListener("blur", function () {
-      validateEmail(emailInput);
-    });
-  
-    numeroInput.addEventListener("blur", function () {
-      validatePhoneNumber(numeroInput);
-    });
-  
-    nomeInput.addEventListener("blur", function () {
-      validateUsername(nomeInput);
-    });
-  
-    CnpjInput.addEventListener("blur", function () {
-      validateCnpj(CnpjInput);
-    });
-  
-    cepInput.addEventListener("blur", function () {
-      validateCep(cepInput);
-    });
-  
-    passwordInput.addEventListener("blur", function () {
-      validatePassword(passwordInput);
-  });
-  
-  
-    function validateEmail(input) {
-      const email = input.value;
-      if (email.includes("@")) {
-        clearValidation(input);
-      } else {
-        setValidation(input, "Email inválido");
-      }
-    }
-  
-    function validatePhoneNumber(input) {
-      const phoneNumber = input.value.replace(/\D/g, "");
-      if (phoneNumber.length === 11) { 
-        clearValidation(input);
-      } else {
-        setValidation(input, "Número de telefone inválido");
-      }
-    }
-    
-  
-    function validateUsername(input) {
-      const username = input.value;
-      if (username.length >= 3) {
-        clearValidation(input);
-      } else {
-        setValidation(input, "Nome inválido");
-      }
-    }
-  
-    function validateCnpj(input) {
-      const cnpj = input.value.replace(/\D/g, "");
-      if (cnpj.length === 14) {
-        clearValidation(input);
-      } else {
-        setValidation(input, "CNPJ inválido");
-      }
-    }
+  const form = document.getElementById("form");
 
-    function validateCep(input) {
-      const cep = input.value.replace(/\D/g, "");
-      if (cep.length === 8) {
-        clearValidation(input);
-      } else {
-        setValidation(input, "CEP inválido");
-      }
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    validateForm();
+  });
+
+  const RsocialInput = document.getElementById("razao_social_instituicao");
+  const emailInput = document.getElementById("email");
+  const userInput = document.getElementById("user");
+  const cnpjInput = document.getElementById("cnpj_instituicao");
+  const senhaInput = document.getElementById("senha");
+  const confirmarSenhaInput = document.getElementById("confirmasenha");
+
+  RsocialInput.addEventListener("input", function () {
+    RsocialInput.value = RsocialInput.value.toLowerCase();
+  });
+ 
+  emailInput.addEventListener("input", function () {
+    emailInput.value = emailInput.value.toLowerCase();
+  });
+
+  userInput.addEventListener("input", function () {
+    userInput.value = userInput.value.toLowerCase();
+  });
+
+  cnpjInput.addEventListener("input", function () {
+    cnpjInput.value = cnpjInput.value
+      .replace(/\D/g, '')
+      .replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+  });
+
+  emailInput.addEventListener("blur", function () {
+    validateEmail(emailInput);
+  });
+
+  userInput.addEventListener("blur", function () {
+    validateUsername(userInput);
+  });  
+
+  cnpjInput.addEventListener("blur", function () {
+    validatecnpj(cnpjInput);
+  });
+ 
+  senhaInput.addEventListener("blur", function () {
+    validateSenha(senhaInput);
+  });
+
+  confirmarSenhaInput.addEventListener("blur", function () {
+    validateConfirmarSenha(confirmarSenhaInput, senhaInput);
+  });
+
+  function validateEmail(input) {
+    const email = input.value;
+    if (email.includes("@")) {
+      clearValidation(input);
+    } else {
+      setValidation(input, "Email inválido");
     }
-   
-    function validatePassword(input) {
-      const password = input.value;
-      if (password.length === 0) {
-          setValidation(input, "Campo obrigatório");
-      } else if (password.length < 8) {
-          setValidation(input, "A senha deve ter pelo menos 8 caracteres");
-      } else if (!containsLowerCase(password) || !containsUpperCase(password) || !containsNumber(password) || !containsSpecialCharacter(password)) {
-          setValidation(input, "A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial");
-      } else {
-          clearValidation(input);
-      }
   }
   
+  function validateUsername(input) {
+    const username = input.value;
+    if (username.length >= 3) {
+      clearValidation(input);
+    } else {
+      setValidation(input, "Nome de usuário inválido");
+    }
+  }
+
+  function validatecnpj(input) {
+    const cnpj = input.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+
+    // Verifica se o CNPJ tem exatamente 14 dígitos
+    if (cnpj.length !== 14) {
+        setValidation(input, "CNPJ inválido. Deve conter 14 dígitos.");
+        return false;
+    }
+
+    // Verifica se o CNPJ contém apenas números
+    if (!/^\d+$/.test(cnpj)) {
+        setValidation(input, "CNPJ deve conter apenas números.");
+        return false;
+    }
+
+    clearValidation(input);
+    return true;
+  }
+
+  function validateSenha(input) {
+    const senha = input.value;
+    if (senha.length === 0) {
+      setValidation(input, "Campo obrigatório");
+    } else if (senha.length < 8) {
+      setValidation(input, "A senha deve ter pelo menos 8 caracteres");
+    } else if (!containsLowerCase(senha) || !containsUpperCase(senha) || !containsNumber(senha) || !containsSpecialCharacter(senha)) {
+      setValidation(input, "A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial");
+    } else {
+      clearValidation(input);
+    }
+  }
+
+  function validateConfirmarSenha(confirmarInput, senhaInput) {
+    if (confirmarInput.value !== senhaInput.value) {
+      setValidation(confirmarInput, "As senhas não coincidem");
+    } else {
+      clearValidation(confirmarInput);
+    }
+  }
+
   function containsLowerCase(str) {
     return /[a-z]/.test(str);
-}
+  }
 
-function containsUpperCase(str) {
+  function containsUpperCase(str) {
     return /[A-Z]/.test(str);
-}
+  }
 
-function containsNumber(str) {
+  function containsNumber(str) {
     return /\d/.test(str);
-}
+  }
 
-function containsSpecialCharacter(str) {
+  function containsSpecialCharacter(str) {
     return /[!@#$%^&*]/.test(str);
-}
+  }
 
+  function clearValidation(input) {
+    input.style.border = "";
+    const errorMessage = input.nextElementSibling;
+    errorMessage.textContent = "";
+  }
 
-    function clearValidation(input) {
-      input.style.border = "";
-      const errorMessage = input.nextElementSibling;
-      errorMessage.textContent = "";
-    }
-  
-    function setValidation(input, message) {
-      input.style.border = "1px solid red";
-      const errorMessage = input.nextElementSibling;
-      errorMessage.textContent = message;
-      errorMessage.style.color = "red";
-    }
-  
-    function validateForm() {
-      let isValid = true;
-      const inputs = [emailInput, numeroInput, nomeInput, CnpjInput, cepInput, passwordInput];
-  
-      inputs.forEach(function (input) {
-        if (input.value.trim() === "") {
-          setValidation(input, "Campo obrigatório");
-          isValid = false;
-        }
-      });
-  
-      if (isValid) {
-        form.submit(); 
+  function setValidation(input, message) {
+    input.style.border = "1px solid red";
+    const errorMessage = input.nextElementSibling;
+    errorMessage.textContent = message;
+    errorMessage.style.color = "red";
+  }
+
+  function validateForm() {
+    let isValid = true;
+    const inputs = [RsocialInput, emailInput, userInput, senhaInput, confirmarSenhaInput];
+
+    inputs.forEach(function (input) {
+      if (input.value.trim() === "") {
+        setValidation(input, "Campo obrigatório");
+        isValid = false;
       }
+    });
+
+    if (isValid) {
+      form.submit(); 
     }
-  });
-  
-  
-  
+  }
+});

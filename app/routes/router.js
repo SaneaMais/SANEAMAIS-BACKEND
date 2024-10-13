@@ -37,20 +37,20 @@ router.post('/login', usuarioController.regrasValidacaoFormLogin, gravarUsuAuten
 })
 /* ---------------------------------------login-------------------------------------------------------------------- */
 
-router.get("/esqueceusenha/email", verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
-  res.render("pages/esqueceusenha/email", { autenticado: req.session.autenticado });
-});
+// router.get("/esqueceusenha/email", verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
+//   res.render("pages/esqueceusenha/email", { autenticado: req.session.autenticado });
+// });
 
-router.get("/recuperar-senha", verificarUsuAutenticado, function(req, res){
-  res.render("pages/rec-senha", { listaErros: null, dadosNotificacao: null});
-});
+// router.get("/recuperar-senha", verificarUsuAutenticado, function(req, res){
+//   res.render("pages/rec-senha", { listaErros: null, dadosNotificacao: null});
+// });
 
-router.post("/recuperar-senha",
-verificarUsuAutenticado,
-usuarioController.regrasValidacaoFormsRecSenha,
-function(req, res){
-  usuarioController.recuperarSenha(req, res);
-});
+// router.post("/recuperar-senha",
+// verificarUsuAutenticado,
+// usuarioController.regrasValidacaoFormsRecSenha,
+// function(req, res){
+//   usuarioController.recuperarSenha(req, res);
+// });
 
 router.get("/resetar-senha",
 function(req, res){

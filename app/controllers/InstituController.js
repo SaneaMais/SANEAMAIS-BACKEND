@@ -67,14 +67,16 @@ const InstituicaoController = {
                 }
                 return true;
             }),
+
         body("cidade")
             .isLength({ min: 2, max: 45 })
             .withMessage("Cidade inválida"),
+
             body("email")
             .isEmail()
             .withMessage("Email inválido")
             .custom(async (value) => {
-                const email = await UsuarioModel.findByEmail(value);  // Alterado para findByEmail
+                const email = await UsuarioModel.findUserEmail(value); 
                 if (email.length > 0) {
                     throw new Error('Email já utilizado.');
                 }

@@ -55,6 +55,7 @@ body {
   .invalid {
     color: gray;
   }
+
   .check-results {
     width: 190px;
     display: flex;
