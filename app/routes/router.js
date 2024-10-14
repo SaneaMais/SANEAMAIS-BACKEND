@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const { body } = require('express-validator');
 const pool = require("../../config/pool_conexoes");
 const usuarioController = require("../controllers/UsuarioController");
 const admController = require("../controllers/admController");
 const InstituController = require("../controllers/InstituController");
 const publiController = require("../controllers/publiController");
+const ComentarioController = require("../controllers/comentarioController");
 const { gravarUsuAutenticado, gravarUsuAutenticadoCadastro, limparSessao, verificarUsuAutorizado, verificarUsuAutenticado } = require('../models/autenticador_middleware');
 
 const upload = require("../util/uploader")();
@@ -63,6 +65,23 @@ function(req, res){
   usuarioController.resetarSenha(req, res);
 });
 
+/* --------------------------------------COMENTARIO------------------------------------------------------------------ */
+router.post(
+    "/comentarios", 
+    [
+        // Validação do campo "comentario"
+        body("comentarios")
+            .notEmpty().withMessage('O comentário não pode estar vazio.')
+            .isLength({ max: 500 }).withMessage('O comentário deve ter no máximo 500 caracteres.'),
+        body('postId').notEmpty().withMessage('O ID do post é obrigatório.')
+    ],
+    ComentarioController.criarComentario
+);
+
+// Rota para buscar comentários de um post específico
+router.get("/comentarios/:postId", ComentarioController.buscarComentarios);
+
+/* --------------------------------------demais ------------------------------------------------------------------ */
 router.get("/FaleConoco", verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
   res.render("pages/FaleConoco/index", { autenticado: req.session.autenticado });
 });
