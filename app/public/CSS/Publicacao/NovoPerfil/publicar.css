@@ -453,3 +453,95 @@ body {
     transform: scale(0.95); /* Efeito de clique */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
+
+/********************** COMENTARIOS **************/
+/* Seção de comentários */
+/* Importando a fonte Poppins */
+
+
+/* Seção de comentários */
+.comments-section {
+    padding: 10px 15px;
+    margin-top: 15px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Cada comentário */
+.comment {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #262626;
+}
+
+.comment strong {
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+.comment img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.comment p {
+    margin: 0;
+}
+
+/* Formulário de comentário */
+.comment-form {
+    display: flex;
+    align-items: flex-start;
+    border-top: 1px solid #efefef;
+    padding-top: 10px;
+    padding-bottom: 20px; /* Mais espaço embaixo */
+}
+
+.comment-form textarea {
+    width: 100%;
+    border: none;
+    resize: none;
+    padding: 5px;
+    font-size: 16px; /* Aumentando o tamanho do texto */
+    outline: none;
+    height: 20px;
+    line-height: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.comment-form button {
+    background-color: transparent;
+    border: none;
+    color: #0095f6;
+    font-weight: 600;
+    font-size: 16px; /* Aumentando o tamanho do botão */
+    cursor: pointer;
+    padding-left: 10px;
+    padding-top: 10px; /* Colocando mais espaçamento entre o botão e o textarea */
+}
+
+.comment-form button:disabled {
+    color: #b3dffc;
+    cursor: default;
+}
+
+/* Botão de comentários (ícone do Instagram) */
+.reply-button {
+    background-color: transparent;
+    border: none;
+    color: #8e8e8e;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.reply-button i {
+    font-size: 16px;
+}
+
+.reply-button:hover {
+    color: #262626;
+}

@@ -130,6 +130,10 @@ router.get("/PublicacaoPERFIL", verificarUsuAutorizado([1, 3], 'pages/restrito')
   res.render("pages/Publicacao/Perfil/index", { autenticado: req.session.autenticado });
 });
 
+router.get("/PublicacaoDOACAO", verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
+  res.render("pages/Publicacao/Doacao/index", { autenticado: req.session.autenticado });
+});
+
 /* =========================================autenticaão===================================================== */
 router.post('/sair', limparSessao, function (req, res) {
   res.redirect('/')
