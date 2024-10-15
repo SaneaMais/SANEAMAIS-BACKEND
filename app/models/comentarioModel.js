@@ -16,20 +16,30 @@ const ComentarioModel = {
         }
     },
 
-    // Método para buscar comentários de um post específico
-    findAll: async (postId) => {  // Recebe postId como argumento
+    findAll: async (postId) => {  
         const query = `
-            SELECT * FROM COMENTARIOS
-            WHERE POSTS_id_POSTS = ?
-            ORDER BY data DESC
+            SELECT
+                c.COMENTARIO,
+                u.user_usuario,
+                c.data
+            FROM COMENTARIOS c
+            INNER JOIN USUARIOS u ON c.USUARIOS_id_usuario = u.id_usuario
+            WHERE c.POSTS_id_POSTS = ?
+            ORDER BY c.data DESC
         `;
+        
         try {
-            const [results] = await pool.query(query, [postId]);  // Passa o postId para a query
-            return results;
+            const [results] = await pool.query(query, [postId]);  
+            // Incluindo todas as informações necessárias
+            return results.map(row => ({
+                comentario: row.COMENTARIO,
+                user_usuario: row.user_usuario, 
+                data: row.data                    
+            }));
         } catch (err) {
             throw err;
         }
     }
-};
+}    
 
 module.exports = ComentarioModel;
