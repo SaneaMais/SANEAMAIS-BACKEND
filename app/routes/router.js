@@ -52,7 +52,7 @@ router.post('/login', usuarioController.regrasValidacaoFormLogin, gravarUsuAuten
 // usuarioController.regrasValidacaoFormsRecSenha,
 // function(req, res){
 //   usuarioController.recuperarSenha(req, res);
-// });
+// });z
 
 router.get("/resetar-senha",
 function(req, res){
@@ -99,7 +99,7 @@ router.get("/PublicacacaoCONFIG", verificarUsuAutorizado([1, 3], 'pages/restrito
 });
 
 /* ---------------------------Publicações----------------------------- */
-router.get("/publicacao", verificarUsuAutorizado([1, 3], 'pages/restrito'), async (req, res) => {
+router.get("/publicacao", verificarUsuAutorizado([1, 2, 3], 'pages/restrito'), async (req, res) => {
   const dadosNotificacao = req.session.dadosNotificacao || null;
   delete req.session.dadosNotificacao;
 
@@ -110,6 +110,7 @@ router.get("/publicacao", verificarUsuAutorizado([1, 3], 'pages/restrito'), asyn
       console.error('Erro ao buscar publicações:', error);
       return res.status(500).send('Erro ao buscar publicações');
   }
+  
 });
 
 

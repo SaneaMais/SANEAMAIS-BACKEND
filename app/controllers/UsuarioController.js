@@ -110,39 +110,58 @@ const UsuarioController = {
     /* --------------------------login----------------------------------------- */
 
     logar: (req, res) => {
-        const erros = validationResult(req);
-        if (!erros.isEmpty()) {
-            return res.render("pages/login/index", { pagina: "login", dados: req.body, listaErros: erros, logado: null, dadosNotificacao: null })
-        }
-
-       /*  console.log(req.session.autenticado.tipo); */
-
-        if (req.session.autenticado != null) {
-            if (req.session.autenticado.tipo == 1) {
-                req.session.dadosNotificacao = {
-                    titulo: "Login feito com sucesso",
-                    mensagem: `Bem-vindo de volta, ${req.session.autenticado.autenticado}`,
-                    tipo: "success"
-                };
-                res.redirect("/publicacao")
-
-            } else if (req.session.autenticado.tipo == 3) {
-                req.session.dadosNotificacao = {
-                    titulo: "Login feito com sucesso",
-                    mensagem: `Bem-vindo de volta ADM`,
-                    tipo: "success"
-                }
-                res.redirect("/adm")
-
-            } else {
-                res.render("pages/login/index", { listaErros: null, logado: null, dados: null, dadosNotificacao: { titulo: "error", mensagem: "Usuário não permitido", tipo: "erros" } })
-            }
-        } else {
-            res.render("pages/login/index", { listaErros: null, dados: null, logado: null, dadosNotificacao: { titulo: "error", mensagem: "Usuário senha invalido ", tipo: "erros" } })
-        }
-
-
-    },
+      const erros = validationResult(req);
+      if (!erros.isEmpty()) {
+          return res.render("pages/login/index", {
+              pagina: "login",
+              dados: req.body,
+              listaErros: erros,
+              logado: null,
+              dadosNotificacao: null
+          });
+      }
+  
+      if (req.session.autenticado != null) {
+          if (req.session.autenticado.tipo === 1) {
+              req.session.dadosNotificacao = {
+                  titulo: "Login feito com sucesso",
+                  mensagem: `Bem-vindo de volta, ${req.session.autenticado.autenticado}`,
+                  tipo: "success"
+              };
+              res.redirect("/publicacao");
+          } else if (req.session.autenticado.tipo === 2) {
+              req.session.dadosNotificacao = {
+                  titulo: "Login feito com sucesso",
+                  mensagem: `Bem-vindo de volta, Empresa ${req.session.autenticado.autenticado}`,
+                  tipo: "success"
+              };
+              res.redirect("/publicacao"); 
+              
+          } else if (req.session.autenticado.tipo === 3) {
+              req.session.dadosNotificacao = {
+                  titulo: "Login feito com sucesso",
+                  mensagem: `Bem-vindo de volta ADM`,
+                  tipo: "success"
+              };
+              res.redirect("/adm");
+          } else {
+              res.render("pages/login/index", {
+                  listaErros: null,
+                  logado: null,
+                  dados: null,
+                  dadosNotificacao: { titulo: "error", mensagem: "Usuário não permitido", tipo: "erros" }
+              });
+          }
+      } else {
+          res.render("pages/login/index", {
+              listaErros: null,
+              dados: null,
+              logado: null,
+              dadosNotificacao: { titulo: "error", mensagem: "Usuário ou senha inválido", tipo: "erros" }
+          });
+      }
+  },
+  
     regrasValidacaoFormLogin: [
         body("email")
             .isEmail()
