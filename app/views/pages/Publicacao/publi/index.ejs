@@ -54,7 +54,7 @@
                 </article>
                 <section class="menu">
                     <h3>
-                        Ellie Williams
+                        <%= autenticado.autenticado %>
                         <div>
                             @lastofus
                         </div>
@@ -90,9 +90,9 @@
 
                     </article>
                     <article class="handle">
-                        <h4>Ellie Williams</h4>
+                        <h4><%= autenticado.autenticado %></h4>
                         <p class="text-muted">
-                            @lastofus
+                            
                         </p>
                     </article>
 
@@ -129,9 +129,8 @@
           
             <div class="publicacoes-area">
                 <h2 class="feed-title">Feed</h2>
-                <% 
-                if (dados) {
-                    dados.forEach(function (postagem) {
+                <% if (dados) { %>
+                    <% dados.forEach(function (postagem) { 
                         if (postagem.img_posts == null) {
                             postagem.img_posts = "img/logo1.png";
                         } else {
@@ -156,7 +155,7 @@
                             <img src="<%= postagem.img_posts %>" alt="Imagem da publicação" class="post-img-publicacao">
                             <div class="post-actions">
                                 <button class="reply-button" onclick="toggleCommentForm('<%= postagem.id_POSTS %>')">
-                                    <i class="fas fa-comment"></i> Comentários
+                                    <i class="fas fa-comment"></i> Responder
                                 </button>
                             </div>
                             
@@ -165,7 +164,7 @@
                                 <form action="/comentarios" method="post">
                                     <textarea name="comentario" rows="2" placeholder="Digite seu comentário" required></textarea>
                                     <input type="hidden" name="postId" value="<%= postagem.id_POSTS %>">
-                                    <button type="submit">Publicar</button>
+                                    <button type="submit">Enviar</button>
                                 </form>
                             </div>
                             
@@ -173,17 +172,20 @@
                             <div class="comments-section">
                                 <% if (postagem.comentarios) { %>
                                     <% postagem.comentarios.forEach(function(comentario) { %>
-                                        <div class="comment">
-                                            <strong><%= comentario.nome_usuario %></strong>: <%= comentario.texto %>
-                                        </div>
+                                        <li>
+                                            <strong><%= comentario.user_usuario || 'Usuário desconhecido' %></strong> 
+                                            <span>(<%= new Date(comentario.data).toLocaleString() %>)</span>: 
+                                            <%= comentario.comentario %>
+                                        </li>
                                     <% }) %>
-                                <% } %>
-                            </div>
+                                </ul>
+                            <% } else { %>
+                                <p>Seja o primeiro a comentar!</p>
+                            <% } %>
                         </div>
-                        <% 
-                    });
-                } 
-                %>
+                    </div>
+                    <% }); %>
+                <% } %>
             </div>
             
 

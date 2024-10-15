@@ -1,5 +1,6 @@
 const { body, validationResult } = require("express-validator");
 const publiModel = require("../models/publiModel");
+const ComentarioModel = require("../models/comentarioModel");
 
 // Função para criar uma nova publicação
 exports.criarPublicacao = async (req, res) => {
@@ -12,7 +13,7 @@ exports.criarPublicacao = async (req, res) => {
 
     // Capturando os dados do body, incluindo o endereço
     const { comentarios_posts, endereco_posts } = req.body;
-    const USUARIOS_id_usuario1 =  req.session?.autenticado?.id;
+    const USUARIOS_id_usuario1 = req.session?.autenticado?.id;
     if (!USUARIOS_id_usuario1) {
         console.error('Usuário não autenticado');
         return res.status(401).send('Usuário não autenticado');
@@ -31,10 +32,11 @@ exports.criarPublicacao = async (req, res) => {
     try {
         // Passando também o endereço para o modelo
         await publiModel.create({
-             comentarios_posts,
-              img_posts,
-               USUARIOS_id_usuario1,
-                endereco_posts });
+            comentarios_posts,
+            img_posts,
+            USUARIOS_id_usuario1,
+            endereco_posts
+        });
         return res.redirect("/Publicacao"); 
     } catch (error) {
         console.error('Erro ao criar publicação:', error);
@@ -42,14 +44,32 @@ exports.criarPublicacao = async (req, res) => {
     }
 };
 
-// Função para buscar todas as publicações e exibir no feed
-exports.buscarPublicacoes = async (req) => {
+exports.buscarPublicacoes = async (req, res) => {
+    const dadosNotificacao = req.session.dadosNotificacao || null;
+    delete req.session.dadosNotificacao;
+
     try {
-        const posts = await publiModel.findAll();
-        console.log('Posts encontrados:', posts); // Verifique o valor de `posts`
-        return posts; // Retorne os posts em vez de renderizar
+        // Buscar todas as publicações
+        const publicacoes = await publiModel.findAll();
+        console.log('Publicações encontradas:', publicacoes);
+
+        // Para cada publicação, buscar os comentários relacionados
+        for (let publicacao of publicacoes) {
+            const comentarios = await ComentarioModel.findAll(publicacao.id_POSTS);
+            publicacao.comentarios = comentarios; // Adicionar os comentários à publicação
+        }
+
+        // Renderizar a página com as publicações e os comentários
+        res.render('pages/publicacao/publi/index', {
+            listaErros: null,
+            dadosNotificacao: dadosNotificacao,
+            dados: publicacoes, // Passa as publicações para a renderização
+            pagina: 'publicacao',
+            logado: req.session.autenticado,
+            autenticado: req.session.autenticado,
+        });
     } catch (error) {
         console.error('Erro ao buscar publicações:', error);
-        throw error; 
+        return res.status(500).send('Erro ao buscar publicações');
     }
 };
