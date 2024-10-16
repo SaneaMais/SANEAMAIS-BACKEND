@@ -12,6 +12,18 @@ const admModel = {
     removerUsuario: async (id) => {
         const [result] = await pool.query('DELETE FROM USUARIOS WHERE id_usuario = ?', [id]);
         return result;
+    },
+    buscarPublicacoes: async () => {
+        const query = `
+            SELECT id_POSTS, comentarios_posts, img_posts, endereco_posts, USUARIOS_id_usuario1 
+            FROM POSTS;
+        `;
+        const [rows] = await pool.query(query);
+        return rows;
+    },
+    removerPublicacao: async (id) => {
+        const [result] = await pool.query('DELETE FROM POSTS WHERE id_POSTS = ?', [id]);
+        return result;
     }
 };
 

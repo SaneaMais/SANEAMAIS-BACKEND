@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADM</title>
+
+    <!-- --------------------------------------notificação----------------------------------------------------------------- -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+    <script src="/js/notify.js"></script>
+    <link rel="stylesheet" href="/css/notify.css">
+    <link rel="stylesheet" href="../../CSS/adm.css">
+    <!-- ---------------------------------------------------------------------------------------------------------------->
+</head>
+<body>
+
+ 
+ <!-- Publicações Data Table -->
+ <section class="post-data">
+    <h2>Publicações</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Comentários</th>
+                <th>Endereço</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% publicacoes.forEach(publicacao => { %>
+                <tr>
+                    <td><%= publicacao.id_POSTS %></td>
+                    <td><%= publicacao.comentarios_posts %></td>
+                    <td><%= publicacao.endereco_posts %></td>
+                    <td>
+                        <button class="btn-danger" onclick="removerPublicacao('<%= publicacao.id_POSTS %>')">Remover</button>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</section>
+</main>
+</div>
+
+<script>
+function removerUsuario(id) {
+if (confirm("Tem certeza que deseja remover este usuário?")) {
+    fetch(`/usuario/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("Usuário removido com sucesso.");
+            location.reload(); // Recarrega a página para atualizar a lista
+        } else {
+            alert("Erro ao remover usuário.");
+        }
+    })
+    .catch(error => {
+        console.error("Erro:", error);
+        alert("Erro ao remover usuário.");
+    });
+}
+}
+
+function removerPublicacao(id) {
+if (confirm("Tem certeza que deseja remover esta publicação?")) {
+    fetch(`/adm/publiadm/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("Publicação removida com sucesso.");
+            location.reload(); // Recarrega a página para atualizar a lista
+        } else {
+            alert("Erro ao remover publicação.");
+        }
+    })
+    .catch(error => {
+        console.error("Erro:", error);
+        alert("Erro ao remover publicação.");
+    });
+}
+}
+</script>
+</body>
+</html>

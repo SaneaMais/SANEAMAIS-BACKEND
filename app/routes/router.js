@@ -93,6 +93,9 @@ router.post("/publicacao", upload('imageInput'), async (req, res) => {
   }
 });
 
+router.get("/adm/publiadm", verificarUsuAutorizado([3], 'pages/restrito'), admController.listarPublicacoes);
+router.delete("/adm/publiadm/:id", verificarUsuAutorizado([3], 'pages/restrito'), admController.removerPublicacao);
+
 // Outras Publicações
 router.get("/PublicacaoPERFIL", verificarUsuAutorizado([1, 3], 'pages/restrito'), (req, res) => {
   res.render("pages/Publicacao/Perfil/index", { autenticado: req.session.autenticado });
