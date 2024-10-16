@@ -5,6 +5,9 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
  
 -- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
 -- Schema bzudsbddxmqodnzmzk08
 -- -----------------------------------------------------
  
@@ -43,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `bzudsbddxmqodnzmzk08`.`USUARIOS` (
   `user_usuario` VARCHAR(45) NULL DEFAULT NULL,
   `telefone_usuario` CHAR(11) NULL DEFAULT NULL,
   `tipo_usuario_id` INT NULL DEFAULT NULL,
-  `bio` VARCHAR(255) NULL,
+  `bio` VARCHAR(255) NULL DEFAULT NULL,
   PRIMARY KEY (`id_usuario`),
   UNIQUE INDEX `idUSUARIOS_UNIQUE` (`id_usuario` ASC) VISIBLE,
   UNIQUE INDEX `email_usuario_UNIQUE` (`email_usuario` ASC) VISIBLE,
@@ -54,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `bzudsbddxmqodnzmzk08`.`USUARIOS` (
     FOREIGN KEY (`tipo_usuario_id`)
     REFERENCES `bzudsbddxmqodnzmzk08`.`tipo_usuario` (`id_usuario`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 12
+AUTO_INCREMENT = 25
 DEFAULT CHARACTER SET = utf8;
  
  
@@ -86,22 +89,19 @@ CREATE TABLE IF NOT EXISTS `bzudsbddxmqodnzmzk08`.`COMENTARIOS` (
   `COMENTARIO` VARCHAR(255) NOT NULL,
   `USUARIOS_id_usuario` INT NOT NULL,
   `POSTS_id_POSTS` INT NOT NULL,
-  `data` DATETIME NULL,
+  `data` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`id_COMENTARIOS`),
   UNIQUE INDEX `id_POSTS_UNIQUE` (`COMENTARIO` ASC) VISIBLE,
   INDEX `fk_COMENTARIOS_USUARIOS1_idx` (`USUARIOS_id_usuario` ASC) VISIBLE,
   INDEX `fk_COMENTARIOS_POSTS1_idx` (`POSTS_id_POSTS` ASC) VISIBLE,
-  CONSTRAINT `fk_COMENTARIOS_USUARIOS1`
-    FOREIGN KEY (`USUARIOS_id_usuario`)
-    REFERENCES `bzudsbddxmqodnzmzk08`.`USUARIOS` (`id_usuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_COMENTARIOS_POSTS1`
     FOREIGN KEY (`POSTS_id_POSTS`)
-    REFERENCES `bzudsbddxmqodnzmzk08`.`POSTS` (`id_POSTS`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `bzudsbddxmqodnzmzk08`.`POSTS` (`id_POSTS`),
+  CONSTRAINT `fk_COMENTARIOS_USUARIOS1`
+    FOREIGN KEY (`USUARIOS_id_usuario`)
+    REFERENCES `bzudsbddxmqodnzmzk08`.`USUARIOS` (`id_usuario`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 14
 DEFAULT CHARACTER SET = utf8;
  
  
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `bzudsbddxmqodnzmzk08`.`INSTITUICOES` (
     FOREIGN KEY (`USUARIOS_id_usuario`)
     REFERENCES `bzudsbddxmqodnzmzk08`.`USUARIOS` (`id_usuario`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 6
+AUTO_INCREMENT = 11
 DEFAULT CHARACTER SET = utf8;
  
  
@@ -168,6 +168,12 @@ CREATE TABLE IF NOT EXISTS `bzudsbddxmqodnzmzk08`.`respostas_usu` (
     REFERENCES `bzudsbddxmqodnzmzk08`.`USUARIOS` (`id_usuario`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+INSERT INTO bzudsbddxmqodnzmzk08.USUARIOS(id_usuario, nome_usuario,cidade_usuario, data_nasc_usuario, email_usuario, senha_usuario, tipo_usuario_id, user_usuario)
+VALUES (1, 'adm',  'Osasco','2006-04-06','admin@adm.com', '$2a$12$J1piFIoOATeGAlIOPW0HSuo.pWb/tBJabaoyNNMkxwgrLAG70MYFK', 3, 'adm');
+INSERT INTO bzudsbddxmqodnzmzk08.USUARIOS(id_usuario, nome_usuario,cidade_usuario, data_nasc_usuario, email_usuario, senha_usuario, tipo_usuario_id, user_usuario)
+VALUES (2, 'comum',  'Barueri','2006-04-09','comum@teste.com', '$2a$12$J1piFIoOATeGAlIOPW0HSuo.pWb/tBJabaoyNNMkxwgrLAG70MYFK', 1, 'comum');
+
+ 
  
  
 SET SQL_MODE=@OLD_SQL_MODE;
