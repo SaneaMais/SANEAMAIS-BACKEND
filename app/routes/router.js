@@ -53,6 +53,9 @@ router.post("/comentarios", [
 ], ComentarioController.criarComentario);
 router.get("/comentarios/:postId", ComentarioController.buscarComentarios);
 
+router.get("/adm/comentarios", verificarUsuAutorizado([3], 'pages/restrito'), admController.listarComentarios);
+
+
 // Demais páginas (com autorização)
 router.get("/FaleConoco", verificarUsuAutorizado([1, 3], 'pages/restrito'), (req, res) => {
   res.render("pages/FaleConoco/index", { autenticado: req.session.autenticado });

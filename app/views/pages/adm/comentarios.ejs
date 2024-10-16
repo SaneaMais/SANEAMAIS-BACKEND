@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publicações - ADM</title>
+    <title>Comentários - ADM</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
     <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
@@ -13,59 +13,53 @@
 </head>
 <body>
 
-
     <div class="container">
         <nav class="sidebar">
             <h2>Admin</h2>
             <ul>
                 <li><a href="/adm">Usuários</a></li>
                 <li><a href="../adm/publiadm">Publicações</a></li>
-                <li><a href="#">Comentários</a></li>
+                <li><a href="../adm/comentarios">Comentários</a></li> <!-- Link para Comentários -->
                 <li><a href="/login">Sair</a></li>
             </ul>
         </nav>
 
         <main>
-            <section class="publicacao-data">
-                <h2>Publicações</h2>
+            <section class="comentarios-data">
+                <h2>Comentários</h2>
                 <table>
                     <thead>
                         <tr>
+                            <th>Post ID</th>
                             <th>Usuário</th>
                             <th>Texto</th>
-                            <th>Endereço</th>
-                            <th>Imagem</th>
+                            <th>Data</th>
                             <th>Ação</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% publicacoes.forEach(publicacao => { %>
+                        <% comentarios.forEach(comentario => { %>
                             <tr>
-                                <td><%= publicacao.nome_usuario %></td>
-                                <td><%= publicacao.comentarios_posts %></td>
-                                <td><%= publicacao.endereco_posts %></td>
+                                <td><%= comentario.id_POSTS %></td>
+                                <td><%= comentario.nome_usuario %></td>
+                                <td><%= comentario.COMENTARIO %></td> 
+                                <td><%= comentario.data ? new Date(comentario.data).toLocaleString() : 'N/A' %></td>
                                 <td>
-                                    <% if (publicacao.img_posts) { %>
-                                        <img src="<%= publicacao.img_posts %>" alt="Imagem do post" style="width: 100px; height: auto;" /> 
-                                    <% } else { %>
-                                        Sem imagem
-                                    <% } %>
-                                </td>
-                                <td>
-                                    <button class="btn-danger" onclick="removerPublicacao('<%= publicacao.id_publicacao %>')">Remover</button>
+                                    <button class="btn-danger" onclick="removerComentario('<%= comentario.id_COMENTARIOS %>')">Remover</button>
                                 </td>
                             </tr>
                         <% }) %>
                     </tbody>
+                    
                 </table>
             </section>
         </main>
     </div>
 
     <script>
-        function removerPublicacao(id) {
-            if (confirm("Tem certeza que deseja remover esta publicação?")) {
-                fetch(`/adm/publiadm/${id}`, {
+        function removerComentario(id) {
+            if (confirm("Tem certeza que deseja remover este comentário?")) {
+                fetch(`/adm/comentarios/${id}`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json'
@@ -73,15 +67,15 @@
                 })
                 .then(response => {
                     if (response.ok) {
-                        alert("Publicação removida com sucesso.");
-                        location.reload(); 
+                        alert("Comentário removido com sucesso.");
+                        location.reload();
                     } else {
-                        alert("Erro ao remover publicação.");
+                        alert("Erro ao remover comentário.");
                     }
                 })
                 .catch(error => {
                     console.error("Erro:", error);
-                    alert("Erro ao remover publicação.");
+                    alert("Erro ao remover comentário.");
                 });
             }
         }

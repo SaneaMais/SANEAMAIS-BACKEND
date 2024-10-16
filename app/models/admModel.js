@@ -9,22 +9,45 @@ const admModel = {
         const [rows] = await pool.query(query);
         return rows;
     },
+
+
     removerUsuario: async (id) => {
         const [result] = await pool.query('DELETE FROM USUARIOS WHERE id_usuario = ?', [id]);
         return result;
     },
     buscarPublicacoes: async () => {
         const query = `
-            SELECT id_POSTS, comentarios_posts, img_posts, endereco_posts, USUARIOS_id_usuario1 
-            FROM POSTS;
+            SELECT p.id_POSTS, p.comentarios_posts, p.img_posts, p.endereco_posts, u.nome_usuario 
+            FROM POSTS p
+            JOIN USUARIOS u ON p.USUARIOS_id_usuario1 = u.id_usuario;
         `;
         const [rows] = await pool.query(query);
         return rows;
     },
+    
+    
     removerPublicacao: async (id) => {
         const [result] = await pool.query('DELETE FROM POSTS WHERE id_POSTS = ?', [id]);
         return result;
-    }
+    },
+
+    buscarComentarios: async () => {
+        const query = `
+            SELECT c.id_COMENTARIOS, c.COMENTARIO, c.data, p.id_POSTS, u.nome_usuario 
+            FROM COMENTARIOS c
+            JOIN POSTS p ON c.POSTS_id_POSTS = p.id_POSTS
+            JOIN USUARIOS u ON c.USUARIOS_id_usuario = u.id_usuario;
+        `;
+        const [rows] = await pool.query(query);
+        return rows;
+    },    
+
+    removerComentario: async (id) => {
+        const [result] = await pool.query('DELETE FROM COMENTARIOS WHERE id_comentario = ?', [id]);
+        return result;
+    },
+    
+    
 };
 
 module.exports = admModel;

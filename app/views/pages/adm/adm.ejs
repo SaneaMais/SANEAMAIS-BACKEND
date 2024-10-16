@@ -33,6 +33,7 @@
             <ul>
                 <li><a href="/adm">Usuários</a></li>
                 <li><a href="../adm/publiadm">Publicações</a></li>
+                <li><a href="../adm/comentarios">Comentários</a></li>
                 <li><a href="/login">Sair</a></li>
             </ul>
         </nav>
@@ -74,6 +75,33 @@
                 </table>
             </section>
 
-           
+          
+
+    <script>
+        function removerUsuario(id) {
+        if (confirm("Tem certeza que deseja remover este usuário?")) {
+            fetch(`/usuario/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Usuário removido com sucesso.");
+                    location.reload(); // Recarrega a página para atualizar a lista
+                } else {
+                    alert("Erro ao remover usuário.");
+                }
+            })
+            .catch(error => {
+                console.error("Erro:", error);
+                alert("Erro ao remover usuário.");
+            });
+        }
+        }
+        
+        </script>
+
 </body>
 </html>
