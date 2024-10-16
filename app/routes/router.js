@@ -52,7 +52,7 @@ router.post('/login', usuarioController.regrasValidacaoFormLogin, gravarUsuAuten
 // usuarioController.regrasValidacaoFormsRecSenha,
 // function(req, res){
 //   usuarioController.recuperarSenha(req, res);
-// });z
+// });
 
 router.get("/resetar-senha",
 function(req, res){
@@ -99,24 +99,46 @@ router.get("/PublicacacaoCONFIG", verificarUsuAutorizado([1, 3], 'pages/restrito
 });
 
 /* ---------------------------Publicações----------------------------- */
+/* ---------------------------Publicações----------------------------- */
 router.get("/publicacao", verificarUsuAutorizado([1, 2, 3], 'pages/restrito'), async (req, res) => {
-  const dadosNotificacao = req.session.dadosNotificacao || null;
-  delete req.session.dadosNotificacao;
+  const dadosNotificacao = req.session.dadosNotificacao || null; // Recupera notificações da sessão
+  
 
   try {
-      // Aqui você apenas chama o controller, ele vai cuidar da renderização
-      await publiController.buscarPublicacoes(req, res); 
+      // Chama o controller para buscar as publicações e renderizar a página
+      await publiController.buscarPublicacoes(req, res, dadosNotificacao);
   } catch (error) {
       console.error('Erro ao buscar publicações:', error);
       return res.status(500).send('Erro ao buscar publicações');
   }
-  
 });
-
 
 router.post("/publicacao", upload('imageInput'), async (req, res) => {
-  await publiController.criarPublicacao(req, res);
+  try {
+    // Criação de publicação
+    await publiController.criarPublicacao(req, res);
+
+    // Definindo uma notificação de sucesso após a criação
+    req.session.dadosNotificacao = {
+        titulo: "Sucesso!",
+        mensagem: "Publicação criada com sucesso.",
+        tipo: "success"
+    };
+
+    // Redireciona de volta para a página de publicações
+    res.redirect("/publicacao");
+  } catch (error) {
+    console.error('Erro ao criar publicação:', error);
+    req.session.dadosNotificacao = {
+        titulo: "Erro!",
+        mensagem: "Ocorreu um erro ao tentar criar a publicação.",
+        tipo: "error"
+    };
+
+    res.redirect("/publicacao");
+  }
 });
+
 /* ---------------------------Publicações----------------------------- */
 
 

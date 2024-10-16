@@ -64,18 +64,18 @@ gravarUsuAutenticadoCadastro = (req, res, next) => {
         }
     }
     req.session.autenticado = autenticado
-    next()
+     next()
 }
 
 verificarUsuAutorizado = (tipoPermitido, destinoFalha) => {
     return (req, res, next) => {
-        if (req.session?.autenticado && tipoPermitido.includes(req.session.autenticado.tipo)) {
-            return next();
+        if (req.session?.autenticado != null && tipoPermitido.find((item) => { return item == req.session.autenticado.tipo }) != undefined) {
+            next();
+        } else {
+            res.render(destinoFalha, { autenticado: req.session.autenticado });
         }
-        res.render(destinoFalha, { autenticado: req.session.autenticado });
-    };
+    }
 };
-
 
 verificarCadastroCompleto = async (req, res, next) => {
     const autenticado = req.session.autenticado
