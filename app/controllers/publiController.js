@@ -37,12 +37,19 @@ exports.criarPublicacao = async (req, res) => {
             USUARIOS_id_usuario1,
             endereco_posts
         });
-        return res.redirect("/Publicacao"); 
+        req.session.dadosNotificacao = {
+            titulo: "Sucesso!",
+            mensagem: "Publicação criada com sucesso.",
+            tipo: "success"
+        };
+        return res.redirect("/Publicacao");
     } catch (error) {
-        console.error('Erro ao criar publicação:', error);
-        return res.status(500).send('Erro ao criar publicação');
+        console.error('Erro ao criar publicação 1:', error);
+        return res.status(500).send('Erro ao criar publicação 2');
     }
 };
+
+
 
 exports.buscarPublicacoes = async (req, res) => {
     const dadosNotificacao = req.session.dadosNotificacao || null;

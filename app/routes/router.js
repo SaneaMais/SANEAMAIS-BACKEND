@@ -77,17 +77,13 @@ router.get("/publicacao", verificarUsuAutorizado([1, 2, 3], 'pages/restrito'), a
     return res.status(500).send('Erro ao buscar publicações');
   }
 });
+
 router.post("/publicacao", upload('imageInput'), async (req, res) => {
   try {
     await publiController.criarPublicacao(req, res);
-    req.session.dadosNotificacao = {
-      titulo: "Sucesso!",
-      mensagem: "Publicação criada com sucesso.",
-      tipo: "success"
-    };
-    res.redirect("/publicacao");
+    
   } catch (error) {
-    console.error('Erro ao criar publicação:', error);
+    console.error('Erro ao criar publicação 3:', error);
     req.session.dadosNotificacao = {
       titulo: "Erro!",
       mensagem: "Ocorreu um erro ao tentar criar a publicação.",
