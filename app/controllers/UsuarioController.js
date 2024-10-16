@@ -115,7 +115,7 @@ const UsuarioController = {
           return res.render("pages/login/index", {
               pagina: "login",
               dados: req.body,
-              listaErros: erros,
+              listaErros: errors.array(),
               logado: null,
               dadosNotificacao: null
           });
@@ -216,7 +216,7 @@ const UsuarioController = {
         }
         try {
             //logica do token
-            user = await usuario.findUserCustom({
+           const user = await usuario.findUserCustom({
               email_usuario: req.body.email_usu,
             });
             const token = jwt.sign(
