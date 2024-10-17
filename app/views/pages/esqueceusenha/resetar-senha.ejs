@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>Login</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/estilo.css">
+    <script src="js/script.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script>
+</head>
+
+<body>
+    <main>
+        <% 
+            let avisoErro = {"senha":"","c-senha":""}
+            let msgErro = ""
+                if(listaErros){
+                    listaErros.errors.forEach(function(itemErro){
+                        if(itemErro.path == "senha"){
+                            avisoErro.senha = "erro";
+                            msgErro += `* ${itemErro.msg} <br>`
+                        }
+                        if(itemErro.path == "c-senha"){
+                            avisoErro.c-senha = "erro";
+                            msgErro += `* ${itemErro.msg} <br>`
+                        }
+                    })
+                    if(msgErro != ""){
+                    %>
+                        <script>
+                            let msgErro ="<%= msgErro %>"
+                            notify("Erro(s) no preenchimento", 
+                                   "Verifique o(s) campo(s) <br> " + msgErro.replace(/&lt;/g,"<").replace(/&gt;/g,">"), 
+                                   "error", "center", 5000)                        
+                        </script>
+                    <%
+                    }
+                }
+                if (dadosNotificacao) { %>
+                    <script>
+                            notify("<%= dadosNotificacao.titulo%>","<%= dadosNotificacao.mensagem%>", "<%= dadosNotificacao.tipo%>", "center")
+                            if("<%= dadosNotificacao.tipo %>" == "success"){
+                                setTimeout(function(){window.location="/"}, 3000)
+                            }                        
+                    </script>
+                <% } %>              
+                <div class="login-page">
+                    <div class="form-cadastro">
+                        <h2>Resetar senha</h2>
+                        <form action="/reset-senha" method="post">
+                            <input type="hidden" name="id_usuario" value="<%= id_usuario %>">
+                            <input type="password" name="senha" placeholder="Nova senha" value=""
+                                class="<%= avisoErro.senha %>" /><br>
+                           <input type="password" name="c-senha" placeholder="Repita a senha" value=""
+                                class="<%=  avisoErro.c-senha %>" /><br>
+                           <button type="submit">Entrar</button><br>
+                        </form>
+                    </div>
+                </div>
+    </main>
+
+</body>
+
+</html>
