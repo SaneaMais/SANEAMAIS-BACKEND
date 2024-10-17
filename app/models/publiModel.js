@@ -9,6 +9,7 @@ const publiModel = {
             const [results] = await pool.query(query, [data.comentarios_posts, data.img_posts, data.USUARIOS_id_usuario1, data.endereco_posts]);
             return results.insertId;
         } catch (err) {
+            console.log(err);
             throw err;
         }
     },

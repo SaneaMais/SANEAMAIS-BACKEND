@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comentários - ADM</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+    <script src="/js/notify.js"></script>
+    <link rel="stylesheet" href="/css/notify.css">
+    <link rel="stylesheet" href="../../CSS/adm.css">
+</head>
+<body>
+
+    <div class="container">
+        <nav class="sidebar">
+            <h2>Admin</h2>
+            <ul>
+                <li><a href="/adm">Usuários</a></li>
+                <li><a href="../adm/publiadm">Publicações</a></li>
+                <li><a href="../adm/comentarios">Comentários</a></li> <!-- Link para Comentários -->
+                <li><a href="/login">Sair</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <section class="comentarios-data">
+                <h2>Comentários</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Post ID</th>
+                            <th>Usuário</th>
+                            <th>Texto</th>
+                            <th>Data</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% comentarios.forEach(comentario => { %>
+                            <tr>
+                                <td><%= comentario.id_POSTS %></td>
+                                <td><%= comentario.nome_usuario %></td>
+                                <td><%= comentario.COMENTARIO %></td> 
+                                <td><%= comentario.data ? new Date(comentario.data).toLocaleString() : 'N/A' %></td>
+                                <td>
+                                    <button class="btn-danger" onclick="removerComentario('<%= comentario.id_COMENTARIOS %>')">Remover</button>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                    
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function removerComentario(id) {
+            if (confirm("Tem certeza que deseja remover este comentário?")) {
+                fetch(`/adm/comentarios/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert("Comentário removido com sucesso.");
+                        location.reload();
+                    } else {
+                        alert("Erro ao remover comentário.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro:", error);
+                    alert("Erro ao remover comentário.");
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>

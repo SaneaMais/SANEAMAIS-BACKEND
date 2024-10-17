@@ -2,7 +2,7 @@ const { validationResult } = require("express-validator");
 const usuario = require("../models/UsuarioModel");
 const bcrypt = require("bcryptjs");
 
-verificarUsuAutenticado = (req, res, next) => {
+const verificarUsuAutenticado = (req, res, next) => {
     if (req.session.autenticado) {
         var autenticado = req.session.autenticado;
     } else {
@@ -12,24 +12,24 @@ verificarUsuAutenticado = (req, res, next) => {
     next();
 }
 
-limparSessao = (req, res, next) => {
+const limparSessao = (req, res, next) => {
     req.session.destroy();
-    next()
+    next();
 }
 
-gravarUsuAutenticado = async (req, res, next) => {
-    erros = validationResult(req)
+const gravarUsuAutenticado = async (req, res, next) => {
+    const erros = validationResult(req);
     if (erros.isEmpty()) {
-
         const errorLogin = {
             errors: [
                 { msg: 'Email ou Senha incorreta', path: 'email' },
             ]
-        }
+        };
 
-        var results = await usuario.findUserEmail(req.body.email); 
-        var total = Object.keys(results).length;
-        if (total == 1) {
+        const results = await usuario.findUserEmail(req.body.email);
+        const total = Object.keys(results).length;
+
+        if (total === 1) {
             if (bcrypt.compareSync(req.body.senha, results[0].senha_usuario)) {
                 var autenticado = {
                     tipo_autenticacao: 'login',
@@ -37,57 +37,58 @@ gravarUsuAutenticado = async (req, res, next) => {
                     id: results[0].id_usuario,
                     tipo: results[0].tipo_usuario_id
                 };
+                req.session.autenticado = autenticado; // Armazenando na sessão
+                console.log("Usuário autenticado:", req.session.autenticado); // Log de depuração
+                return next();
             } else {
-                // erro senha incorreta
-                return res.render("pages/login/index", { listaErros: errorLogin, dados: req.body })
+                // Erro: senha incorreta
+                return res.render("pages/login/index", { listaErros: errorLogin, dados: req.body });
             }
         } else {
-            // var autenticado =  { autenticado: null, id: null, tipo: null };
-            // erro email nao encontrado
-            return res.render("pages/login/index", { listaErros: errorLogin, dados: req.body })
+            // Erro: email não encontrado
+            return res.render("pages/login/index", { listaErros: errorLogin, dados: req.body });
         }
-    } /* else {
-        // var autenticado =  { autenticado: null, id: null, tipo: null };
-    } */
-    req.session.autenticado = autenticado;
-    next();
+    }
+    // Se houver erros de validação
+    return res.render("pages/login/index", { listaErros: erros.array(), dados: req.body });
 }
 
-gravarUsuAutenticadoCadastro = (req, res, next) => {
-    const erros = validationResult(req)
+const gravarUsuAutenticadoCadastro = (req, res, next) => {
+    const erros = validationResult(req);
     if (erros.isEmpty()) {
         var autenticado = {
             tipo_autenticacao: 'cadastro',
             autenticado: req.body.nome,
-           /* id: results[0].id_usuario, */
             tipo: req.body.tipo_usuario_id
-        }
+        };
+        req.session.autenticado = autenticado;
+        console.log("Usuário cadastrado:", req.session.autenticado); // Log de depuração
     }
-    req.session.autenticado = autenticado
-    next()
+    next();
 }
 
-verificarUsuAutorizado = (tipoPermitido, destinoFalha) => {
+const verificarUsuAutorizado = (tipoPermitido, destinoFalha) => {
     return (req, res, next) => {
         if (req.session?.autenticado && tipoPermitido.includes(req.session.autenticado.tipo)) {
             return next();
+        } else {
+            console.log("Acesso negado para o tipo:", req.session?.autenticado?.tipo); // Log de depuração
+            res.render(destinoFalha, { autenticado: req.session.autenticado });
         }
-        res.render(destinoFalha, { autenticado: req.session.autenticado });
-    };
+    }
 };
 
+const verificarCadastroCompleto = async (req, res, next) => {
+    const autenticado = req.session.autenticado;
+    if (autenticado && autenticado.id) {
+        const result = await usuario.findByApproved(autenticado.id);
+        const isApproved = result.length > 0;
 
-verificarCadastroCompleto = async (req, res, next) => {
-    const autenticado = req.session.autenticado
-    const result = await usuario.findByApproved(autenticado.id)
-    const isApproved = result.length > 0
-    
-    if (isApproved) {
-        return next()
+        if (isApproved) {
+            return next();
+        }
     }
-
     res.render('pages/restrito', { autenticado });
-    // next()
 }
 
 module.exports = {
@@ -95,5 +96,6 @@ module.exports = {
     limparSessao,
     gravarUsuAutenticado,
     verificarUsuAutorizado,
-    gravarUsuAutenticadoCadastro
+    gravarUsuAutenticadoCadastro,
+    verificarCadastroCompleto
 }

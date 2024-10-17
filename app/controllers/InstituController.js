@@ -6,29 +6,29 @@ const moment = require('moment');
 const salt = bcrypt.genSaltSync(12);
 
 const InstituicaoController = {
-     cadastrar: async(req, res) => {
+    cadastrar: async (req, res) => {
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.render("pages/cadastro/cnpj", {
-                    dados: req.body, 
-                    listaErros: errors, 
-                    pagina: "cadastro/cnpj", 
+                    dados: req.body,
+                    listaErros: errors,
+                    pagina: "cadastro/cnpj",
                     dadosNotificacao: null
                 });
             }
 
             const { razao_social_instituicao, cnpj_instituicao, cidade, email, user, senha } = req.body;
 
-            // Dados do usuário para serem usados no cadastro
+            // Dados do usuário para cadastro
             let dadosFormularioUsuario = {
-                nome: null, 
+                nome: null,
                 email: email,
                 user: user,
                 cidade: cidade,
-                nasc: null, 
+                nasc: null,
                 senha: bcrypt.hashSync(senha, salt),
-                tipo_usuario_id: 2  
+                tipo_usuario_id: 2 // Define como empresa
             };
 
             // Inserir usuário primeiro
@@ -38,9 +38,17 @@ const InstituicaoController = {
             // Inserir instituição
             await InstituicaoModel.cadastrarInstituicao(razao_social_instituicao, cnpj_instituicao, usuarioId);
 
+            // Atualizando a sessão do usuário autenticado
+            req.session.autenticado = {
+                tipo_autenticacao: 'cadastro',
+                autenticado: user,
+                id: usuarioId,
+                tipo: 2 // Tipo de usuário para empresa
+            };
+
             req.session.dadosNotificacao = {
                 titulo: "Sucesso",
-                mensagem: "Cadastro de instituição realizado com sucesso!",
+                mensagem: `Cadastro feito com sucesso, ${user}`,
                 tipo: "success"
             };
 
