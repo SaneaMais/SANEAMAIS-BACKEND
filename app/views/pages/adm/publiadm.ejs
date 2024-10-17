@@ -52,7 +52,7 @@
                                     <% } %>
                                 </td>
                                 <td>
-                                    <button class="btn-danger" onclick="removerPublicacao('<%= publicacao.id_publicacao %>')">Remover</button>
+                                    <button class="btn-danger" onclick="removerPublicacao('<%= publicacao.id_POST %>')">Remover</button>
                                 </td>
                             </tr>
                         <% }) %>
@@ -63,28 +63,29 @@
     </div>
 
     <script>
-        function removerPublicacao(id) {
-            if (confirm("Tem certeza que deseja remover esta publicação?")) {
-                fetch(`/adm/publiadm/${id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => {
-                    if (response.ok) {
-                        alert("Publicação removida com sucesso.");
-                        location.reload(); 
-                    } else {
-                        alert("Erro ao remover publicação.");
-                    }
-                })
-                .catch(error => {
-                    console.error("Erro:", error);
-                    alert("Erro ao remover publicação.");
-                });
+       function removerPublicacao(id) {
+    if (confirm("Tem certeza que deseja remover esta publicação?")) {
+        fetch(`/adm/publiadm/:id${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
             }
-        }
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("Publicação removida com sucesso.");
+                location.reload(); 
+            } else {
+                alert("Erro ao remover publicação.");
+            }
+        })
+        .catch(error => {
+            console.error("Erro:", error);
+            alert("Erro ao remover publicação.");
+        });
+    }
+}
+
     </script>
 
 </body>

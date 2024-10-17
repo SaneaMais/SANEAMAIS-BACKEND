@@ -15,6 +15,7 @@ const admModel = {
         const [result] = await pool.query('DELETE FROM USUARIOS WHERE id_usuario = ?', [id]);
         return result;
     },
+
     buscarPublicacoes: async () => {
         const query = `
             SELECT p.id_POSTS, p.comentarios_posts, p.img_posts, p.endereco_posts, u.nome_usuario 
@@ -30,6 +31,7 @@ const admModel = {
         const [result] = await pool.query('DELETE FROM POSTS WHERE id_POSTS = ?', [id]);
         return result;
     },
+    
 
     buscarComentarios: async () => {
         const query = `
@@ -43,7 +45,7 @@ const admModel = {
     },    
 
     removerComentario: async (id) => {
-        const [result] = await pool.query('DELETE FROM COMENTARIOS WHERE id_comentario = ?', [id]);
+        const [result] = await pool.query('DELETE FROM COMENTARIOS WHERE id_COMENTARIOS = ?', [id]);
         return result;
     },
     

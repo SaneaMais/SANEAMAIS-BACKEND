@@ -59,15 +59,16 @@ const admController = {
     
 
     removerPublicacao: async (req, res) => {
-        const publicacaoId = req.params.id; 
+        const postId = req.params.id; 
         try {
-            await admModel.removerPublicacao(publicacaoId); 
+            await admModel.removerPublicacao(postId); 
             res.status(200).json({ message: 'Publicação removida com sucesso.' });
         } catch (error) {
             console.error('Erro ao remover publicação:', error);
             res.status(500).json({ message: 'Erro ao remover publicação.' });
         }
     },
+    
 
 
     listarComentarios: async (req, res) => {

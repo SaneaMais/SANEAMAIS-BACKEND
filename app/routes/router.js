@@ -84,7 +84,7 @@ router.post("/comentarios", [
 router.get("/comentarios/:postId", ComentarioController.buscarComentarios);
 
 router.get("/adm/comentarios", verificarUsuAutorizado([3], 'pages/restrito'), admController.listarComentarios);
-
+router.delete("/adm/comentarios/:id", admController.removerComentario);
 
 // Demais páginas (com autorização)
 router.get("/FaleConoco", verificarUsuAutorizado([1, 3], 'pages/restrito'), (req, res) => {
@@ -117,7 +117,8 @@ router.post("/publicacao", upload('imageInput'), async (req, res) => {
 });
 
 router.get("/adm/publiadm", verificarUsuAutorizado([3], 'pages/restrito'), admController.listarPublicacoes);
-router.delete("/adm/publiadm/:id", verificarUsuAutorizado([3], 'pages/restrito'), admController.removerPublicacao);
+router.delete("/adm/publiadm/:id", admController.removerPublicacao);
+
 /* ---------------------------Publicações----------------------------- */
 
 
