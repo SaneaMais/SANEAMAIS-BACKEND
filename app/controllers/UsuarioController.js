@@ -116,7 +116,7 @@ const UsuarioController = {
           return res.render("pages/login/index", {
               pagina: "login",
               dados: req.body,
-              listaErros: errors.array(),
+              listaErros: erros.array(),
               logado: null,
               dadosNotificacao: null
           });
