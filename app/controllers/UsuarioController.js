@@ -10,41 +10,62 @@ const {removeImg} = require("../util/removeImg");
 const UsuarioController = {
 
     /* --------------------------cadastro-------------------------------------- */
-    create: async (req, res) => {
+create: async (req, res) => {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            console.log(errors);
+            return res.render("pages/cadastro/index", {
+                dados: req.body,
+                listaErros: errors.array(), 
+                pagina: "cadastro",
+                dadosNotificacao: null
+            });
+        }
+
+        const nascimento = req.body.nasc;
+        const formattedDate = moment(nascimento, 'DD/MM/YYYY').format('YYYY-MM-DD');
+
+        // Prepara os dados para inserção
+        const dadosFormularioUsuario = {
+            nome: req.body.nome, // Assumindo que você tenha um campo nome no formulário
+            email: req.body.email,
+            user: req.body.user, // O nome de usuário
+            cidade: req.body.cidade,
+            nasc: formattedDate,
+            senha: bcrypt.hashSync(req.body.senha, salt),
+            tipo_usuario_id: 1 // Define como usuário comum
+        };
+
         try {
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                console.log(errors);
-                return res.render("pages/cadastro/index", {
-                    dados: req.body,
-                    listaErros: errors,
-                    pagina: "cadastro",
-                    dadosNotificacao: null
-                });
-            }
+            const resultados = await UsuarioModel.create(dadosFormularioUsuario);
 
-            const nascimento = req.body.nasc;
-            const formattedDate = moment(nascimento, 'DD/MM/YYYY').format('YYYY-MM-DD');
+            // Atualizando a sessão com o usuário cadastrado
+            req.session.autenticado = {
+                tipo_autenticacao: 'cadastro',
+                autenticado: dadosFormularioUsuario.user, // Acesso ao user do formulário
+                id: resultados.insertId, // ID do usuário inserido
+                tipo: 1 // Tipo de usuário para comum
+            };
 
-            try {
-                const resultados = await UsuarioModel.create({ ...req.body, nasc: formattedDate, senha: bcrypt.hashSync(req.body.senha, salt) });
+            // Mensagem de notificação após cadastro
+            req.session.dadosNotificacao = {
+                titulo: "Sucesso",
+                mensagem: `Cadastro feito com sucesso, ${dadosFormularioUsuario.user}`, // Exibe o nome de usuário
+                tipo: "success"
+            };
 
-                req.session.dadosNotificacao = {
-                    titulo: "Enviado",
-                    mensagem:`Cadastro feito com sucesso, ${req.session.autenticado.autenticado}`,
-                    tipo: "success"
-                };
-                res.redirect("/publicacao");
-
-            } catch (error) {
-                console.error(error);
-                return res.status(500).send("Erro no servidor.");
-            }
+            res.redirect("/publicacao");
         } catch (error) {
             console.error(error);
-            return res.status(500).send("Erro no servidor.");
+            return res.status(500).send("Erro no servidor ao cadastrar o usuário.");
         }
-    },
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Erro no servidor.");
+    }
+},
+
     regrasValidacao: [
         body("nome")
             .isLength({ min: 3, max: 45 })
