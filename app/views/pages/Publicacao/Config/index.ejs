@@ -4,11 +4,63 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" /> -->
+
+  <!-- <script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script> -->
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script>
+  <script src="js/Config/scripts.js"></script>
   <title>Configurações da Conta</title>
   <link rel="stylesheet" href="../../../CSS/Publicacao/Config/style.css">
 </head>
 <body>
+
+  <%
+
+let msgErro = ""
+let avisoErro = {"nome":"", "user":"", "imagem":"", "bio":""}
+if(listaErros){
+    listaErros.errors.forEach(function(itemErro){
+        if(itemErro.path == "nome_usuario"){
+            avisoErro.nome_usuario = "erro";
+            msgErro += `* ${itemErro.msg} <br>`;
+        }
+        if(itemErro.path == "user_usuario"){
+            avisoErro.user_usuario = "erro";
+            msgErro += `* ${itemErro.msg} <br>`;
+        }
+        if(itemErro.path == "imagem"){
+            avisoErro.imagem = "erro";
+            msgErro += `* ${itemErro.msg} <br>`;
+        }
+        if(itemErro.path == "bio"){
+          avisoErro.bio = "erro";
+          msgErro += `* ${itemErro.msg} <br>`;
+      }
+      
+    })
+    if(msgErro != ""){
+        %>
+            <script>
+                let msgErro ="<%= msgErro %>"
+                notify("Erro no preenchimento",
+                "Verifique o(s) campo(s): <br>" + msgErro.replace(/&lt;/g,"<").replace(/&gt;/g,">"), 
+                "error", "center",5000)                        
+            </script>
+            <%
+
+    }
+}
+if (dadosNotificacao) { 
+    %>
+    <script>
+            notify("<%= dadosNotificacao.titulo%>","<%= dadosNotificacao.mensagem%>", "<%= dadosNotificacao.tipo%>", "center")
+                               
+    </script>
+<% } %>
+
+
    <header class="header">
     <div class="container">
         <img src="../../../img/NovoPerfil/LOGO1.png">
@@ -23,14 +75,14 @@
 
   <div class="profile-container">
     <h2>Configurações da Conta</h2>
-    <form action="/settings/update" method="POST" enctype="multipart/form-data">
+    <form action="/PublicacacaoCONFIG" method="POST" enctype="multipart/form-data">
        
       <div class="form-group">
         <label>Alterar Imagem de Perfil</label>
         <div class="profile-image-wrapper">
-          <img src="../../../img/NovoPerfil/profile-2.png" alt="Imagem de perfil" id="currentProfileImage" class="profile-image">
+          <img src="<%= valores.foto_usuario %>" onclick="document.getElementById('profileImage').click()" alt="Imagem de perfil" id="currentProfileImage" class="profile-image">
          <!-- Input oculto para escolher nova imagem -->
-    <input type="file" id="profileImage" name="profileImage" accept="image/*" style="display:none;">
+         <input type="file" accept="image/*" class="<%= avisoErro.imagem %>" name="profileImage" id="profileImage" onchange="loadImg(event)">
           <div class="overlay" id="changeImageOverlay">
             <span>Trocar Foto</span>
           </div>
@@ -40,26 +92,27 @@
       <!-- Alterar Nome Completo -->
       <div class="form-group">
         <label for="fullName">Nome Completo</label>
-        <input type="text" id="fullName" name="fullName" placeholder="Digite seu nome"  value="" required>
+        <input type="text" id="nome_usuario" name="nome" placeholder="Digite seu nome"  value="<%= valores.nome_usuario %>" class="<%= avisoErro.nome_usuario %>" required>
       </div>
 
       <!-- Alterar Nome de Usuário -->
       <div class="form-group">
         <label for="username">Nome de Usuário</label>
-        <input type="text" id="username" name="username" placeholder="Digite seu usuário" value="" required>
+        <input type="text" id="user_usuario" name="user" placeholder="Digite seu usuário" value="<%= valores.user_usuario %>" class="<%= avisoErro.user_usuario %>" required>
       </div>
 
       <!-- Senha Atual -->
       <div class="form-group">
         <label for="currentPassword">Senha</label>
-        <input type="password" id="currentPassword" name="currentPassword" placeholder="Senha" required>
+        <input type="password" id="senha_usuario" name="senha" placeholder="Senha" >
         <span class="aviso">Não preencha este campo para manter a senha atual</span>
       </div>
 
       <!-- Alterar Bio -->
       <div class="form-group">
         <label for="bio">Bio</label>
-        <textarea id="bio" name="bio" rows="4" placeholder="Escreva sua bio aqui..."></textarea>
+          <!-- <textarea id="bio" name="bio" rows="4" placeholder="Escreva sua bio aqui..." value="" class=""></textarea> -->
+          <textarea id="bio" name="bio" rows="4" placeholder="Escreva sua bio aqui..." class="<%= avisoErro.bio %>"><%= valores.bio %></textarea>
       </div>
 
       <input type="submit" class="enviar" value="Alterar dados perfil" />
@@ -82,7 +135,7 @@
     });
   </script>
 
-  <script src="js\Config\scripts.js"></script>
+<!-- <script src="js/Config/scripts.js"></script> -->
 </main>
 </body>
 </html>

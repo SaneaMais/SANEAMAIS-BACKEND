@@ -5,6 +5,7 @@ const salt = bcrypt.genSaltSync(12);
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const https = require('https');
 const moment = require('moment');
+const {removeImg} = require("../util/removeImg");
 
 const UsuarioController = {
 
@@ -293,7 +294,143 @@ const UsuarioController = {
             }
           },
 
-
+          regrasValidacaoPerfil: [
+            body("nome"),
+            // .isLength({ min: 3, max: 45 })
+            // .withMessage("Nome de usuário deve conter pelo menos 3 letras"),
+       
+        body("user"),
+            // .isLength({ min: 8, max: 45 })
+            // .withMessage("Nome de usuário deve conter pelo menos 8 letras")
+            // .bail(),
+            // .custom(async (value) => {
+            //     const user = await UsuarioModel.findUserByUsername(value);
+            //     if (user.length > 0) {
+            //         throw new Error('Nome de usuário já está em uso.');
+            //     }
+            //     return true;
+            // }),
+            // body("senha")
+            // .isLength({ min: 8, max: 30 })
+            // .withMessage("Senha inválida, deve conter pelo menos 8 caracteres")
+            // .bail()
+            // .matches(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/)
+            // .withMessage("Senha inválida, deve conter pelo menos 1 letra, 1 número e 1 caractere especial"),
+     
+            body('profileImage').optional().isString().withMessage('Imagem inválida'),
+    
+        ],
+    
+    
+        mostrarPerfil: async (req, res) => {
+            try {
+                // Buscar usuário pelo ID da sessão
+                let results = await UsuarioModel.findById(req.session.autenticado.id);
+        
+                if (results && results.length > 0) {
+                    let campos = {
+                        nome_usuario: results[0].nome_usuario, 
+                        foto_usuario: results[0].foto_usuario != null ? `data:image/jpeg;base64,${results[0].foto_usuario.toString('base64')}` : "img/NovoPerfil/profile-2.png",
+                        user_usuario: results[0].user_usuario, senha_usuario: "",
+                        bio: results[0].bio
+                    };
+        
+                    res.render("pages/Publicacao/Config/index", { listaErros: null, dadosNotificacao: null, valores: campos });
+                    console.log(campos);
+                } else {
+                    let campos = {
+                        nome_usuario: "", 
+                        foto_usuario:  results[0].foto_usuario != null ? `data:image/jpeg;base64,${results[0].foto_usuario.toString('base64')}` : "img/NovoPerfil/profile-2.png",
+                        user_usuario: results[0].user_usuario, 
+                        senha_usuario: "",
+                        bio:''
+                    };
+        
+                    res.render("pages/Publicacao/Config/index", { listaErros: null, dadosNotificacao: null, valores: campos }); //colocar uma notificaçao
+                }
+            } catch (e) {
+                console.log(e);
+                res.render("pages/Publicacao/Config/index", {
+                    listaErros: null, dadosNotificacao: null, valores: {
+                        foto_usuario: "", nome_usuario: "", 
+                        user_usuario: "", senha_usuario: ""
+                    }
+                });
+            }
+        },
+        
+    
+        gravarPerfil: async (req, res) => {
+    
+            const erros = validationResult(req);
+            const erroMulter = req.session.erroMulter;
+            if (!erros.isEmpty() || erroMulter != null ) {
+              console.log(erros)
+              console.log(erroMulter)
+                lista =  !erros.isEmpty() ? erros : {formatter:null, errors:[]};
+                if(erroMulter != null ){
+                    lista.errors.push(erroMulter);
+                } 
+                return res.render("pages/Publicacao/Config/index", { listaErros: lista, dadosNotificacao: null, valores: req.body })
+            }
+            try {
+                var dadosForm = {
+                    user_usuario: req.body.user,
+                    nome_usuario: req.body.nome,
+                    bio: req.body.bio
+                };
+                if (req.body.senha != "") {
+                    dadosForm.senha_usuario = bcrypt.hashSync(req.body.senha, salt);
+                }
+                if (!req.file) {
+                    console.log("Falha no carregamento");
+                } else {
+                    //Armazenando o caminho do arquivo salvo na pasta do projeto 
+                    // caminhoArquivo = "imagem/perfil/" + req.file.filename;
+                    // //Se houve alteração de imagem de perfil apaga a imagem anterior
+                    // if(dadosForm.img_perfil_pasta != caminhoArquivo ){
+                    //     removeImg(dadosForm.img_perfil_pasta);
+                    // }
+                    // dadosForm.img_perfil_pasta = caminhoArquivo;
+                    // dadosForm.img_perfil_banco = null;
+    
+                    //Armazenando o buffer de dados binários do arquivo 
+                    dadosForm.foto_usuario = req.file.buffer;                
+                    //Apagando a imagem armazenada na pasta
+                    // if(dadosForm.foto_usuario != null ){
+                    //     removeImg(dadosForm.foto_usuario);
+                    // }
+          
+                }
+                console.log(req.session.autenticado)
+                let resultUpdate = await UsuarioModel.update(dadosForm, req.session.autenticado.id);
+                if (!resultUpdate.isEmpty) {
+                    if (resultUpdate.changedRows == 1) {
+                        var result = await UsuarioModel.findById(req.session.autenticado.id);
+                        var autenticado = {
+                            autenticado: result[0].nome_usuario,
+                            id: result[0].id_usuario,
+                            tipo: result[0].id_tipo_usuario,
+                            foto: result[0].foto_usuario != null ? `data:image/jpeg;base64,${result[0].foto_usuario.toString('base64')}` : null,
+                        };
+                        req.session.autenticado = autenticado;
+                        var campos = {
+                            nome_usuario: result[0].nome_usuario, 
+                            foto_usuario: result[0].foto_usuario != null ? `data:image/jpeg;base64,${result[0].foto_usuario.toString('base64')}` :null,
+                            user_usuario: result[0].user_usuario, senha_usu: "",
+                            bio: result[0].bio
+                        }
+                        res.render("pages/Publicacao/Config/index", { listaErros: null, dadosNotificacao: { titulo: "Perfil! atualizado com sucesso", mensagem: "Alterações Gravadas", tipo: "success" }, valores: campos });
+                    }else{
+                        res.render("pages/Publicacao/Config/index", { listaErros: null, dadosNotificacao: { titulo: "Perfil! atualizado com sucesso", mensagem: "Sem alterações", tipo: "success" }, valores: dadosForm });
+                    }
+                }
+            } catch (e) {
+                console.log(e)
+                res.render("pages/Publicacao/Config/index", { listaErros: erros, dadosNotificacao: { titulo: "Erro ao atualizar o perfil!", mensagem: "Verifique os valores digitados!", tipo: "error" }, valores: req.body })
+            }
+        }
+    
 
     
 

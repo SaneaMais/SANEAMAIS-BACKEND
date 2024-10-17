@@ -18,6 +18,16 @@ const UsuarioModel = {
         }
     },
 
+    findById: async (id) => {
+        try {
+            const [linhas] = await pool.query('SELECT * FROM USUARIOS WHERE id_usuario = ?', [id]);
+            return linhas;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+
     findUserEmail: async (email) => {
         try {
             const [linhas] = await pool.query('SELECT * FROM USUARIOS WHERE email_usuario = ? ', [email]);
@@ -36,6 +46,31 @@ const UsuarioModel = {
         } catch (error) {
             console.error(error);
             throw error;
+        }
+    },
+
+    update: async (data, id) => {
+        try {
+            const [resultados] = await pool.query(
+                "UPDATE USUARIOS SET ? WHERE id_usuario = ?",
+                [data, id]
+            );
+            return resultados;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    },
+    
+    delete: async (id) => {
+        try {
+            const [resultados] = await pool.query(
+                "UPDATE USUARIOS SET status_usuario = 0 WHERE id_usuario = ? ", [id]
+            )
+            return resultados;
+        } catch (error) {
+            console.log(error);
+            return error;
         }
     },
 };

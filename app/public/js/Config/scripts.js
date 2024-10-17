@@ -1,3 +1,22 @@
+function notify(titulo, texto, tipo, posicao,duracao=3000) {
+    new Notify({
+        status: tipo,
+        title: titulo,
+        text:texto.replace(/&lt;/g,"<").replace(/&gt;/g,">") ,
+        effect: 'fade',
+        speed: 500,
+        showIcon: true,
+        showCloseButton: true,
+        autoclose: true,
+        autotimeout: duracao,
+        gap: 20,
+        distance: 20,
+        type: 1,
+        position:posicao 
+    })
+}
+
+
 // Dispara o evento de clicar no input de imagem quando o botão "Trocar Foto" for clicado
 document.getElementById('changeImageOverlay').addEventListener('click', function() {
     document.getElementById('profileImage').click();
@@ -22,4 +41,11 @@ document.getElementById('profileImage').addEventListener('change', function(even
     } else {
         preview.style.display = "none"; // Esconde se não for uma imagem válida
     }
+
+    
 });
+
+function loadImg(event) {
+    var imgPreview = document.getElementById('currentProfileImage');
+    imgPreview.src = URL.createObjectURL(event.target.files[0]);
+}

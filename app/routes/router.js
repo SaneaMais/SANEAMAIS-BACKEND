@@ -94,12 +94,12 @@ router.get("/Sobre", verificarUsuAutorizado([1, 3], 'pages/restrito'), function 
   res.render("pages/Sobre/sobre", { autenticado: req.session.autenticado });
 });
 
-router.get("/PublicacacaoCONFIG", verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
-  res.render("pages/Publicacao/Config/index", { autenticado: req.session.autenticado });
-});
+// router.get("/PublicacacaoCONFIG", verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
+//   res.render("pages/Publicacao/Config/index", { autenticado: req.session.autenticado });
+// });
 
 /* ---------------------------Publicações----------------------------- */
-router.get("/publicacao", verificarUsuAutorizado([1, 2, 3], 'pages/restrito'), async (req, res) => {
+router.get("/publicacao", async (req, res) => {
   const dadosNotificacao = req.session.dadosNotificacao || null;
   delete req.session.dadosNotificacao;
 
@@ -120,11 +120,11 @@ router.post("/publicacao", upload('imageInput'), async (req, res) => {
 /* ---------------------------Publicações----------------------------- */
 
 
-router.get("/PublicacaoPERFIL", verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
+router.get("/PublicacaoPERFIL", function (req, res) {
   res.render("pages/Publicacao/Perfil/index", { autenticado: req.session.autenticado });
 });
 
-router.get("/PublicacaoDOACAO", verificarUsuAutorizado([1, 3], 'pages/restrito'), function (req, res) {
+router.get("/PublicacaoDOACAO", function (req, res) {
   res.render("pages/Publicacao/Doacao/index", { autenticado: req.session.autenticado });
 });
 
@@ -139,7 +139,23 @@ router.get('/verificar-autenticacao', verificarUsuAutorizado([1, 3], 'pages/rest
 router.get("/adm", verificarUsuAutorizado([3], 'pages/restrito'), admController.listarUsuarios);
 router.delete("/usuario/:id", verificarUsuAutorizado([3], 'pages/restrito'), admController.removerUsuario);
 
+/* ======================================configuraçoes==================================================================*/
+router.get(
+  "/PublicacacaoCONFIG",
+  verificarUsuAutorizado([1, 2, 3], "pages/restrito"),
+  async function (req, res) {
+    usuarioController.mostrarPerfil(req, res);
+  }
+);
 
-
+router.post(
+  "/PublicacacaoCONFIG",
+  upload("profileImage"),
+  usuarioController.regrasValidacaoPerfil,
+  verificarUsuAutorizado([1, 2, 3], "pages/restrito"),
+  async function (req, res) {
+    usuarioController.gravarPerfil(req, res);
+  }
+);
 
 module.exports = router;

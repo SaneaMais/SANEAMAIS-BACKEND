@@ -50,7 +50,8 @@
             </article>
             <section class="action">
                 <article class="profile" onclick="menuToggle();">
-                    <img src="../../../img/NovoPerfil/profile-3.png" alt="">
+                    <img src="<%= autenticado.autenticado.foto ? autenticado.autenticado.foto : '../../../img/NovoPerfil/profile-2.png' %>" alt="Foto de Perfil">
+
                 </article>
                 <section class="menu">
                     <h3>
@@ -147,7 +148,7 @@
                                 <img src="<%= postagem.foto_usuario %>" alt="Foto de Perfil" class="post-img">
                                 <div class="post-user-details">
                                     <span class="post-user-name"><%= postagem.nome_usuario %></span>
-                                    <span class="post-user-handle"><%= postagem.user_usuario %></span>
+                                    <span class="post-user-handle">@<%= postagem.user_usuario %></span>
                                     <span class="post-endereco"><%= postagem.endereco_posts %></span>
                                 </div>
                             </div>
