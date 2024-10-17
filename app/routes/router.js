@@ -6,6 +6,8 @@ const admController = require("../controllers/admController");
 const InstituController = require("../controllers/InstituController");
 const publiController = require("../controllers/publiController");
 const ComentarioController = require("../controllers/comentarioController");
+const RankingModel = require("../models/RankingModel");
+
 const { gravarUsuAutenticado, gravarUsuAutenticadoCadastro, limparSessao, verificarUsuAutorizado, verificarUsuAutenticado } = require('../models/autenticador_middleware');
 const upload = require("../util/uploader")();
 
@@ -157,5 +159,24 @@ router.post(
     usuarioController.gravarPerfil(req, res);
   }
 );
+
+// Ranking
+router.get('/api/ranking', async (req, res) => {
+  try {
+      // Busca o ranking de cidades no model
+      const cidadesRanking = await RankingModel.getRanking();
+
+      // Verifica se há resultados
+      if (cidadesRanking.length === 0) {
+          return res.status(404).json({ message: 'Nenhuma cidade encontrada no ranking.' });
+      }
+
+      // Retorna o ranking em formato JSON
+      res.status(200).json(cidadesRanking);
+  } catch (error) {
+      console.error('Erro ao buscar o ranking:', error);
+      res.status(500).json({ error: 'Erro ao buscar o ranking.' });
+  }
+});
 
 module.exports = router;
