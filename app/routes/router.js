@@ -37,14 +37,42 @@ router.get("/login", (req, res) => {
 router.post('/login', usuarioController.regrasValidacaoFormLogin, gravarUsuAutenticado, (req, res) => {
   usuarioController.logar(req, res);
 });
-
+//esqueceu senha
+ router.get("/esqueceusenha/email", function (req, res) {
+ 
+   res.render("pages/esqueceusenha/email", { autenticado: req.session.autenticado });
+ 
+ });
+ 
 // Resetar Senha
-router.get("/resetar-senha", (req, res) => {
-  usuarioController.validarTokenNovaSenha(req, res);
+// router.get("/resetar-senha", (req, res) => {
+//   usuarioController.validarTokenNovaSenha(req, res);
+// });
+// router.post("/reset-senha", usuarioController.regrasValidacaoFormNovaSenha, (req, res) => {
+//   usuarioController.resetarSenha(req, res);
+// });
+router.get("/recuperar-senha", verificarUsuAutenticado, function(req, res){
+  res.render("pages/rec-senha",{ listaErros: null, dadosNotificacao: null });
 });
-router.post("/reset-senha", usuarioController.regrasValidacaoFormNovaSenha, (req, res) => {
-  usuarioController.resetarSenha(req, res);
+
+router.post("/recuperar-senha",
+  verificarUsuAutenticado,
+  usuarioController.regrasValidacaoFormRecSenha, 
+  function(req, res){
+    usuarioController.recuperarSenha(req, res);
 });
+
+router.get("/resetar-senha", 
+  function(req, res){
+    usuarioController.validarTokenNovaSenha(req, res);
+  });
+  
+router.post("/reset-senha", 
+    usuarioController.regrasValidacaoFormNovaSenha,
+  function(req, res){
+    usuarioController.resetarSenha(req, res);
+});
+
 
 // Comentários
 router.post("/comentarios", [

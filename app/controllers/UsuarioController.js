@@ -209,7 +209,7 @@ const UsuarioController = {
         const erros = validationResult(req);
         console.log(erros);
         if (!erros.isEmpty()) {
-          return res.render("pages/rec-senha", {
+          return res.render("pages/esqueceusenha/rec-senha", {
             listaErros: erros,
             dadosNotificacao: null,
             valores: req.body,
@@ -217,8 +217,8 @@ const UsuarioController = {
         }
         try {
             //logica do token
-           const user = await usuario.findUserCustom({
-              email_usuario: req.body.email_usu,
+           const user = await usuario.findUserEmail({
+              email_usuario: req.body.email_usuario,
             });
             const token = jwt.sign(
               { userId: user[0].id_usuario, expiresIn: "40m" },
@@ -250,7 +250,7 @@ const UsuarioController = {
             //validar token
             jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
               if (err) {
-                res.render("pages/rec-senha", {
+                res.render("pages/esqueceusenha/rec-senha", {
                   listaErros: null,
                   dadosNotificacao: { titulo: "Link expirado!", mensagem: "Insira seu e-mail para iniciar o reset de senha.", tipo: "error", },
                   valores: req.body
@@ -270,7 +270,7 @@ const UsuarioController = {
             const erros = validationResult(req);
             console.log(erros);
             if (!erros.isEmpty()) {
-              return res.render("pages/resetar-senha", {
+              return res.render("pages/esqueceusenha/resetar-senha", {
                 listaErros: erros,
                 dadosNotificacao: null,
                 valores: req.body,
@@ -278,8 +278,8 @@ const UsuarioController = {
             }
             try {
               //gravar nova senha
-              senha = bcrypt.hashSync(req.body.senha_usu);
-              const resetar = await usuario.update({ senha_usuario: senha }, req.body.id_usuario);
+              senha = bcrypt.hashSync(req.body.senha);
+              const resetar = await UsuarioModel.update({ senha: senha }, req.body.id_usuario);
               console.log(resetar);
               res.render("pages/login", {
                 listaErros: null,
