@@ -196,67 +196,78 @@
     </main>
     <section>
       <section class="container-rank">
-        <article class="title">
-          Cidades com mais denúncias
-        </article>
-        <main>
-          <article class="podium">
-            <ul>
-              <li class="rank-des">
-                <span>2</span>
-                <img src="img/2.png" alt="2º lugar">
-                <p>BAURU</p>
-                <span class="revenue">+50 denúncias</span>
-              </li>
-              <li>
-                <span>1</span>
-                <img src="img/1.png" alt="1º lugar">
-                <p>BARUERI</p>
-                <span class="revenue">+100 denúncias</span>
-              </li>
-              <li class="rank-des">
-                <span>3</span>
-                <img src="img/3.png" alt="3º lugar">
-                <p>MAUÁ</p>
-                <span class="revenue">+30 denúncias</span>
-              </li>
-            </ul>
+          <article class="title">Cidades com mais denúncias</article>
+          <main>
+              <article class="podium">
+                  <ul id="ranking-podium">
+                      <!-- O conteúdo será preenchido pelo JavaScript -->
+                  </ul>
+              </article>
+          </main>
+          <article class="ranking-title">
+              <span>RANKING</span>
           </article>
-        </main>
-        <article class="ranking-title">
-          <span>RANKING</span>
-        </article>
-        <section>
-          <ul class="ranking">
-            <li class="rank-item">
-              <span>1</span>
-              <img src="img/1.png" alt="1º lugar">
-              <span class="revenue">+100 denúncias</span>
-            </li>
-            <li class="rank-item">
-              <span>2</span>
-              <img src="img/2.png" alt="2º lugar">
-              <span class="revenue">+50 denúncias</span>
-            </li>
-            <li class="rank-item">
-              <span>3</span>
-              <img src="img/3.png" alt="3º lugar">
-              <span class="revenue">+30 denúncias</span>
-            </li>
-            <li class="rank-item">
-              <span>4</span>
-              <img src="img/4.png" alt="4º lugar">
-              <span class="revenue">+20 denúncias</span>
-            </li>
-            <li class="rank-item">
-              <span>5</span>
-              <img src="img/5.png" alt="5º lugar">
-              <span class="revenue">+10 denúncias</span>
-            </li>
-          </ul>
-        </section>
+          <section>
+              <ul class="ranking" id="ranking-list">
+                  <!-- O conteúdo será preenchido pelo JavaScript -->
+              </ul>
+          </section>
       </section>
-    </section>
+  </section>
+  
+  <script>
+      const fetchRankingData = async () => {
+          try {
+              const response = await fetch('/api/ranking');
+              if (!response.ok) {
+                  throw new Error('Erro ao buscar ranking');
+              }
+  
+              const rankingData = await response.json();
+              updateRankingUI(rankingData);
+          } catch (error) {
+              console.error(error);
+              // Exibir uma mensagem de erro para o usuário, se necessário
+          }
+      };
+  
+      const updateRankingUI = (rankingData) => {
+          const podium = document.getElementById('ranking-podium');
+          const rankingList = document.getElementById('ranking-list');
+  
+          // Limpa o conteúdo anterior
+          podium.innerHTML = '';
+          rankingList.innerHTML = '';
+  
+          // Adiciona os dados do ranking ao podium
+          rankingData.slice(0, 3).forEach((cidade, index) => {
+              const li = document.createElement('li');
+              li.className = index === 0 ? '' : 'rank-des'; // Apenas o primeiro item não tem classe 'rank-des'
+              li.innerHTML = `
+                  <span>${index + 1}</span>
+                  <img src="img/${index + 1}.png" alt="${index + 1}º lugar">
+                  <p>${cidade.nome}</p>
+                  <span class="revenue">+${cidade.denuncias} denúncias</span>
+              `;
+              podium.appendChild(li);
+          });
+  
+          // Adiciona os dados do ranking à lista
+          rankingData.forEach((cidade, index) => {
+            const rankItem = document.createElement('li');
+            rankItem.classList.add('rank-item');
+            rankItem.innerHTML = `
+                <span>${index + 1}</span>
+                <p>${cidade.nome.toUpperCase()}</p> <!-- Apenas o nome da cidade -->
+                <span class="revenue">+${cidade.denuncias} denúncias</span>
+            `;
+            rankingList.appendChild(rankItem);
+        });
+      }
+      // Chama a função para buscar os dados ao carregar a página
+      document.addEventListener('DOMContentLoaded', fetchRankingData);
+  </script>
+  
     <!-- todo:  Footer -->
     <footer id="footer">
       <section class="footer-content">
