@@ -86,18 +86,26 @@ exports.buscarPublicacoesUsuario = async (req, res) => {
         // Buscar publicações do usuário
         const publicacoes = await publiModel.findByUserId(idUsuario);
 
+        // Carregar comentários para cada publicação
         for (let publicacao of publicacoes) {
             const comentarios = await ComentarioModel.findAll(publicacao.id_POSTS);
             publicacao.comentarios = comentarios;
+
+            // Adicione a foto do usuário da publicação
+            publicacao.foto_usuario = publicacao.foto_usuario ? publicacao.foto_usuario.toString('base64') : null;
         }
 
-        // Como a bio já está no objeto publicações, você pode passá-la assim
-        const usuario = publicacoes.length > 0 ? publicacoes[0] : null; 
+        // Verificar se há publicações e pegar os dados do usuário
+        const usuario = publicacoes.length > 0 ? publicacoes[0] : null;
+
         res.render("pages/Publicacao/Perfil/index", {
             listaErros: null,
             dados: publicacoes,
             logado: req.session.autenticado,
-            bio: usuario ? usuario.bio : 'Bio não definida', // Passando a bio
+            nomeUsuario: usuario ? usuario.nome_usuario : 'Nome não definido',
+            userUsuario: usuario ? usuario.user_usuario : 'Usuário não definido',
+            fotoUsuario: usuario && usuario.foto_usuario ? usuario.foto_usuario : null,
+            bio: usuario ? usuario.bio || 'Bio não definida' : 'Bio não definida', 
             autenticado: req.session.autenticado,
         });
     } catch (error) {
@@ -105,3 +113,4 @@ exports.buscarPublicacoesUsuario = async (req, res) => {
         return res.status(500).send('Erro ao buscar publicações');
     }
 };
+
