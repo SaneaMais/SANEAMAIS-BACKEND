@@ -132,7 +132,9 @@ create: async (req, res) => {
     /* --------------------------login----------------------------------------- */
 
     logar: (req, res) => {
+        console.log(req.session.autenticado);
       const erros = validationResult(req);
+      console.log(erros)
       if (!erros.isEmpty()) {
           return res.render("pages/login/index", {
               pagina: "login",
@@ -168,6 +170,7 @@ create: async (req, res) => {
               res.redirect("/adm");
           } else {
               res.render("pages/login/index", {
+                pagina: "login",
                   listaErros: null,
                   logado: null,
                   dados: null,
@@ -176,6 +179,7 @@ create: async (req, res) => {
           }
       } else {
           res.render("pages/login/index", {
+            pagina: "login",
               listaErros: null,
               dados: null,
               logado: null,

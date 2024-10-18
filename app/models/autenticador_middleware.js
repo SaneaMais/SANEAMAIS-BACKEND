@@ -19,6 +19,8 @@ const limparSessao = (req, res, next) => {
 
 const gravarUsuAutenticado = async (req, res, next) => {
     const erros = validationResult(req);
+    console.log("erros middle")
+    console.log(erros)
     if (erros.isEmpty()) {
         const errorLogin = {
             errors: [
@@ -33,7 +35,7 @@ const gravarUsuAutenticado = async (req, res, next) => {
             if (bcrypt.compareSync(req.body.senha, results[0].senha_usuario)) {
                 var autenticado = {
                     tipo_autenticacao: 'login',
-                    autenticado: results[0].nome_usuario,
+                    autenticado: results[0].user_usuario,
                     id: results[0].id_usuario,
                     tipo: results[0].tipo_usuario_id
                 };
@@ -48,6 +50,16 @@ const gravarUsuAutenticado = async (req, res, next) => {
             // Erro: email não encontrado
             return res.render("pages/login/index", { listaErros: errorLogin, dados: req.body });
         }
+    }else{
+        var autenticado = { autenticado: null, id: null, tipo: null };
+        req.session.autenticado = autenticado;
+        return res.render("pages/login/index", {
+            pagina: "login",
+            dados: req.body,
+            listaErros: erros,
+            logado: null,
+            dadosNotificacao: null
+        });
     }
     // Se houver erros de validação
     return res.render("pages/login/index", { listaErros: erros.array(), dados: req.body });
