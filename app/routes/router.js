@@ -36,7 +36,7 @@ router.post("/cadastro/cnpj", InstituController.regrasValidacao, gravarUsuAutent
 router.get("/login", (req, res) => {
   res.render("pages/login/index", { pagina: "login", logado: null, dados: null, listaErros: null, dadosNotificacao: null });
 });
-router.post('/login', usuarioController.regrasValidacaoFormLogin, verificarUsuAutenticado, (req, res) => {
+router.post('/login', usuarioController.regrasValidacaoFormLogin, gravarUsuAutenticado, (req, res) => {
   usuarioController.logar(req, res);
 });
 //esqueceu senha
