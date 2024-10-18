@@ -123,10 +123,14 @@
        
 
                 <!------------------ FINAL SIDEBAR-------------------------->
-                <button class="open-modal">Denunciar</button>
+                <% if (autenticado.tipo !== 2) { %>
+                    <button class="open-modal">Denunciar</button>
+                <% } %>
          </section>
             <!------------------ END OF LEFT-------------------------->
-            
+            <script>
+                console.log("Tipo de usuário:", "<%= autenticado.tipo_usuario %>");
+            </script>
           
             <div class="publicacoes-area">
                 <h2 class="feed-title">Feed</h2>
