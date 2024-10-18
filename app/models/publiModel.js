@@ -46,7 +46,8 @@ const publiModel = {
                 POSTS.endereco_posts,
                 USUARIOS.nome_usuario,
                 USUARIOS.user_usuario,
-                USUARIOS.foto_usuario
+                USUARIOS.foto_usuario,
+                USUARIOS.bio
             FROM POSTS
             INNER JOIN USUARIOS ON POSTS.USUARIOS_id_usuario1 = USUARIOS.id_usuario
             WHERE POSTS.USUARIOS_id_usuario1 = ?

@@ -35,7 +35,7 @@
                     <a href="/PublicacacaoCONFIG"><button class="edit-profile-btn">Editar Perfil</button></a>
                 </div>
                 <span class="user-handle">@<%= logado.user_usuario %></span>
-                <p class="profile-bio">Apaixonado por fotografia 📸 | Amante da natureza 🌿 | Desenvolvedor web 💻</p>
+                <p class="profile-bio"><%= bio || 'Bio não definida' %></p>
             </div>
         </div>
         <hr class="separator-line">

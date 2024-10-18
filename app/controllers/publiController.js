@@ -83,6 +83,7 @@ exports.buscarPublicacoesUsuario = async (req, res) => {
     }
 
     try {
+        // Buscar publicações do usuário
         const publicacoes = await publiModel.findByUserId(idUsuario);
 
         for (let publicacao of publicacoes) {
@@ -90,11 +91,13 @@ exports.buscarPublicacoesUsuario = async (req, res) => {
             publicacao.comentarios = comentarios;
         }
 
-        res.render("pages/Publicacao/Perfil/index", {  // Corrigido o caminho do template
+        // Como a bio já está no objeto publicações, você pode passá-la assim
+        const usuario = publicacoes.length > 0 ? publicacoes[0] : null; 
+        res.render("pages/Publicacao/Perfil/index", {
             listaErros: null,
             dados: publicacoes,
             logado: req.session.autenticado,
-            usuario: req.session.autenticado,
+            bio: usuario ? usuario.bio : 'Bio não definida', // Passando a bio
             autenticado: req.session.autenticado,
         });
     } catch (error) {
