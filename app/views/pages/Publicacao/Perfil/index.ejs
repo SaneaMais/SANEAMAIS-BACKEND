@@ -20,66 +20,56 @@
                 <a href="/"><i class="fas fa-sign-out-alt"></i></a>
             </div>
         </div>
-        
     </header>
 
     <!-- Perfil -->
     <div class="profile-container">
         <div class="profile-header">
             <div class="profile-picture">
-                <img src="../../../img/NovoPerfil/profile-2.png" alt="Foto de Perfil">
+                <img src="<%= logado.foto_usuario ? '/uploads/' + logado.foto_usuario : '../../../img/NovoPerfil/profile-2.png' %>" alt="Foto de Perfil">
             </div>
             <div class="profile-info">
                 <div class="username-edit">
-                    <h2>usuário</h2>
+                    <h2><%= logado.nome_usuario %></h2>
                     
                     <a href="/PublicacacaoCONFIG"><button class="edit-profile-btn">Editar Perfil</button></a>
                 </div>
-                <span class="user-handle">@usuario</span> <!-- Adicionando @usuario -->
+                <span class="user-handle">@<%= logado.user_usuario %></span>
                 <p class="profile-bio">Apaixonado por fotografia 📸 | Amante da natureza 🌿 | Desenvolvedor web 💻</p>
             </div>
         </div>
         <hr class="separator-line">
-      <br>  <h3 class="publications-title">Minhas denúncias</h3><br>
+        <br>  
+        <h3 class="publications-title">Minhas denúncias</h3><br>
 
-        <div class="post-card">
-            <div class="post-header">
-                <img src="../../../img/NovoPerfil/profile-2.png" alt="Foto de Perfil" class="post-user-img">
-                <div class="post-user-details">
-                    <span class="post-user-name">nome_de_usuario</span>
-                    <span class="post-user-handle">@usuario_handle</span>
-                    <span class="post-time">• 2h</span>
+        <!-- Exibindo publicações -->
+        <% if (dados && dados.length > 0) { %>
+            <% dados.forEach(publicacao => { %>
+                <div class="post-card">
+                    <div class="post-header">
+                        <img src="<%= logado.foto_usuario ? '/uploads/' + logado.foto_usuario : '../../../img/NovoPerfil/profile-2.png' %>" alt="Foto de Perfil" class="post-user-img">
+                        <div class="post-user-details">
+                            <span class="post-user-name"><%= logado.nome_usuario %></span>
+                            <span class="post-user-handle">@<%= logado.user_usuario %></span>
+                            <p><%= publicacao.endereco_posts %></p>
+                            <span class="post-time">• <%= publicacao.createdAt %></span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p><%= publicacao.comentarios_posts %></p>
+                        <% if (publicacao.img_posts) { %>
+                            <img src="data:image/jpeg;base64,<%= publicacao.img_posts.toString('base64') %>" alt="Imagem da Postagem" class="post-image">
+                        <% } %>
+                    </div>
+                    <div class="post-actions">
+                        <a href="#" class="comment-btn"><i class="far fa-comment"></i></a>
+                        <a href="#" class="like-btn"><i class="far fa-heart"></i></a>
+                    </div>
                 </div>
-            </div>
-            <div class="post-content">
-                <p>Fim dos tempos que lugar é esse pelo amor de deus, façam alguma coisa</p>
-                <img src="../../../img/NovoPerfil/feed-1.jpg" alt="Imagem da Postagem" class="post-image">
-            </div>
-            <div class="post-actions">
-                <a href="#" class="comment-btn"><i class="far fa-comment"></i></a>
-               <a href="#" class="like-btn"><i class="far fa-heart"></i></a>
-                
-            </div>
-        </div>
-
-        <div class="post-card">
-            <div class="post-header">
-                <img src="../../../img/NovoPerfil/feed-1.jpg" alt="Foto de Perfil" class="post-user-img">
-                <div class="post-user-details">
-                    <span class="post-user-name">nome_de_usuario</span>
-                    <span class="post-user-handle">@usuario_handle</span>
-                    <span class="post-time">• 5h</span>
-                </div>
-            </div>
-            <div class="post-content">
-                <p>Santo Andre fica pior a cada dia, com lixo pra todos os lados #fimdostempos </p>
-              
-            </div>
-            <div class="post-actions">
-                <a href="#" class="comment-btn"><i class="far fa-comment"></i></a>
-                <a href="#" class="like-btn"><i class="far fa-heart"></i></a>
-            </div>
-        </div>
+            <% }); %>
+        <% } else { %>
+            <p>Nenhuma publicação encontrada.</p>
+        <% } %>
     </div>
       
 </body>

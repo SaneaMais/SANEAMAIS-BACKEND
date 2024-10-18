@@ -34,6 +34,31 @@ const publiModel = {
         } catch (err) {
             throw err;
         }
+    },
+
+    // Novo método para buscar publicações por ID de usuário
+    findByUserId: async (userId) => {
+        const query = `
+            SELECT 
+                POSTS.id_POSTS,
+                POSTS.comentarios_posts,
+                POSTS.img_posts,
+                POSTS.endereco_posts,
+                USUARIOS.nome_usuario,
+                USUARIOS.user_usuario,
+                USUARIOS.foto_usuario
+            FROM POSTS
+            INNER JOIN USUARIOS ON POSTS.USUARIOS_id_usuario1 = USUARIOS.id_usuario
+            WHERE POSTS.USUARIOS_id_usuario1 = ?
+            ORDER BY POSTS.id_POSTS DESC`;
+
+        try {
+            const [results] = await pool.query(query, [userId]);
+            return results;
+        } catch (err) {
+            console.error('Erro ao buscar publicações do usuário:', err);
+            throw err;
+        }
     }
 };
 
