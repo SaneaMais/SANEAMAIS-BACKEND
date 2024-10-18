@@ -137,7 +137,7 @@ create: async (req, res) => {
           return res.render("pages/login/index", {
               pagina: "login",
               dados: req.body,
-              listaErros: erros.array(),
+              listaErros: erros,
               logado: null,
               dadosNotificacao: null
           });
