@@ -17,7 +17,7 @@ create: async (req, res) => {
             console.log(errors);
             return res.render("pages/cadastro/index", {
                 dados: req.body,
-                listaErros: errors.array(), 
+                listaErros: errors, 
                 pagina: "cadastro",
                 dadosNotificacao: null
             });
@@ -137,7 +137,7 @@ create: async (req, res) => {
           return res.render("pages/login/index", {
               pagina: "login",
               dados: req.body,
-              listaErros: erros.array(),
+              listaErros: erros,
               logado: null,
               dadosNotificacao: null
           });

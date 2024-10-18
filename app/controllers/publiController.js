@@ -60,7 +60,7 @@ exports.buscarPublicacoes = async (req, res) => {
             publicacao.comentarios = comentarios;
         }
 
-        res.render('pages/publicacao/publi/index', {
+        res.render('pages/Publicacao/publi/index', {
             listaErros: null,
             dadosNotificacao: dadosNotificacao,
             dados: publicacoes,
