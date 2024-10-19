@@ -1,4 +1,5 @@
 const UsuarioModel = require("../models/UsuarioModel");
+const PubliModel = require("../models/publiModel");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const salt = bcrypt.genSaltSync(12);
@@ -521,19 +522,22 @@ create: async (req, res) => {
                 res.render("pages/Publicacao/Config/index", { listaErros: erros, dadosNotificacao: { titulo: "Erro ao atualizar o perfil!", mensagem: "Verifique os valores digitados!", tipo: "error" }, valores: req.body })
             }
         },
-    
 
-        buscarPerfilUsuario: async (req, res) => {
+
+         buscarPerfilUsuario: async (req, res) => {
             try {
                 const userId = req.session.autenticado.id; // Obtendo o ID do usuário logado
                 const usuario = await UsuarioModel.buscarPerfilUsuario(userId); // Chamada ao model para buscar o perfil
-                
+        
                 if (!usuario) {
                     return res.render("pages/Publicacao/Perfil/index", {
                         listaErros: [{ msg: "Usuário não encontrado." }],
                         dadosNotificacao: null
                     });
                 }
+        
+                // Aqui você pode buscar as publicações do usuário
+                const publicacoes = await PubliModel.findByUserId(userId); // Chame a função que busca publicações
         
                 const fotoUsuario = usuario.foto_usuario ? usuario.foto_usuario.toString('base64') : null; // Convertendo a foto para Base64
         
@@ -546,6 +550,7 @@ create: async (req, res) => {
                     fotoUsuario: fotoUsuario,
                     bio: usuario.bio || 'Bio não definida',
                     autenticado: req.session.autenticado,
+                    publicacoes: publicacoes // Passando as publicações para a view
                 });
             } catch (error) {
                 console.error(error);

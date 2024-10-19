@@ -23,8 +23,7 @@ const publiModel = {
                 POSTS.endereco_posts,
                 USUARIOS.nome_usuario,
                 USUARIOS.user_usuario,
-                USUARIOS.foto_usuario,
-                USUARIOS.bio
+                USUARIOS.foto_usuario
             FROM POSTS
             INNER JOIN USUARIOS ON POSTS.USUARIOS_id_usuario1 = USUARIOS.id_usuario
             ORDER BY POSTS.id_POSTS DESC`;
@@ -44,19 +43,25 @@ const publiModel = {
                 POSTS.id_POSTS,
                 POSTS.comentarios_posts,
                 POSTS.img_posts,
-                POSTS.endereco_posts,
                 USUARIOS.nome_usuario,
                 USUARIOS.user_usuario,
-                USUARIOS.foto_usuario,
-                USUARIOS.bio
+                USUARIOS.foto_usuario
             FROM POSTS
             INNER JOIN USUARIOS ON POSTS.USUARIOS_id_usuario1 = USUARIOS.id_usuario
             WHERE POSTS.USUARIOS_id_usuario1 = ?
             ORDER BY POSTS.id_POSTS DESC`;
-
+    
         try {
             const [results] = await pool.query(query, [userId]);
-            return results;
+    
+            // Convertendo as imagens para Base64
+            const publicacoes = results.map(publicacao => ({
+                ...publicacao,
+                img_posts: publicacao.img_posts ? publicacao.img_posts.toString('base64') : null, // Convertendo a imagem do post
+                foto_usuario: publicacao.foto_usuario ? publicacao.foto_usuario.toString('base64') : null // Convertendo a foto do usuário
+            }));
+    
+            return publicacoes;
         } catch (err) {
             console.error('Erro ao buscar publicações do usuário:', err);
             throw err;

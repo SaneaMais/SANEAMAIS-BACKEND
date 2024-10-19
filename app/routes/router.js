@@ -119,8 +119,8 @@ router.post("/publicacao", upload('imageInput'), async (req, res) => {
 router.get("/adm/publiadm", verificarUsuAutorizado([3], 'pages/restrito'), admController.listarPublicacoes);
 router.delete("/adm/publiadm/:id", verificarUsuAutorizado([3], 'pages/restrito'), admController.removerPublicacao);
 /* ---------------------------Publicações----------------------------- */
+router.get("/PublicacaoPERFIL",  usuarioController.buscarPerfilUsuario);
 
-router.get("/PublicacaoPERFIL", publiController.buscarPublicacoesUsuario);
 
 router.get("/PublicacaoPERFIL", function (req, res) {
   res.render("pages/Publicacao/Perfil/index", { autenticado: req.session.autenticado });
