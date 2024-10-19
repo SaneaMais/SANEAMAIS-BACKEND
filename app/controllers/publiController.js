@@ -58,8 +58,12 @@ exports.buscarPublicacoes = async (req, res) => {
         for (let publicacao of publicacoes) {
             const comentarios = await ComentarioModel.findAll(publicacao.id_POSTS);
             publicacao.comentarios = comentarios;
+
+            publicacao.foto_usuario = publicacao.foto_usuario ? publicacao.foto_usuario.toString('base64') : null;
         }
 
+        const usuario = publicacoes.length > 0 ? publicacoes[0] : null;
+    
         res.render('pages/Publicacao/publi/index', {
             listaErros: null,
             dadosNotificacao: dadosNotificacao,
@@ -67,6 +71,7 @@ exports.buscarPublicacoes = async (req, res) => {
             pagina: 'publicacao',
             logado: req.session.autenticado,
             autenticado: req.session.autenticado,
+            fotoUsuario: usuario && usuario.foto_usuario ? usuario.foto_usuario : null
         });
     } catch (error) {
         console.error('Erro ao buscar publicações:', error);
@@ -74,43 +79,5 @@ exports.buscarPublicacoes = async (req, res) => {
     }
 };
 
-// Função para buscar as publicações de um usuário específico
-exports.buscarPublicacoesUsuario = async (req, res) => {
-    const idUsuario = req.session?.autenticado?.id;
-    if (!idUsuario) {
-        console.error('Usuário não autenticado');
-        return res.status(401).send('Usuário não autenticado');
-    }
 
-    try {
-        // Buscar publicações do usuário
-        const publicacoes = await publiModel.findByUserId(idUsuario);
-
-        // Carregar comentários para cada publicação
-        for (let publicacao of publicacoes) {
-            const comentarios = await ComentarioModel.findAll(publicacao.id_POSTS);
-            publicacao.comentarios = comentarios;
-
-            // Adicione a foto do usuário da publicação
-            publicacao.foto_usuario = publicacao.foto_usuario ? publicacao.foto_usuario.toString('base64') : null;
-        }
-
-        // Verificar se há publicações e pegar os dados do usuário
-        const usuario = publicacoes.length > 0 ? publicacoes[0] : null;
-
-        res.render("pages/Publicacao/Perfil/index", {
-            listaErros: null,
-            dados: publicacoes,
-            logado: req.session.autenticado,
-            nomeUsuario: usuario ? usuario.nome_usuario : 'Nome não definido',
-            userUsuario: usuario ? usuario.user_usuario : 'Usuário não definido',
-            fotoUsuario: usuario && usuario.foto_usuario ? usuario.foto_usuario : null,
-            bio: usuario ? usuario.bio || 'Bio não definida' : 'Bio não definida', 
-            autenticado: req.session.autenticado,
-        });
-    } catch (error) {
-        console.error('Erro ao buscar publicações do usuário:', error);
-        return res.status(500).send('Erro ao buscar publicações');
-    }
-};
 

@@ -520,10 +520,39 @@ create: async (req, res) => {
                 console.log(e)
                 res.render("pages/Publicacao/Config/index", { listaErros: erros, dadosNotificacao: { titulo: "Erro ao atualizar o perfil!", mensagem: "Verifique os valores digitados!", tipo: "error" }, valores: req.body })
             }
-        }
+        },
     
 
-    
+        buscarPerfilUsuario: async (req, res) => {
+            try {
+                const userId = req.session.autenticado.id; // Obtendo o ID do usuário logado
+                const usuario = await UsuarioModel.buscarPerfilUsuario(userId); // Chamada ao model para buscar o perfil
+                
+                if (!usuario) {
+                    return res.render("pages/Publicacao/Perfil/index", {
+                        listaErros: [{ msg: "Usuário não encontrado." }],
+                        dadosNotificacao: null
+                    });
+                }
+        
+                const fotoUsuario = usuario.foto_usuario ? usuario.foto_usuario.toString('base64') : null; // Convertendo a foto para Base64
+        
+                res.render("pages/Publicacao/Perfil/index", {
+                    listaErros: null,
+                    dados: usuario, // Aqui você pode passar o objeto de usuário
+                    logado: req.session.autenticado,
+                    nomeUsuario: usuario.nome_usuario || 'Nome não definido',
+                    userUsuario: usuario.user_usuario || 'Usuário não definido',
+                    fotoUsuario: fotoUsuario,
+                    bio: usuario.bio || 'Bio não definida',
+                    autenticado: req.session.autenticado,
+                });
+            } catch (error) {
+                console.error(error);
+                res.status(500).send("Erro ao buscar perfil do usuário.");
+            }
+        }
+        
 
 
 
