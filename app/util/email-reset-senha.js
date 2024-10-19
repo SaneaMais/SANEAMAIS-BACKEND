@@ -59,7 +59,7 @@ module.exports = (url)=>{
         </div>
         <div class="content">
             <p>Recebemos uma solicitação para redefinir sua senha. Clique no botão abaixo para redefinir sua senha:</p>
-            <a href="${url}/resetar-senha?token=${token}" class="button">Redefinir Senha</a>
+            <a href="${url}" class="button">Redefinir Senha</a>
         </div>
         <div class="footer">
             <p>Se você não solicitou esta alteração, por favor ignore este email.</p>
