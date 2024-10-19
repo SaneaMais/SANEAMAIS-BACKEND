@@ -40,11 +40,11 @@ router.post('/login', usuarioController.regrasValidacaoFormLogin, gravarUsuAuten
   usuarioController.logar(req, res);
 });
 //esqueceu senha
- router.get("/esqueceusenha/email", function (req, res) {
+//  router.get("/esqueceusenha/email", function (req, res) {
  
-   res.render("pages/esqueceusenha/email", { autenticado: req.session.autenticado });
+//    res.render("pages/esqueceusenha/email", { autenticado: req.session.autenticado });
  
- });
+//  });
  
 // Resetar Senha
 // router.get("/resetar-senha", (req, res) => {
@@ -54,7 +54,7 @@ router.post('/login', usuarioController.regrasValidacaoFormLogin, gravarUsuAuten
 //   usuarioController.resetarSenha(req, res);
 // });
 router.get("/recuperar-senha", verificarUsuAutenticado, function(req, res){
-  res.render("pages/rec-senha",{ listaErros: null, dadosNotificacao: null });
+  res.render("pages/esqueceusenha/rec-senha",{ listaErros: null, dadosNotificacao: null });
 });
 
 router.post("/recuperar-senha",
@@ -69,7 +69,7 @@ router.get("/resetar-senha",
     usuarioController.validarTokenNovaSenha(req, res);
   });
   
-router.post("/reset-senha", 
+router.post("/resetar-senha", 
     usuarioController.regrasValidacaoFormNovaSenha,
   function(req, res){
     usuarioController.resetarSenha(req, res);
@@ -84,7 +84,7 @@ router.post("/comentarios", [
 router.get("/comentarios/:postId", ComentarioController.buscarComentarios);
 
 router.get("/adm/comentarios", verificarUsuAutorizado([3], 'pages/restrito'), admController.listarComentarios);
-router.delete("/adm/comentarios/:id", admController.removerComentario);
+
 
 // Demais páginas (com autorização)
 router.get("/FaleConoco", verificarUsuAutorizado([1, 3], 'pages/restrito'), (req, res) => {
@@ -117,12 +117,13 @@ router.post("/publicacao", upload('imageInput'), async (req, res) => {
 });
 
 router.get("/adm/publiadm", verificarUsuAutorizado([3], 'pages/restrito'), admController.listarPublicacoes);
-router.delete("/adm/publiadm/:id", admController.removerPublicacao);
-
+router.delete("/adm/publiadm/:id", verificarUsuAutorizado([3], 'pages/restrito'), admController.removerPublicacao);
 /* ---------------------------Publicações----------------------------- */
 
-router.get("/PublicacaoPERFIL", publiController.buscarPublicacoesUsuario);
 
+router.get("/PublicacaoPERFIL", function (req, res) {
+  res.render("pages/Publicacao/Perfil/index", { autenticado: req.session.autenticado });
+});
 
 router.get("/PublicacaoDOACAO", function (req, res) {
   res.render("pages/Publicacao/Doacao/index", { autenticado: req.session.autenticado });

@@ -9,6 +9,7 @@
     <script src="js/script.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script>
+    <link rel="stylesheet" href="../../CSS/esqueceusenha/esqueceu.css">
 </head>
 
 <body>
@@ -45,10 +46,18 @@
                 <div class="login-page">
                     <div class="form-cadastro">
                         <h2>Recuperar a senha</h2>
+                        <p class="sub-titulo">Informe o e-mail associado à sua conta <br>  para alterar sua senha</p></br>
+                        <section class="figura-logo">
+                            <article class="logo-container">
+                                <a href="../../index.html">
+                                    <img src="../../img/LOGO2.png">
+                                </a>
+                            </article>
+                        </section>
                         <form action="/recuperar-senha" method="post">
-                            <input type="text" name="email_usuario" placeholder="e-mail" value=""
+                            <input type="text" name="email" placeholder="Digite seu email" value=""
                                 class="<%= avisoErro.email_usuario %>" /><br>
-                           <button type="submit">Enviar</button><br>
+                           <button type="submit"onclick="recuperarSenha()">Enviar</button><br>
                         </form>
                     </div>
                 </div>

@@ -6,6 +6,10 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
 const https = require('https');
 const moment = require('moment');
 const {removeImg} = require("../util/removeImg");
+const jwt = require("jsonwebtoken");
+const { enviarEmail } = require("../util/email");
+const nodemailer = require('nodemailer');
+
 
 const UsuarioController = {
 
@@ -201,124 +205,186 @@ create: async (req, res) => {
     ],
 
     regrasValidacaoFormNovaSenha: [
-    body("senha")
-    .isStrongPassword()
-    .withMessage(
-        "A senha deve ter no mínimo 8 caracteres (mínimo 1 maiúscula, 1 caractere especial e 1 número)"
-        )
-        .custom(async (value, { req }) => {
-            if (value !== req.body.c-senha) {
-                throw new Error("As senhas não são iguais!");
-            }
+            body("senha")
+                .isStrongPassword()
+                .withMessage("A senha deve ter no mínimo 8 caracteres (mínimo 1 letra maiúscula, 1 caractere especial e 1 número)"),
+            body("c-senha")
+                .custom((value, { req }) => {
+                    if (value !== req.body.senha) {
+                        throw new Error('A confirmação de senha deve ser igual à senha.');
+                    }
+                    return true;
+                })
+          ],
+
+
+//       body("senha")
+//           .isStrongPassword()
+//           .withMessage(
+//               'A senha deve ter no mínimo 8 caracteres (mínimo 1 letra maiúscula, 1 caractere especial e 1 número)'
+//           )
+//           .custom(async (value, { req }) => {
+//               if (value !== req.body['c-senha']) {
+//                   throw new Error('As senhas não são iguais!');
+//               }
+//               return true; // Adicione isso para garantir que a validação continue
+//           }),
+  
+//       body('c-senha')
+//           .isStrongPassword()
+//           .withMessage(
+//               'A senha deve ter no mínimo 8 caracteres (mínimo 1 letra maiúscula, 1 caractere especial e 1 número)'
+//           )
+//   ],
+    regrasValidacaoFormRecSenha: [
+      body("email")
+        .isEmail()
+        .withMessage("Digite um e-mail válido!")
+        .custom(async (value) => {
+          const email = await UsuarioModel.findUserEmail(value);  // Aqui você passa o valor diretamente
+          if (!email || email.length === 0) {
+            throw new Error("E-mail não encontrado");
+          }
         }),
-        body("c-senha")
-        .isStrongPassword()
-        .withMessage(
-            "A senha deve ter no mínimo 8 caracteres (mínimo 1 letra maiúscula, 1 caractere especial e 1 número)"
-        ),
     ],
 
-    regrasValidacaoFormRecSenha: [
-        body("email_usuario")
-          .isEmail()
-          .withMessage("Digite um e-mail válido!")
-          .custom(async (value) => {
-            const nomeUsu = await usuario.findCampoCustom({ email_usuario: value });
-            if (nomeUsu == 0) {
-              throw new Error("E-mail não encontrado");
-            }
-          }),
-      ],
-
-      recuperarSenha: async (req, res) => {
-        const erros = validationResult(req);
-        console.log(erros);
-        if (!erros.isEmpty()) {
-          return res.render("pages/esqueceusenha/rec-senha", {
-            listaErros: erros,
-            dadosNotificacao: null,
-            valores: req.body,
-          });
+    recuperarSenha: async (req, res) => {
+      const erros = validationResult(req);
+      console.log(erros);
+      if (!erros.isEmpty()) {
+        return res.render("pages/esqueceusenha/rec-senha", {
+          listaErros: erros,
+          dadosNotificacao: null,
+          valores: req.body,
+        });
+      }
+    
+      try {
+        // Logica para recuperação de senha
+        const user = await UsuarioModel.findUserEmail(req.body.email);  // Passar o e-mail diretamente
+        if (!user || user.length === 0) {
+          return res.status(404).json({ error: "Usuário não encontrado." });
         }
-        try {
-            //logica do token
-           const user = await usuario.findUserEmail({
-              email_usuario: req.body.email_usuario,
-            });
-            const token = jwt.sign(
-              { userId: user[0].id_usuario, expiresIn: "40m" },
-              process.env.SECRET_KEY
-            );
-            //enviar e-mail com link usando o token
-            html = require("../util/email-reset-senha")(process.env.URL_BASE, token)
-            enviarEmail(req.body.email_usu, "Pedido de recuperação de senha", null, html, ()=>{
-              return res.render("pages/index", {
-                listaErros: null,
-                autenticado: req.session.autenticado,
-                dadosNotificacao: {
-                  titulo: "Recuperação de senha",
-                  mensagem: "Enviamos um e-mail com instruções para resetar sua senha",
-                  tipo: "success",
-                },
-              });
-            });
-      
-          } catch (e) {
-            console.log(e);
-          }
-        },
-        validarTokenNovaSenha: async (req, res) => {
-            //receber token da URL
-        
-            const token = req.query.token;
-            console.log(token);
-            //validar token
-            jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-              if (err) {
-                res.render("pages/esqueceusenha/rec-senha", {
-                  listaErros: null,
-                  dadosNotificacao: { titulo: "Link expirado!", mensagem: "Insira seu e-mail para iniciar o reset de senha.", tipo: "error", },
-                  valores: req.body
-                });
-              } else {
-                res.render("pages/resetar-senha", {
-                  listaErros: null,
-                  autenticado: req.session.autenticado,
-                  id_usuario: decoded.userId,
-                  dadosNotificacao: null
-                });
-              }
-            });
-          },
-        
-          resetarSenha: async (req, res) => {
-            const erros = validationResult(req);
-            console.log(erros);
-            if (!erros.isEmpty()) {
-              return res.render("pages/esqueceusenha/resetar-senha", {
-                listaErros: erros,
-                dadosNotificacao: null,
-                valores: req.body,
-              });
-            }
-            try {
-              //gravar nova senha
-              senha = bcrypt.hashSync(req.body.senha);
-              const resetar = await UsuarioModel.update({ senha: senha }, req.body.id_usuario);
-              console.log(resetar);
-              res.render("pages/login", {
-                listaErros: null,
-                dadosNotificacao: {
-                  titulo: "Perfil alterado",
-                  mensagem: "Nova senha registrada",
-                  tipo: "success",
-                },
-              });
-            } catch (e) {
-              console.log(e);
-            }
-          },
+    
+        const token = jwt.sign(
+          { userId:  user[0].id_usuario  },  // Acessa corretamente o id_usuario
+          process.env.SECRET_KEY,
+          { expiresIn: "1h" }  // Expiração do token
+        );
+        console.log(token);
 
+          //enviar e-mail com link usando o token
+          const url = `${process.env.URL_BASE}/resetar-senha?token=${token}`;
+          console.log(url)
+
+        const  html = require("../util/email-reset-senha")( url, token)
+          enviarEmail(req.body.email, "Pedido de recuperação de senha", null, html, ()=>{
+            return res.render("pages/index", {
+              listaErros: null,
+              autenticado: req.session.autenticado,
+              dadosNotificacao: {
+                titulo: "Recuperação de senha",
+                mensagem: "Enviamos um e-mail com instruções para resetar sua senha",
+                tipo: "success",
+              },
+            });
+          });
+    
+        } catch (e) {
+          console.log(e);
+        }
+      },
+      validarTokenNovaSenha: async (req, res) => {
+        const token = req.query.token;
+        console.log("Token recebido:", token);
+        
+        // validar token
+        jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
+            if (err) {
+                res.render("pages/esqueceusenha/rec-senha", {
+                    listaErros: null,
+                    dadosNotificacao: {
+                        titulo: "Link expirado!",
+                        mensagem: "Insira seu e-mail para iniciar o reset de senha.",
+                        tipo: "error",
+                    },
+                    valores: req.body
+                });
+            } else {
+               // Aqui você deve garantir que decoded.userId está definido
+        console.log("ID do usuário decodificado:", decoded.userId); // Debugging
+                res.render("pages/esqueceusenha/resetar-senha", { // Corrigido o caminho da view
+                    listaErros: null,
+                    autenticado: req.session.autenticado,
+                    id_usuario: decoded.userId, // Garantindo que id_usuario é passado para a view
+                    dadosNotificacao: null
+              });
+            }
+          });
+        },
+      
+        resetarSenha: async (req, res) => {
+          const erros = validationResult(req);
+          console.log(erros);
+          
+          if (!erros.isEmpty()) {
+            return res.render("pages/esqueceusenha/resetar-senha", {  
+              listaErros: erros.array(),
+              dadosNotificacao: null,
+              valores: req.body,
+            });
+          }
+        
+          try {
+            const { id_usuario, senha } = req.body;
+            // Hash da nova senha
+            const senhaHash = bcrypt.hashSync(senha, 10);
+        
+
+            console.log("Senha criptografada:", senhaHash);
+
+            // Atualiza a senha no banco de dados
+            const resultado = await UsuarioModel.atualizarSenhaUser(id_usuario, senhaHash);
+            //   { senha_usuario: senhaHash },  // Certifique-se de usar a coluna correta do banco de dados
+            //   req.body.id_usuario  // Certifique-se de que o ID está sendo passado corretamente
+            
+        
+
+            if (resultado.affectedRows > 0) {
+                res.redirect("/login"), {
+                listaErros: null,
+                      dados: null,
+                      dadosNotificacao: {
+                        titulo: "Perfil alterado",
+                        mensagem: "Nova senha registrada com sucesso.",
+                        tipo: "success",
+                      },
+                    }
+            } else {
+                res.status(400).send("Nenhum usuário encontrado.");
+            }
+            } catch (error) {
+                console.log("Erro ao atualizar a senha:", error);
+                res.status(500).send("Erro no servidor.");
+            }        
+            
+        },
+            // Redireciona para a página de login após a redefinição de senha
+        //     return res.render("pages/login", {
+        //       listaErros: null,
+        //       dados: null,
+        //       dadosNotificacao: {
+        //         titulo: "Perfil alterado",
+        //         mensagem: "Nova senha registrada com sucesso.",
+        //         tipo: "success",
+        //       },
+        //     });
+        //   } catch (error) {
+        //     console.log(error);
+        //     res.status(500).send("Erro ao redefinir a senha.");
+        //   }
+        // },
+        
           regrasValidacaoPerfil: [
             body("nome"),
             // .isLength({ min: 3, max: 45 })

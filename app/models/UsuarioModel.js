@@ -34,7 +34,7 @@ const UsuarioModel = {
             return linhas;
         } catch (error) {
             console.log(error);
-            throw error;z
+            throw error;
         }
     },
 
@@ -50,15 +50,57 @@ const UsuarioModel = {
     },
 
     update: async (data, id) => {
+        console.log('Dados a serem atualizados:', data);
+        console.log('ID do usuário:', id);
+    
+        if (!id || !data) {
+            console.log('ID ou dados inválidos.');
+            return; // Ou lançar um erro
+        }
+    
         try {
+            // Verifica se o usuário existe
+            const [rows] = await pool.query("SELECT id_usuario FROM USUARIOS WHERE id_usuario = ?", [id]);
+            if (rows.length === 0) {
+                console.log(`Usuário com ID ${id} não encontrado.`);
+                return; // Ou lançar um erro
+            }
+    
+            // Atualiza a senha
             const [resultados] = await pool.query(
                 "UPDATE USUARIOS SET ? WHERE id_usuario = ?",
                 [data, id]
             );
+    
+            if (resultados.affectedRows === 0) {
+                console.log(`Nenhuma linha foi afetada. ID do usuário ${id} não encontrado.`);
+                return; // Ou lançar um erro
+            }
+    
+            return resultados;
+        } catch (error) {
+            console.log("Erro ao atualizar o usuário:", error);
+            throw error;
+        }
+    },
+    
+
+    atualizarSenhaUser: async (id, senha) => { 
+        try {
+          
+            if (!senha) {
+                throw new Error('Senha não pode ser null ou undefined');
+            }
+    
+            const [resultados] = await pool.query(
+                'UPDATE USUARIOS SET senha_usuario = ? WHERE id_usuario = ?',
+                [senha, id]
+            );
+    
             return resultados;
         } catch (error) {
             console.log(error);
-            throw error;
+            throw error; // Propaga o erro para tratamento posterior
         }
     },
     

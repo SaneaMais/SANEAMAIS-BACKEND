@@ -1,0 +1,175 @@
+/* Estilos gerais */
+
+:root {
+    --blue: #072c75;
+    --black-2: #333;
+    --white: #fff;
+    --red: red;
+    --white2: #e6d9d9e7;
+    --black: #000000;
+    --green: #45A84A;
+    --blue3: #245ced;
+}
+
+/* Importando a fonte do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400&display=swap');
+
+/* Reset básico */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: "Source Sans Pro", sans-serif;
+}
+
+
+body {
+    background: linear-gradient(90deg, #323480 40%, #140b5c  100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+}
+
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--blue);
+}
+
+form {
+    margin: 10px;
+}
+
+/* Página de login */
+.login-page {
+    max-width: 650px;
+    background: var(--white);
+    width: 100%;
+    margin: 40px;
+    padding: 25px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    max-height: 1200px;
+    margin-top: 110px;
+}
+
+/* Estilo do formulário */
+.form-cadastro {
+    margin-top: 20px;
+    width: 100%;
+}
+
+h2 {
+    text-align: center;
+    color: #070045; /* Cor do título atualizada */
+    margin-bottom: 10px; /* Ajustado para melhor espaçamento */
+}
+
+.sub-titulo {
+    color: #000000; /* Cor das instruções atualizada */
+    font: 20.2px "Source Sans Pro", sans-serif; /* Fonte e tamanho atualizados */
+    margin: 10px 0; /* Margem atualizada */
+    padding: 5px; /* Preenchimento atualizado */
+    text-align: center; /* Centralizando o texto */
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    background: var(--white2);
+    border-radius: 4px;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    margin: 10px 0;
+    padding-left: 10px;
+/* 
+    width: 100%;
+    padding: 10px;
+    background: var(--white2);
+    border-radius: 4px;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    margin: 10px 0;
+    padding-left: 10px; */
+}
+
+input[type="text"]:focus {
+    border-color: var(--blue);
+    
+}
+
+button {
+    width: 100%;
+    background-color: var(--blue);
+    color: var(--white);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s, 0.2s;
+    font-size: 1rem;
+    margin-top: 1%;
+    
+
+}
+
+button:hover {
+    background-color: var(--green);
+}
+
+/* Estilo para exibir mensagens de erro */
+.error-message {
+    color: var(--red);
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.success-message {
+    color: var(--green);
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+/* ! Logo  */
+
+.logo-container{
+    text-align: center;
+}
+
+.logo-container img {
+    width: 150PX;
+    margin-bottom: 10PX;
+    
+}
+
+/* Responsividade */
+@media (max-width: 440px) {
+    .login-page {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    button {
+        font-size: 14px;
+    }
+}

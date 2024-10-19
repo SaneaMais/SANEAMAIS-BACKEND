@@ -29,7 +29,7 @@ input[type="password"] {
 }
 #Entrar{
   width: 100%;
-  background-color: var(--blue);
+  background-color: #070045;
   color: var(--white);
   padding: 10px 20px;
   border: none;
@@ -88,6 +88,26 @@ input[type="password"] {
   margin: 10px 0;
   padding: 5px;
   text-align: center;
+}
+
+
+.forget-password-link a {
+  color: #070045; /* Cor inicial */
+  text-decoration: none; /* Remove o sublinhado */
+  font-size: 1rem; /* Tamanho da fonte */
+  font-weight: bold; /* Negrito */
+  transition: color 0.3s, border-bottom 0.3s; /* Transição suave para a cor */
+  padding: 5px; /* Espaçamento interno */
+}
+
+.forget-password-link a:hover {
+  color: #45A84A; /* Cor ao passar o mouse */
+}
+
+.forget-password-link a:focus {
+  outline: none; /* Remove o contorno padrão ao focar */
+  color: #45A84A; /* Cor ao focar no link */
+  
 }
 
 /* ! icon da redes sociais*/
