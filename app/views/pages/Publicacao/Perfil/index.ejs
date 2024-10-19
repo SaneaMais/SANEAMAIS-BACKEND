@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="../../../CSS/Publicacao/Perfil/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
-    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <img src="../../../img/NovoPerfil/LOGO1.png">
+            <img src="../../../img/NovoPerfil/LOGO1.png" alt="Logo">
         
             <div class="user-actions">
                 <a href="/Publicacao"><i class="fas fa-home"></i></a>
@@ -22,54 +22,52 @@
         </div>
     </header>
 
-<!-- Perfil -->
-<div class="profile-container">
-    <div class="profile-header">
-        <div class="profile-picture">
-            <img src="<%= fotoUsuario ? 'data:image/jpeg;base64,' + fotoUsuario : '../../../img/NovoPerfil/profile-2.png' %>" alt="Foto de Perfil">
-        </div>
-        <div class="profile-info">
-            <div class="username-edit">
-                <h2><%= nomeUsuario %></h2> <!-- Usando a variável correta -->
-                <a href="/PublicacacaoCONFIG"><button class="edit-profile-btn">Editar Perfil</button></a>
+    <!-- Perfil -->
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-picture">
+                <img src="<%= fotoUsuario ? 'data:image ;base64,' + fotoUsuario : '../../../img/NovoPerfil/profile-2.png' %>" alt="Foto de Perfil">
             </div>
-            <span class="user-handle">@<%= userUsuario %></span> <!-- Usando a variável correta -->
-            <p class="profile-bio"><%= bio || 'Bio não definida' %></p>
-        </div>
-    </div>
-    <hr class="separator-line">
-    <br>
-    <h3 class="publications-title">Minhas denúncias</h3><br>
-    <!-- Exibindo publicações -->
-<% if (dados && dados.length > 0) { %>
-    <% dados.forEach(publicacao => { %>
-        <div class="post-card">
-            <div class="post-header">
-                <img src="<%= publicacao.foto_usuario ? 'data:image/jpeg;base64,' + publicacao.foto_usuario : '../../../img/NovoPerfil/profile-2.png' %>" alt="Foto de Perfil" class="post-user-img">
-                <div class="post-user-details">
-                    <span class="post-user-name"><%= publicacao.nome_usuario %></span>
-                    <span class="post-user-handle">@<%= publicacao.user_usuario %></span>
-                    <p><%= publicacao.endereco_posts %></p>
-                    <span class="post-time">• <%= publicacao.createdAt %></span>
+            <div class="profile-info">
+                <div class="username-edit">
+                    <h2><%= nomeUsuario %></h2> <!-- Usando a variável correta -->
+                    <a href="/PublicacacaoCONFIG"><button class="edit-profile-btn">Editar Perfil</button></a>
                 </div>
-            </div>
-            <div class="post-content">
-                <p><%= publicacao.comentarios_posts %></p>
-                <% if (publicacao.img_posts) { %>
-                    <img src="data:image/jpeg;base64,<%= publicacao.img_posts.toString('base64') %>" alt="Imagem da Postagem" class="post-image">
-                <% } %>
-            </div>
-            <div class="post-actions">
-                <a href="#" class="comment-btn"><i class="far fa-comment"></i></a>
-                <a href="#" class="like-btn"><i class="far fa-heart"></i></a>
+                <span class="user-handle">@<%= userUsuario %></span> <!-- Usando a variável correta -->
+                <p class="profile-bio"><%= bio || 'Bio não definida' %></p>
             </div>
         </div>
-    <% }); %>
-<% } else { %>
-    <p>Nenhuma publicação encontrada.</p>
-<% } %>
-
-
-
+        <hr class="separator-line">
+        <br>
+        <h3 class="publications-title">Minhas denúncias</h3><br>
+        <!-- Exibindo publicações -->
+        <% if (dados && dados.length > 0) { %>
+            <% dados.forEach(publicacao => { %>
+                <div class="post-card">
+                    <div class="post-header">
+                        <img src="<%= publicacao.foto_usuario ? 'data:image/jpeg;base64,' + publicacao.foto_usuario : '../../../img/NovoPerfil/profile-2.png' %>" alt="Foto de Perfil" class="post-user-img">
+                        <div class="post-user-details">
+                            <span class="post-user-name"><%= publicacao.nome_usuario %></span>
+                            <span class="post-user-handle">@<%= publicacao.user_usuario %></span>
+                            <p><%= publicacao.endereco_posts %></p>
+                            <span class="post-time">• <%= publicacao.createdAt %></span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p><%= publicacao.comentarios_posts %></p>
+                        <% if (publicacao.img_posts) { %>
+                            <img src="data:image/jpeg;base64,<%= publicacao.img_posts.toString('base64') %>" alt="Imagem da Postagem" class="post-image">
+                        <% } %>
+                    </div>
+                    <div class="post-actions">
+                        <a href="#" class="comment-btn"><i class="far fa-comment"></i></a>
+                        <a href="#" class="like-btn"><i class="far fa-heart"></i></a>
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>Nenhuma publicação encontrada.</p>
+        <% } %>
+    </div>
 </body>
 </html>

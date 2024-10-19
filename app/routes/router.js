@@ -121,7 +121,7 @@ router.delete("/adm/publiadm/:id", admController.removerPublicacao);
 
 /* ---------------------------Publicações----------------------------- */
 
-router.get("/PublicacaoPERFIL", publiController.buscarPublicacoesUsuario);
+router.get("/PublicacaoPERFIL",  usuarioController.buscarPerfilUsuario);
 
 
 router.get("/PublicacaoDOACAO", function (req, res) {
