@@ -84,6 +84,8 @@ router.post("/comentarios", [
 router.get("/comentarios/:postId", ComentarioController.buscarComentarios);
 
 router.get("/adm/comentarios", verificarUsuAutorizado([3], 'pages/restrito'), admController.listarComentarios);
+router.delete("/adm/comentarios/:id", admController.removerComentario);
+
 
 
 // Demais páginas (com autorização)
