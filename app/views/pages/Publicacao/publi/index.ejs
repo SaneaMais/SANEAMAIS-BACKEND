@@ -50,7 +50,7 @@
             </article>
             <section class="action">
                 <article class="profile" onclick="menuToggle();">
-                    <img src="">
+                    <img src="<%= autenticado && autenticado.foto ? autenticado.foto : '/default-avatar.png' %>" alt="Foto de perfil" class="profile-picture">
 
                 </article>
                 <section class="menu">
@@ -84,10 +84,7 @@
             <!-----------LEFT------------------------->
             <section class="left">
                 <a class="profile">
-                    <article class="profile-photo">
-                        <img src="../../../img/NovoPerfil/profile-2.png">
-
-                    </article>
+                    <img src="<%= autenticado && autenticado.foto ? autenticado.foto : '/default-avatar.png' %>" alt="Foto de perfil" class="profile-picture">
                     <article class="handle">
                         <h4>@<%= autenticado.autenticado %></h4>
                         <p class="text-muted">

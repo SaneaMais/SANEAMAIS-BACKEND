@@ -19,8 +19,7 @@ const limparSessao = (req, res, next) => {
 
 const gravarUsuAutenticado = async (req, res, next) => {
     const erros = validationResult(req);
-    console.log("erros middle")
-    console.log(erros)
+    
     if (erros.isEmpty()) {
         const errorLogin = {
             errors: [
@@ -33,24 +32,35 @@ const gravarUsuAutenticado = async (req, res, next) => {
 
         if (total === 1) {
             if (bcrypt.compareSync(req.body.senha, results[0].senha_usuario)) {
+                // Capturando a foto do usuário
+                let fotoBuffer = results[0].foto_usuario; // Buffer da foto
+                let fotoDataUrl = null;
+
+                // Verificando se a foto existe e convertendo para data URL
+                if (fotoBuffer) {
+                    const base64Image = fotoBuffer.toString('base64'); // Converte para base64
+                    fotoDataUrl = `data:image/jpeg;base64,${base64Image}`; // Cria a data URL
+                }
+
+                // Armazenando informações na sessão
                 var autenticado = {
                     tipo_autenticacao: 'login',
                     autenticado: results[0].user_usuario,
                     id: results[0].id_usuario,
-                    tipo: results[0].tipo_usuario_id
+                    tipo: results[0].tipo_usuario_id,
+                    foto: fotoDataUrl // Armazenando a foto como data URL na sessão
                 };
+
                 req.session.autenticado = autenticado; // Armazenando na sessão
                 console.log("Usuário autenticado:", req.session.autenticado); // Log de depuração
                 return next();
             } else {
-                // Erro: senha incorreta
                 return res.render("pages/login/index", { listaErros: errorLogin, dados: req.body });
             }
         } else {
-            // Erro: email não encontrado
             return res.render("pages/login/index", { listaErros: errorLogin, dados: req.body });
         }
-    }else{
+    } else {
         var autenticado = { autenticado: null, id: null, tipo: null };
         req.session.autenticado = autenticado;
         return res.render("pages/login/index", {
@@ -61,9 +71,11 @@ const gravarUsuAutenticado = async (req, res, next) => {
             dadosNotificacao: null
         });
     }
+
     // Se houver erros de validação
     return res.render("pages/login/index", { listaErros: erros.array(), dados: req.body });
 }
+
 
 const gravarUsuAutenticadoCadastro = (req, res, next) => {
     const erros = validationResult(req);

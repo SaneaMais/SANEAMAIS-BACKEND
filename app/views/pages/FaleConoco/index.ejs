@@ -14,14 +14,14 @@
     <link rel="stylesheet" href="../../CSS/FaleConsco/slyle.css">
     <link rel="stylesheet" href="../../CSS/FaleConsco/menuFale.css">
     <link rel="stylesheet" href="../../CSS/Footer/slyle.css">
-    <title>Fale conosco</title>
+    <title>Fale Conosco</title>
 </head>
 
 <body>
     <header>
-            <div class="Section_top">
-                <div class="container">
-                    <nav class="nav">
+        <div class="Section_top">
+            <div class="container">
+                <nav class="nav">
                     <a href="/">
                         <img src="../../img/LOGO1.png" alt="Logo" />
                     </a>
@@ -33,27 +33,28 @@
                         <a class="btn" href="/cadastro">Cadastrar</a>
                     </ul>
                     <button class="hamburger"></button>
+                </nav>
+            </div>
         </div>
-    </div>
-</nav>
     </header>
 
     <main>
         <section class="Sub-menuF">
             <section class="sub-font">
                 <h1 class="Font">Fale Conosco!</h1>
-                <p>tire suas dúvidas ou envie uma mensagem</p>
+                <p>Tire suas dúvidas ou envie uma mensagem</p>
             </section>
             <article class="ImgFaleConosco">
                 <img src="../../img/Faleconosco/MicrosoftTeams-image (1).png" alt="">
             </article>
         </section>
-        <form class="formFale">
+        
+        <!-- Formulário atualizado -->
+        <form class="formFale" action="/FaleConoco" method="POST">
             <section class="fcontainer">
                 <article class="font-FaleConosco">
                     <h1>Envie sua mensagem aqui</h1>
-                    <p>Se você tiver algum problema ou alguma sugestão, envie sua mensagem aqui que retornaremos o breve
-                        possível</p>
+                    <p>Se você tiver algum problema ou alguma sugestão, envie sua mensagem aqui que retornaremos o mais breve possível</p>
                 </article>
                 <section class="containerMensagem">
                     <section id="inputs">
@@ -61,7 +62,7 @@
                             <label for="name">
                                 Nome
                                 <article class="input-field">
-                                    <input type="text" id="name" name="name" placeholder="Digite seu nome" required>
+                                    <input type="text" id="name" name="nome" placeholder="Digite seu nome" required>
                                 </article>
                             </label>
                         </section>
@@ -85,13 +86,14 @@
                         </section>
                         <article class="Espacamento">
                             <h2>Como podemos ajudar?</h2>
-                            <p>Sinta-se a vontade para fazer uma pergunta ou simplesmente deixar um comentário</p>
+                            <p>Sinta-se à vontade para fazer uma pergunta ou simplesmente deixar um comentário</p>
                         </article>
                         <article class="container-textearea">
                             <textarea name="mensagem" id="mensagem" placeholder="Escreva sua mensagem" cols="30"
-                                rows="10"></textarea>
-                            <article class="button"><button>Enviar</button></article>
-
+                                rows="10" required></textarea>
+                            <article class="button">
+                                <button type="submit">Enviar</button>
+                            </article>
                         </article>
                     </section>
                 </section>
@@ -137,8 +139,7 @@
         </section>
         <section class="footer-bottom-details">
             <section class="footer-bottom-text">
-                <span class="footer-copyright-text">Copyright © 2023 <a href="#">SaneaMais. Todos os direitos
-                        reservados</a></span>
+                <span class="footer-copyright-text">Copyright © 2023 <a href="#">SaneaMais. Todos os direitos reservados</a></span>
                 <article class="footer-policy-terms ">
                     <a href="#">Política de privacidade</a>
                     <a href="#" id="Termos">Termos de uso</a>

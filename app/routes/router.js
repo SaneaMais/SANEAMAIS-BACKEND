@@ -121,7 +121,6 @@ router.delete("/adm/publiadm/:id", verificarUsuAutorizado([3], 'pages/restrito')
 /* ---------------------------Publicações----------------------------- */
 router.get("/PublicacaoPERFIL",  usuarioController.buscarPerfilUsuario);
 
-
 router.get("/PublicacaoPERFIL", function (req, res) {
   res.render("pages/Publicacao/Perfil/index", { autenticado: req.session.autenticado });
 });
