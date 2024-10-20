@@ -1,6 +1,6 @@
 const { body, validationResult } = require("express-validator");
 const ComentarioModel = require("../models/comentarioModel");
-    
+
 exports.criarComentario = async (req, res) => {
     // Exibindo os dados recebidos na requisição para debug
     console.log('Requisição:', req.body);
@@ -32,12 +32,25 @@ exports.criarComentario = async (req, res) => {
         // Chamada para o método correto no model (create) passando os dados corretamente
         const idComentario = await ComentarioModel.create(data);
 
-        // Resposta de sucesso com o ID do novo comentário
-        res.status(201).json({ message: 'Comentário criado com sucesso!', id: idComentario });
+        // Definir uma mensagem de sucesso na sessão
+        req.session.dadosNotificacao = {
+            titulo: "Comentário criado",
+            mensagem: "Seu comentário foi adicionado com sucesso!",
+            tipo: "success"
+        };
+
+        // Redireciona para a página do post (ou onde desejar)
+        res.redirect("/publicacao");
     } catch (error) {
-        // Log do erro e resposta de erro
-        console.error('Erro ao criar comentário:', error);
-        res.status(500).json({ error: 'Erro ao criar comentário.' });
+        // Definir uma mensagem de erro na sessão
+        req.session.dadosNotificacao = {
+            titulo: "Erro",
+            mensagem: "Houve um erro ao adicionar o comentário.",
+            tipo: "error"
+        };
+
+        // Redireciona de volta para a página do post (ou onde desejar)
+        res.redirect("/publicacao");
     }
 };
 
@@ -48,10 +61,21 @@ exports.buscarComentarios = async (req, res) => {
     try {
         // Busca os comentários do post específico
         const comentarios = await ComentarioModel.findAll(postId);
-        // Retorna os comentários em formato JSON
-        res.status(200).json(comentarios); 
+
+        // Renderiza a página de publicações com os comentários
+        res.render("pages/Publicacao/publi/index", {
+            pagina: "publicacao",
+            comentarios: comentarios, // Pode ser vazio, mas é um array
+            postId: postId, // Enviar também o ID da publicação
+            dadosNotificacao: req.session.dadosNotificacao || null
+        });
     } catch (error) {
-        console.error(error); 
-        res.status(500).json({ error: 'Erro ao buscar comentários.' });
+        req.session.dadosNotificacao = {
+            titulo: "Erro",
+            mensagem: "Erro ao buscar os comentários.",
+            tipo: "error"
+        };
+        res.redirect("/publicacao");
     }
 };
+

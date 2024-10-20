@@ -43,6 +43,7 @@ const publiModel = {
                 POSTS.id_POSTS,
                 POSTS.comentarios_posts,
                 POSTS.img_posts,
+                POSTS.endereco_posts,
                 USUARIOS.nome_usuario,
                 USUARIOS.user_usuario,
                 USUARIOS.foto_usuario
