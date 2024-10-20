@@ -37,36 +37,51 @@
                 <p class="profile-bio"><%= bio || 'Bio não definida' %></p>
             </div>
         </div>
-        <hr class="separator-line">
-        <br>
-     <!-- Dentro do seu perfil.ejs -->
-<h3 class="publications-title">Minhas publicações</h3>
-<div class="post-container">
-    <% if (publicacoes.length > 0) { %>
-        <% publicacoes.forEach(publicacao => { %>
-            <div class="post-card">
-                <div class="post-header">
-                    <img src="<%= publicacao.foto_usuario ? 'data:image;base64,' + publicacao.foto_usuario : '../../../img/NovoPerfil/profile-2.png' %>" alt="Foto de Perfil" class="post-user-img">
-                    <div class="post-user-details">
-                        <span class="post-user-name"><%= publicacao.nome_usuario %></span>
-                        <span class="post-user-handle">@<%= publicacao.user_usuario %></span>
-                        <span class="post-time">• </span>
+        <h3 class="publications-title">
+            <% if (tipoUsuario === 1) { %>
+                Minhas publicações
+            <% } else if (tipoUsuario === 2) { %>
+                Meus comentários
+            <% } %>
+        </h3>
+        
+        <div class="post-container">
+            <% if (tipoUsuario === 1) { %>
+                <% publicacoes.forEach(publicacao => { %>
+                    <div class="post-card">
+                        <div class="post-header">
+                            <img src="<%= publicacao.foto_usuario ? 'data:image/jpeg;base64,' + publicacao.foto_usuario : '../../../img/NovoPerfil/profile-2.png' %>" alt="Foto de Perfil" class="post-user-img">
+                            <div class="post-user-details">
+                                <span class="post-user-name"><%= publicacao.nome_usuario %></span>
+                                <span class="post-user-handle">@<%= publicacao.user_usuario %></span>
+                                <span class="post-time">• </span>
+                            </div>
+                        </div>
+                        <div class="post-content">
+                            <p><%= publicacao.comentarios_posts %></p>
+                            <% if (publicacao.img_posts) { %>
+                                <img src="data:image/jpeg;base64,<%= publicacao.img_posts %>" alt="Imagem da Postagem" class="post-image">
+                            <% } %>
+                        </div>
+                        <div class="post-actions">
+                            <a href="#" class="comment-btn"><i class="far fa-comment"></i></a>
+                            <a href="#" class="like-btn"><i class="far fa-heart"></i></a>
+                        </div>
                     </div>
-                </div>
-                <div class="post-content">
-                    <p><%= publicacao.comentarios_posts %></p>
-                    <% if (publicacao.img_posts) { %>
-                        <img src="data:image ;base64,<%= publicacao.img_posts %>" alt="Imagem da Postagem" class="post-image">
-                    <% } %>
-                </div>
-                <div class="post-actions">
-                    <a href="#" class="comment-btn"><i class="far fa-comment"></i></a>
-                    <a href="#" class="like-btn"><i class="far fa-heart"></i></a>
-                </div>
-            </div>
-        <% }); %>
-    <% } else { %>
-        <p>Nenhuma publicação encontrada.</p>
-    <% } %>
-</div>
+                <% }); %>
+            <% } else if (tipoUsuario === 2) { %>
+                <% comentarios.forEach(comentario => { %>
+                    <li>
+                        <div class="comment-header">
+                            <img src="<%= comentario.foto_usuario ? 'data:image/png;base64,' + comentario.foto_usuario.toString('base64') : '../../../img/default-profile.png' %>" alt="Foto do Usuário" class="comment-user-img">
+                            <div class="comment-user-details">
+                        <strong><%= comentario.user_usuario %>:</strong>
+                        <span><%= comentario.comentario %></span>
+                        <em><%= new Date(comentario.data).toLocaleString() %></em>
+                    </li>
+                <% }); %>
+            </ul>
+        <% } else { %>
+            <p>Nenhum comentário encontrado.</p>
+        <% } %>
 

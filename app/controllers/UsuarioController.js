@@ -1,5 +1,6 @@
 const UsuarioModel = require("../models/UsuarioModel");
 const PubliModel = require("../models/publiModel");
+const ComentariosModel = require("../models/comentarioModel");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const salt = bcrypt.genSaltSync(12);
@@ -537,7 +538,11 @@ create: async (req, res) => {
                 }
         
                 // Aqui você pode buscar as publicações do usuário
-                const publicacoes = await PubliModel.findByUserId(userId); // Chame a função que busca publicações
+                const publicacoes = await PubliModel.findByUserId(userId);
+                let comentarios = [];
+                if (usuario.tipo_usuario_id === 2) {
+                    comentarios = await ComentariosModel.findComentariosByUserId(userId);
+                }
         
                 const fotoUsuario = usuario.foto_usuario ? usuario.foto_usuario.toString('base64') : null; // Convertendo a foto para Base64
         
@@ -550,7 +555,9 @@ create: async (req, res) => {
                     fotoUsuario: fotoUsuario,
                     bio: usuario.bio || 'Bio não definida',
                     autenticado: req.session.autenticado,
-                    publicacoes: publicacoes // Passando as publicações para a view
+                    publicacoes: publicacoes,// Passando as publicações para a view
+                    tipoUsuario: usuario.tipo_usuario_id,
+                    comentarios: comentarios,
                 });
             } catch (error) {
                 console.error(error);
