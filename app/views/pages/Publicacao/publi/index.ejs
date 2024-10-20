@@ -154,7 +154,7 @@
                             <p><%= postagem.comentarios_posts %></p>
                             <img src="<%= postagem.img_posts %>" alt="Imagem da publicação" class="post-img-publicacao">
                             <div class="post-actions">
-                                <% if (autenticado.tipo_usuario === 2) { %> <!-- Apenas para usuários do tipo empresa -->
+                                <% if (autenticado.tipo !== 1) { %>
                                     <button class="reply-button" onclick="toggleCommentForm('<%= postagem.id_POSTS %>')">
                                         <i class="fas fa-comment"></i> Responder
                                     </button>
