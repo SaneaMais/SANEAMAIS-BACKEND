@@ -25,7 +25,7 @@ app.use(
 
   
 var rotas = require("./app/routes/router");
-// const UsuarioController = require("./app/controllers/UsuarioController");
+const UsuarioController = require("./app/controllers/UsuarioController");
 app.use("/", rotas);
 
 app.listen(port, () => {
