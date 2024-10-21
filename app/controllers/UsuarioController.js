@@ -248,51 +248,56 @@ create: async (req, res) => {
     ],
 
     recuperarSenha: async (req, res) => {
-      const erros = validationResult(req);
-      console.log(erros);
-      if (!erros.isEmpty()) {
-        return res.render("pages/esqueceusenha/rec-senha", {
-          listaErros: erros,
-          dadosNotificacao: null,
-          valores: req.body,
-        });
-      }
-    
-      try {
-        // Logica para recuperação de senha
-        const user = await UsuarioModel.findUserEmail(req.body.email);  // Passar o e-mail diretamente
-        if (!user || user.length === 0) {
-          return res.status(404).json({ error: "Usuário não encontrado." });
+        const erros = validationResult(req);
+        if (!erros.isEmpty()) {
+            return res.render("pages/esqueceusenha/rec-senha", {
+                listaErros: erros,
+                dadosNotificacao: null,
+                valores: req.body,
+            });
         }
     
-        const token = jwt.sign(
-          { userId:  user[0].id_usuario  },  // Acessa corretamente o id_usuario
-          process.env.SECRET_KEY,
-          { expiresIn: "1h" }  // Expiração do token
-        );
-        console.log(token);
-
-          //enviar e-mail com link usando o token
-          const url = `${process.env.URL_BASE}/resetar-senha?token=${token}`;
-          console.log(url)
-
-        const  html = require("../util/email-reset-senha")( url, token)
-          enviarEmail(req.body.email, "Pedido de recuperação de senha", null, html, ()=>{
-            return res.render("pages/index", {
-              listaErros: null,
-              autenticado: req.session.autenticado,
-              dadosNotificacao: {
-                titulo: "Recuperação de senha",
-                mensagem: "Enviamos um e-mail com instruções para resetar sua senha",
-                tipo: "success",
-              },
+        try {
+            const user = await UsuarioModel.findUserEmail(req.body.email);
+            if (!user || user.length === 0) {
+                req.session.dadosNotificacao = {
+                    titulo: "Usuário não encontrado",
+                    mensagem: "Nenhum usuário encontrado com este e-mail.",
+                    tipo: "error"
+                };
+                return res.redirect("/recuperar-senha"); 
+            }
+    
+            const token = jwt.sign(
+                { userId: user[0].id_usuario },
+                process.env.SECRET_KEY,
+                { expiresIn: "1h" }
+            );
+    
+            const url = `${process.env.URL_BASE}/resetar-senha?token=${token}`;
+            const html = require("../util/email-reset-senha")(url, token);
+    
+            enviarEmail(req.body.email, "Pedido de recuperação de senha", null, html, () => {
+                req.session.dadosNotificacao = {
+                    titulo: "Recuperação de senha",
+                    mensagem: "Enviamos um e-mail com instruções para resetar sua senha.",
+                    tipo: "success",
+                };
+                console.log("Notificação definida:", req.session.dadosNotificacao);
+                res.redirect("/recuperar-senha"); // Redireciona para a mesma página
             });
-          });
     
         } catch (e) {
-          console.log(e);
+            console.log(e);
+            req.session.dadosNotificacao = {
+                titulo: "Erro",
+                mensagem: "Ocorreu um erro ao tentar enviar o e-mail.",
+                tipo: "error"
+            };
+            res.redirect("/recuperar-senha"); // Redireciona para a mesma página
         }
-      },
+    },
+    
       validarTokenNovaSenha: async (req, res) => {
         const token = req.query.token;
         console.log("Token recebido:", token);

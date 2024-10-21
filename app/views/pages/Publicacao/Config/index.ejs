@@ -17,6 +17,7 @@
   <script src="js/Config/scripts.js"></script>
   <title>Configurações da Conta</title>
   <link rel="stylesheet" href="../../../CSS/Publicacao/Config/style.css">
+   <link rel="stylesheet" href="/CSS/notify.css">
 </head>
 <body>
 
@@ -59,8 +60,10 @@ if(listaErros){
 if (dadosNotificacao) { 
     %>
     <script>
-            notify("<%= dadosNotificacao.titulo%>","<%= dadosNotificacao.mensagem%>", "<%= dadosNotificacao.tipo%>", "center")
-                               
+            notify("<%= dadosNotificacao.titulo%>","<%= dadosNotificacao.mensagem%>", "<%= dadosNotificacao.tipo%>", "right")
+            if ("<%= dadosNotificacao.tipo %>" == "success") {
+                    setTimeout(function() { window.location = "publicacao" }, 1000);
+                }
     </script>
 <% } %>
 

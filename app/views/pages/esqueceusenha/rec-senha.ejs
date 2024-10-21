@@ -6,64 +6,44 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/estilo.css">
-    <script src="js/script.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
     <link rel="stylesheet" href="../../CSS/esqueceusenha/esqueceu.css">
-    <link rel="shortcut icon" href="../../img/MicrosoftTeams-image-removebg-preview.png" tyle="image/ x-icon">
+    <link rel="shortcut icon" href="../../img/MicrosoftTeams-image-removebg-preview.png" type="image/x-icon">
+    
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+    <script src="/js/notify.js"></script>
+    <link rel="stylesheet" href="/CSS/notify.css">
 </head>
 
 <body>
     <main>
-        <% 
-            let avisoErro = {"email_usuario":""}
-            let msgErro = ""
-                if(listaErros){
-                    listaErros.errors.forEach(function(itemErro){
-                        if(itemErro.path == "email_usuario"){
-                            avisoErro.email_usuario = "erro";
-                            msgErro += `* ${itemErro.msg} <br>`
-                        }
-                    })
-                    if(msgErro != ""){
-                    %>
-                        <script>
-                            let msgErro ="<%= msgErro %>"
-                            notify("Erro(s) no preenchimento", 
-                                   "Verifique o(s) campo(s) <br> " + msgErro.replace(/&lt;/g,"<").replace(/&gt;/g,">"), 
-                                   "error", "center", 5000)                        
-                        </script>
-                    <%
-                    }
+        <% if (dadosNotificacao) { %>
+            <script>
+                notify("<%= dadosNotificacao.titulo %>", "<%= dadosNotificacao.mensagem %>", "<%= dadosNotificacao.tipo %>", "center");
+                if ("<%= dadosNotificacao.tipo %>" == "success") {
+                    setTimeout(function() { window.location = "/" }, 3000);
                 }
-                if (dadosNotificacao) { %>
-                    <script>
-                            notify("<%= dadosNotificacao.titulo%>","<%= dadosNotificacao.mensagem%>", "<%= dadosNotificacao.tipo%>", "center")
-                            if("<%= dadosNotificacao.tipo %>" == "success"){
-                                setTimeout(function(){window.location="/"}, 3000)
-                            }                        
-                    </script>
-                <% } %>              
-                <div class="login-page">
-                    <div class="form-cadastro">
-                        <h2>Recuperar a senha</h2>
-                        <p class="sub-titulo">Informe o e-mail associado à sua conta <br>  para alterar sua senha</p></br>
-                        <section class="figura-logo">
-                            <article class="logo-container">
-                                <a href="../../index.html">
-                                    <img src="../../img/LOGO2.png">
-                                </a>
-                            </article>
-                        </section>
-                        <form action="/recuperar-senha" method="post">
-                            <input type="text" name="email" placeholder="Digite seu email" value=""
-                                class="<%= avisoErro.email_usuario %>" /><br>
-                           <button type="submit"onclick="recuperarSenha()">Enviar</button><br>
-                        </form>
-                    </div>
-                </div>
-    </main>
+            </script>
+        <% } %>  
 
+        <div class="login-page">
+            <div class="form-cadastro">
+                <h2>Recuperar a senha</h2>
+                <p class="sub-titulo">Informe o e-mail associado à sua conta <br> para alterar sua senha</p></br>
+                <section class="figura-logo">
+                    <article class="logo-container">
+                        <a href="../../index.html">
+                            <img src="../../img/LOGO2.png" alt="Logo">
+                        </a>
+                    </article>
+                </section>
+                <form action="/recuperar-senha" method="post">
+                    <input type="text" name="email" placeholder="Digite seu email" required /><br>
+                    <button type="submit">Enviar</button><br>
+                </form>
+            </div>
+        </div>
+    </main>
 </body>
 
 </html>

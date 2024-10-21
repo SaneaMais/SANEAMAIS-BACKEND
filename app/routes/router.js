@@ -54,16 +54,22 @@ router.post('/login', usuarioController.regrasValidacaoFormLogin, gravarUsuAuten
 // router.post("/reset-senha", usuarioController.regrasValidacaoFormNovaSenha, (req, res) => {
 //   usuarioController.resetarSenha(req, res);
 // });
-router.get("/recuperar-senha", verificarUsuAutenticado, function(req, res){
-  res.render("pages/esqueceusenha/rec-senha",{ listaErros: null, dadosNotificacao: null });
+router.get("/recuperar-senha", verificarUsuAutenticado, (req, res) => {
+  res.render("pages/esqueceusenha/rec-senha", {
+      listaErros: null,
+      dadosNotificacao: req.session.dadosNotificacao || null // Passa a notificação se existir
+  });
+  req.session.dadosNotificacao = null; // Limpa a notificação após renderizar
 });
 
 router.post("/recuperar-senha",
   verificarUsuAutenticado,
   usuarioController.regrasValidacaoFormRecSenha, 
-  function(req, res){
-    usuarioController.recuperarSenha(req, res);
-});
+  (req, res) => {
+      usuarioController.recuperarSenha(req, res);
+  }
+);
+
 
 router.get("/resetar-senha", 
   function(req, res){
@@ -150,10 +156,7 @@ router.delete("/usuario/:id", verificarUsuAutorizado([3], 'pages/restrito'), adm
 router.delete('/publicacoes/:id', admController.removerPublicacao);
 
 /* ======================================configuraçoes==================================================================*/
-router.get(
-  "/PublicacacaoCONFIG",
-  verificarUsuAutorizado([1, 2, 3], "pages/restrito"),
-  async function (req, res) {
+router.get("/PublicacacaoCONFIG",verificarUsuAutorizado([1, 2, 3], "pages/restrito"), async function (req, res) {
     usuarioController.mostrarPerfil(req, res);
   }
 );
