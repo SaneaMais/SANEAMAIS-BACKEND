@@ -67,7 +67,7 @@
                                     <% } %>
                                 </td>
                                 <td>
-                                    <button class="btn-danger" onclick="removerUsuario('<%= usuario.id_usuario %>')">Remover</button>
+                                    <button class="btn-danger remover-Usuario"data-id="<%= usuario.id_usuario %>">Remover</button>
                                 </td>
                             </tr>
                         <% }) %>
@@ -78,6 +78,20 @@
           
 
     <script>
+         document.addEventListener('DOMContentLoaded', () => {
+            // Seleciona todos os botões com a classe 'remover-publicacao'
+            const buttons = document.querySelectorAll('.remover-Usuario');
+    
+            // Adiciona um evento de click a cada botão
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const id = button.getAttribute('data-id');
+                    removerUsuario(id);
+                });
+            });
+        });
+
+
         function removerUsuario(id) {
         if (confirm("Tem certeza que deseja remover este usuário?")) {
             fetch(`/usuario/${id}`, {

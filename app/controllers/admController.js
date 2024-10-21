@@ -22,7 +22,10 @@ const admController = {
     },
 
     removerUsuario: async (req, res) => {
-        const usuarioId = req.params.id; // Obtenha o ID do usuário a ser removido
+        const usuarioId = parseInt(req.params.id);
+        if (isNaN(usuarioId)) {
+            return res.status(400).json({ message: 'ID inválido' });
+        }
         try {
             await admModel.removerUsuario(usuarioId);
             res.status(200).json({ message: 'Usuário removido com sucesso.' });
@@ -32,6 +35,7 @@ const admController = {
         }
     },
 
+    
     listarPublicacoes: async (req, res) => {
         try {
             const publicacoes = await admModel.buscarPublicacoes();
