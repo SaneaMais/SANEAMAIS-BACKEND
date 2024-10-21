@@ -5,6 +5,7 @@ const usuarioController = require("../controllers/UsuarioController");
 const admController = require("../controllers/admController");
 const InstituController = require("../controllers/InstituController");
 const publiController = require("../controllers/publiController");
+const FaleConoscoController = require("../controllers/faleconosco");
 const ComentarioController = require("../controllers/comentarioController");
 const RankingModel = require("../models/RankingModel");
 
@@ -89,9 +90,12 @@ router.delete("/adm/comentarios/:id", admController.removerComentario);
 
 
 // Demais páginas (com autorização)
-router.get("/FaleConoco", verificarUsuAutorizado([1, 3], 'pages/restrito'), (req, res) => {
-  res.render("pages/FaleConoco/index", { autenticado: req.session.autenticado });
-});
+// Rota GET para renderizar a página "Fale Conosco" sem verificação de autorização
+
+router.get("/FaleConoco", FaleConoscoController.mostrarPagina);
+router.post("/FaleConoco", FaleConoscoController.enviarMensagem);
+
+
 router.get("/Servico", verificarUsuAutorizado([1, 3], 'pages/restrito'), (req, res) => {
   res.render("pages/Servico/index", { autenticado: req.session.autenticado });
 });
