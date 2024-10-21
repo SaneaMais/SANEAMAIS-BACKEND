@@ -20,11 +20,11 @@ const admController = {
             res.status(500).send('Erro ao carregar usuários.');
         }
     },
-    
+
     removerUsuario: async (req, res) => {
         const usuarioId = req.params.id; // Obtenha o ID do usuário a ser removido
         try {
-            await admModel.removerUsuario(usuarioId); 
+            await admModel.removerUsuario(usuarioId);
             res.status(200).json({ message: 'Usuário removido com sucesso.' });
         } catch (error) {
             console.error('Erro ao remover usuário:', error);
@@ -45,7 +45,7 @@ const admController = {
 
             const dadosNotificacao = req.session.dadosNotificacao || null;
             delete req.session.dadosNotificacao;
-    
+
             res.render('pages/adm/publiadm', {
                 publicacoes: publicacoesComImagem,
                 dadosNotificacao,
@@ -56,27 +56,32 @@ const admController = {
             res.status(500).send('Erro ao carregar publicações.');
         }
     },
-    
+
 
     removerPublicacao: async (req, res) => {
-        const postId = req.params.id; 
+        /* console.log('ID da publicação a ser removida:', req.params.id); */ // Adiciona este log para verificar o valor
+        const postId = parseInt(req.params.id, 10);
+        if (isNaN(postId)) {
+            return res.status(400).json({ message: 'ID inválido' });
+        }
         try {
-            await admModel.removerPublicacao(postId); 
+            await admModel.removerPublicacao(postId);
             res.status(200).json({ message: 'Publicação removida com sucesso.' });
         } catch (error) {
             console.error('Erro ao remover publicação:', error);
             res.status(500).json({ message: 'Erro ao remover publicação.' });
         }
+
     },
-    
+
 
 
     listarComentarios: async (req, res) => {
         try {
-            const comentarios = await admModel.buscarComentarios(); 
+            const comentarios = await admModel.buscarComentarios();
             const dadosNotificacao = req.session.dadosNotificacao || null;
             delete req.session.dadosNotificacao;
-    
+
             res.render('pages/adm/comentarios', {
                 comentarios,
                 dadosNotificacao,
@@ -87,12 +92,12 @@ const admController = {
             res.status(500).send('Erro ao carregar comentários.');
         }
     },
-    
+
 
     removerComentario: async (req, res) => {
-        const comentarioId = req.params.id; 
+        const comentarioId = req.params.id;
         try {
-            await admModel.removerComentario(comentarioId); 
+            await admModel.removerComentario(comentarioId);
             res.status(200).json({ message: 'Comentário removido com sucesso.' });
         } catch (error) {
             console.error('Erro ao remover comentário:', error);
@@ -100,7 +105,7 @@ const admController = {
         }
     },
 
-    
+
 };
 
 module.exports = admController;

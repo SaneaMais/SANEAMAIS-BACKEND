@@ -147,6 +147,8 @@ router.get('/verificar-autenticacao', verificarUsuAutorizado([1, 3], 'pages/rest
 router.get("/adm", verificarUsuAutorizado([3], 'pages/restrito'), admController.listarUsuarios);
 router.delete("/usuario/:id", verificarUsuAutorizado([3], 'pages/restrito'), admController.removerUsuario);
 
+router.delete('/publicacoes/:id', admController.removerPublicacao);
+
 /* ======================================configuraçoes==================================================================*/
 router.get(
   "/PublicacacaoCONFIG",

@@ -45,11 +45,11 @@ const UsuarioModel = {
     },
 
     update: async (data, id) => {
-        console.log('Dados a serem atualizados:', data);
-        console.log('ID do usuário:', id);
+       /*  console.log('Dados a serem atualizados:', data);
+        console.log('ID do usuário:', id); */
     
         if (!id || !data) {
-            console.log('ID ou dados inválidos.');
+            /* console.log('ID ou dados inválidos.'); */
             return; // Ou lançar um erro
         }
     

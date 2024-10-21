@@ -4,7 +4,7 @@ const admModel = {
     buscarUsuarios: async () => {
         const query = `
             SELECT id_usuario, nome_usuario, email_usuario, tipo_usuario_id 
-            FROM USUARIOS;
+            FROM USUARIOS where id_usuario != 1
         `;
         const [rows] = await pool.query(query);
         return rows;

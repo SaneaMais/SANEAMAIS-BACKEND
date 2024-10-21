@@ -8,7 +8,7 @@ const ComentarioModel = {
 
         try {
             // Log para verificar os dados antes da query
-            console.log('Dados para inserção:', data);
+            /* console.log('Dados para inserção:', data); */
             const [results] = await pool.query(query, [data.comentario, data.usuarioId, data.postId]);
             return results.insertId;
         } catch (err) {
@@ -59,7 +59,7 @@ const ComentarioModel = {
         const [results] = await pool.query(query, [userId]);
         
         // Log para verificar os resultados retornados
-        console.log('Resultados da consulta de comentários:', results);
+        /* console.log('Resultados da consulta de comentários:', results); */
 
         // Transformando os resultados em um formato mais amigável
         return results.map(row => ({
