@@ -96,10 +96,10 @@ router.get("/FaleConoco", FaleConoscoController.mostrarPagina);
 router.post("/FaleConoco", FaleConoscoController.enviarMensagem);
 
 
-router.get("/Servico", verificarUsuAutorizado([1, 3], 'pages/restrito'), (req, res) => {
+router.get("/Servico", (req, res) => {
   res.render("pages/Servico/index", { autenticado: req.session.autenticado });
 });
-router.get("/Sobre", verificarUsuAutorizado([1, 3], 'pages/restrito'), (req, res) => {
+router.get("/Sobre", (req, res) => {
   res.render("pages/Sobre/sobre", { autenticado: req.session.autenticado });
 });
 
