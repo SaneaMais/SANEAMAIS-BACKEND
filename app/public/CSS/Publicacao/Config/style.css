@@ -1,145 +1,229 @@
-
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-  }
+  font-family: 'Poppins', sans-serif; /* Fonte Poppins */
+  background-color: #f4f4f4; /* Cor de fundo suave */
+  margin: 0;
+  padding: 0;
+}
 
-  .header {
-    background-color: white;
-    padding: 10px 0;
-  }
-  
+.header {
+  width: 100%;
+  background-color: #f4f4f9; /* Fundo bem claro */
+  padding: 0.7rem 0;
+  top: 0;
+  z-index: 10;
+  border-bottom: 2px solid #84bc26; /* Borda inferior sutil */
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1000px; /* Largura máxima */
+  margin: 0 auto;
+}
+
+.logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 26px; /* Aumenta o tamanho da logo */
+  font-weight: bold;
+  color: #00417e; /* Cor da logo */
+}
+
+.user-actions a {
+  margin-left: 20px; /* Espaço maior entre os links */
+  color: #00417e; /* Cor dos links */
+  font-size: 20px;
+  transition: color 0.3s, transform 0.3s; /* Transição suave para cor e transformação */
+}
+
+.user-actions a:hover {
+  color: #28a745; /* Cor ao passar o mouse */
+  transform: scale(1.1); /* Efeito de zoom ao passar o mouse */
+}
+
+.profile-container {
+  width: 90%; /* Aumenta a largura da seção de perfil */
+  max-width: 600px; /* Limita a largura máxima */
+  margin: 50px auto; /* Centraliza a seção de perfil */
+  background-color: #fff; /* Fundo branco para o container */
+  padding: 30px; /* Padding maior */
+  border-radius: 12px; /* Cantos arredondados */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Sombra para profundidade */
+  border: 2px solid #00417e;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #140B5C; /* Cor do título */
+  font-size: 23px; /* Tamanho maior para o título */
+  text-transform: uppercase; /* Texto em maiúsculas */
+  letter-spacing: 1px; /* Espaçamento entre letras */
+  font-family: "Poppins", sans-serif;
+  text-decoration: underline #84bc26;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #140B5C; /* Cor do texto do label */
+}
+
+.form-group input,
+.form-group textarea {
+  width: 90%;
+  padding: 12px; /* Aumenta o padding para os inputs */
+  border: 1px solid #ccc;
+  border-radius: 6px; /* Aumenta o arredondamento */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Transições suaves */
+  font-family: 'Poppins', sans-serif;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #84bc26; /* Cor da borda ao focar */
+  box-shadow: #84bc26; /* Sombra ao focar */
+  outline: none; /* Remove o contorno padrão do navegador */
+  box-shadow: 0 0 8px rgba(40, 167, 69, 0.5); /* Sombra verde ao focar */
+}
+
+.profile-image-wrapper {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto; /* Centraliza a imagem */
+  margin-bottom: 20px; /* Espaço abaixo da imagem */
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Preenche o espaço da imagem */
+  border-radius: 50%; /* Torna a imagem circular */
+  border: 3px solid #ccc; /* Borda mais grossa */
+  transition: border-color 0.3s; /* Transição suave para a borda */
+}
+
+.profile-image:hover {
+  border-color: #28a745; /* Cor da borda ao passar o mouse */
+}
+
+#profileImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  border-radius: 50%; /* Mantém a imagem circular */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 102%;
+  height: 102%;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.profile-image-wrapper:hover .overlay {
+  opacity: 1; /* Mostra a sobreposição ao passar o mouse */
+}
+
+.overlay span {
+  font-size: 13px; /* Aumenta o tamanho do texto da sobreposição */
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif; /* Fonte Poppins */
+}
+
+.enviar {
+  display: block;
+  width: 50%; /* Aumenta a largura do botão */
+  padding: 12px; /* Aumenta o padding do botão */
+  background-color: #28a745; /* Cor verde para o botão */
+  color: white;
+  border: none;
+  border-radius: 6px; /* Arredondamento maior */
+  cursor: pointer;
+  margin: 20px auto; /* Centraliza o botão */
+  font-size: 16px; /* Aumenta o tamanho da fonte do botão */
+  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+  font-family: 'Poppins', sans-serif;
+}
+
+.enviar:hover {
+  background-color: #218838; /* Cor ao passar o mouse */
+  transform: translateY(-2px); /* Efeito de elevação ao passar o mouse */
+}
+
+#bio {
+  width: 100%;
+  height: 100px; /* Altura fixa */
+  resize: none; /* Impede o redimensionamento */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Garante que o padding esteja incluído na largura total */
+}
+
+#bio:focus {
+  border-color: #28a745; /* Cor da borda ao focar */
+  outline: none; /* Remove o contorno padrão do navegador */
+  box-shadow: 0 0 8px rgba(40, 167, 69, 0.5); /* Sombra verde ao focar */
+}
+
+/* Responsividade */
+
+@media screen and (max-width: 768px) {
   .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  
-  .logo {
-    font-family: 'Arial', sans-serif;
-    font-size: 24px;
-    font-weight: bold;
+    flex-direction: column; /* Empilha elementos em telas menores */
   }
 
   .user-actions a {
-    margin-left: 15px;
-    color: #00417e;
-    font-size: 20px;
+    font-size: 18px; /* Reduz o tamanho dos links */
+    margin-left: 10px; /* Reduz o espaço entre os links */
+  }
+
+  .logo {
+    font-size: 22px; /* Reduz o tamanho da logo */
+  }
+
+  .profile-container {
+    padding: 20px; /* Reduz o padding do container */
+    margin: 30px auto; /* Ajusta a margem superior */
   }
   
+}
+
+@media screen and (max-width: 480px) {
+  .user-actions a {
+    font-size: 16px; /* Reduz ainda mais o tamanho dos links */
+  }
+
+  .logo {
+    font-size: 20px; /* Reduz o tamanho da logo em telas muito pequenas */
+  }
+
   .profile-container {
-    width: 50%;
-    margin: auto;
-    background-color: #fff;
-    padding: 25px;
-    margin-top: 50px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-  }
-
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #00417e;
-  }
-
-  .form-group {
-    margin-bottom: 15px;
-  }
-
-  .form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-
-  .form-group input,
-  .form-group textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-
-  /* Estilo da Imagem de Perfil */
-  .profile-image-wrapper {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    margin: 0 auto;
-  }
-
-  .profile-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid #ccc;
-  }
-
-  #profileImage {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: pointer;
-    border-radius: 50%;
-  }
-
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .profile-image-wrapper:hover .overlay {
-    opacity: 1;
-  }
-
-  .overlay span {
-    font-size: 14px;
-    font-weight: bold;
+    padding: 15px; /* Reduz o padding do container em telas pequenas */
   }
 
   .enviar {
-    display: block;
-    width: 40%;
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 280px;
+    width: 80%; /* Aumenta a largura do botão em telas pequenas */
+    font-size: 14px; /* Reduz o tamanho da fonte do botão */
   }
-
-  .enviar:hover {
-    background-color: #218838;
-  }
-
-  #bio {
-    width: 100%;
-    height: 100px; /* Altura fixa */
-    resize: none; /* Impede o redimensionamento */
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box; /* Garante que o padding esteja incluído na largura total */
 }
-

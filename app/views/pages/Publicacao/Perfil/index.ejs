@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../../../img/MicrosoftTeams-image-removebg-preview.png" type="image/x-icon">
 </head>
 <body>
     <!-- Header -->
@@ -17,6 +19,7 @@
         
             <div class="user-actions">
                 <a href="/Publicacao"><i class="fas fa-home"></i></a>
+                <a href="/PublicacaoDOACAO"><i class="uil uil-setting"></i></a>
                 <a href="/"><i class="fas fa-sign-out-alt"></i></a>
             </div>
         </div>
@@ -26,7 +29,7 @@
     <div class="profile-container">
         <div class="profile-header">
             <div class="profile-picture">
-                <img src="<%= fotoUsuario ? 'data:image ;base64,' + fotoUsuario : '../../../img/NovoPerfil/profile-2.png' %>" alt="Foto de Perfil">
+                <img src="<%= fotoUsuario ? 'data:image;base64,' + fotoUsuario : '../../../img/NovoPerfil/profile-2.png' %>" alt="Foto de Perfil">
             </div>
             <div class="profile-info">
                 <div class="username-edit">
@@ -34,54 +37,58 @@
                     <a href="/PublicacacaoCONFIG"><button class="edit-profile-btn">Editar Perfil</button></a>
                 </div>
                 <span class="user-handle">@<%= userUsuario %></span> <!-- Usando a variável correta -->
-                <p class="profile-bio"><%= bio || 'Bio não definida' %></p>
+                <p class="profile-bio"><%= bio || 'Defina sua bio' %></p>
             </div>
         </div>
-        <h3 class="publications-title">
-            <% if (tipoUsuario === 1) { %>
-                Minhas publicações
-            <% } else if (tipoUsuario === 2) { %>
-                Comentários da Empresa
-            <% } %>
-        </h3>
-        
-        <div class="post-container">
+        <hr class="separator-line">
+        <div class="publicacoes-area">
+            <h3 class="publications-title">
+                <% if (tipoUsuario === 1) { %>
+                    Minhas publicações
+                <% } else if (tipoUsuario === 2) { %>
+                    Comentários da Empresa
+                <% } %>
+            </h3>
+
             <% if (tipoUsuario === 1) { %>
                 <% publicacoes.forEach(publicacao => { %>
-                    <div class="post-card">
+                    <div class="post-container"> <!-- Mover esta div aqui -->
                         <div class="post-header">
-                            <img src="<%= publicacao.foto_usuario ? 'data:image/jpeg;base64,' + publicacao.foto_usuario : '../../../img/NovoPerfil/profile-2.png' %>" alt="Foto de Perfil" class="post-user-img">
+                            <img src="<%= publicacao.foto_usuario ? 'data:image/jpeg;base64,' + publicacao.foto_usuario : '../../../img/NovoPerfil/profile-2.png' %>" alt="<%= publicacao.nome_usuario %> - Foto de Perfil" class="post-user-img">
                             <div class="post-user-details">
                                 <span class="post-user-name"><%= publicacao.nome_usuario %></span>
                                 <span class="post-user-handle">@<%= publicacao.user_usuario %></span>
-                                <p class="post-address"><%= publicacao.endereco_posts || 'Endereço não disponível' %></p>
+                                <p class="post-endereco"><%= publicacao.endereco_posts || 'Endereço não disponível' %></p>
                             </div>
                         </div>
                         <div class="post-content">
                             <p><%= publicacao.comentarios_posts %></p>
                             <% if (publicacao.img_posts) { %>
-                                <img src="data:image/jpeg;base64,<%= publicacao.img_posts %>" alt="Imagem da Postagem" class="post-image">
+                                <img src="data:image/jpeg;base64,<%= publicacao.img_posts %>" alt="Imagem da Postagem" class="post-img-publicacao">
                             <% } %>
                         </div>
-                        <div class="post-actions">
-                            <a href="#" class="comment-btn"><i class="far fa-comment"></i></a>
-                            <a href="#" class="like-btn"><i class="far fa-heart"></i></a>
-                        </div>
-                    </div>
+                    </div> <!-- Fechar o post-container aqui -->
                 <% }); %>
             <% } else if (tipoUsuario === 2) { %>
-                <% comentarios.forEach(comentario => { %>
-                    <li>
-                        <div class="comment-header">
-                            <img src="<%= comentario.foto_usuario ? 'data:image/png;base64,' + comentario.foto_usuario.toString('base64') : '../../../img/default-profile.png' %>" alt="Foto do Usuário" class="comment-user-img">
-                            <div class="comment-user-details">
-                        <strong><%= comentario.user_usuario %>:</strong>
-                        <span><%= comentario.comentario %></span>
-                        <em><%= new Date(comentario.data).toLocaleString() %></em>
-                    </li>
-                <% }); %>
-            </ul>
-        <% } else { %>
-            <p>Nenhum comentário encontrado.</p>
-        <% } %>
-
+                <ul>
+                    <% comentarios.forEach(comentario => { %>
+                        <li>
+                            <div class="comment-header">
+                                <img src="<%= comentario.foto_usuario ? 'data:image/png;base64,' + comentario.foto_usuario.toString('base64') : '../../../img/default-profile.png' %>" alt="Foto do Usuário" class="comment-user-img">
+                                <div class="comment-user-details">
+                                    <strong><%= comentario.user_usuario %></strong>
+                                    <em><%= new Date(comentario.data).toLocaleString() %></em><br>
+                                    <span><%= comentario.comentario %></span>
+                                
+                                </div>
+                            </div>
+                        </li> <!-- Fechar o li aqui -->
+                    <% }); %>
+                </ul> <!-- Fechar o ul aqui -->
+            <% } else { %>
+                <p>Nenhum comentário encontrado.</p>
+            <% } %>
+        </div> <!-- Fechar a publicacoes-area aqui -->
+    </div>
+</body>
+</html>

@@ -1,21 +1,106 @@
 
-
-
-.header-image {
-    position: relative; /* Permite que a imagem fique logo abaixo do header */
-    width: 100%; /* A imagem ocupa 100% da largura */
-   
+.header{
+    width: 100%;
+    background-color: #f4f4f9; /* Fundo bem claro */
+    padding: 0.7rem 0;
+    top: 0;
+    z-index: 10;
+    border-bottom: 2px solid #84bc26; /* Borda inferior sutil */
     
 }
 
-.header-image img {
-    width: 100%; /* Garante que a imagem se estenda por toda a largura */
+
+
+
+.header-content {
+    display: flex; /* Coloca os elementos em linha */
+    align-items: center; /* Alinha verticalmente no centro */
+    justify-content: space-between; /* Cria espaço entre o texto e a imagem */
+    padding: 20px; /* Adiciona espaçamento interno */
+    background-color: #ffffff; /* Cor de fundo suave */
+    border-radius: 10px; /* Arredonda os cantos */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma leve sombra */
+    border-bottom: 2px solid #84bc26;
+    
+  }
+  
+  .header-text {
+    flex: 1; /* Ocupa o espaço restante */
+    font-family: 'Poppins', sans-serif; /* Fonte Poppins */
+    font-size: 29px; /* Aumenta o tamanho do texto */
+    color: #140B5C; /* Azul para o texto principal */
+    font-weight: 600; /* Negrito para destaque */
+    line-height: 1.5; /* Melhora o espaçamento entre as linhas */
+    margin-right: 20px; /* Espaço entre o texto e a imagem */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Sombra leve no texto */
+  }
+  
+  /* Fundo colorido para "vida melhor" */
+  .header-text .highlight {
+    background-color: #84bc26; /* Fundo verde para "vida melhor" */
+    color: #fff; /* Cor do texto em branco */
+    padding: 5px 10px; /* Adiciona espaçamento interno ao redor do texto */
+    border-radius: 5px; /* Arredonda os cantos do fundo */
+  }
+  
+  .header-image {
+    flex-shrink: 0; /* Impede que a imagem seja reduzida */
+    margin-left: 20px; /* Adiciona espaçamento entre o texto e a imagem */
+  }
+  
+  .header-image img {
+    max-width: 100%; /* Garante que a imagem não ultrapasse o tamanho do container */
     height: auto; /* Mantém a proporção da imagem */
-    display: block; /* Remove o espaço abaixo da imagem */
-    
-}
+  }
+  
+  /* Responsivo */
+  @media (max-width: 768px) {
+    .header-content {
+      flex-direction: column; /* Empilha o texto e a imagem em telas menores */
+      text-align: center; /* Centraliza o texto */
+    }
+  
+    .header-text {
+      margin-right: 0; /* Remove a margem lateral */
+      margin-bottom: 15px; /* Espaço abaixo do texto */
+    }
+  
+    .header-image {
+      margin-left: 0; /* Remove a margem em telas menores */
+    }
+  }
+  
+
+  /* icones */
+  .user-actions {
+    display: flex; /* Coloca os ícones em linha */
+    align-items: center; /* Alinha os ícones verticalmente */
+    justify-content: space-around; /* Espaça os ícones uniformemente */
+    padding: 10px; /* Adiciona espaçamento interno */
+     /* Cor de fundo clara */
+    border-radius: 10px; /* Arredonda os cantos */
+    /* Sombra leve para profundidade */
+  }
+  
+  .user-actions a {
+    text-decoration: none; /* Remove o sublinhado dos links */
+    color: #140B5C; /* Cor do ícone padrão */
+    margin: 0 15px; /* Espaçamento horizontal entre os ícones */
+    transition: color 0.3s, transform 0.3s; /* Transições suaves para efeito de hover */
+  }
+  
+  .user-actions a:hover {
+    color: #84bc26; /* Cor do ícone ao passar o mouse */
+    transform: scale(1.1); /* Aumenta levemente o ícone ao passar o mouse */
+  }
+  
+  .user-actions i {
+    font-size: 24px; /* Tamanho dos ícones */
+  }
+    /* icones */
+
 .doa-text {
-    font-family: 'Arial', sans-serif;
+    font-family: "Poppins", sans-serif;
     color: #333;
     line-height: 1.6;
     margin: 0;
@@ -87,6 +172,7 @@
     color: #84bc26;
     margin-bottom: 15px;
     text-transform: uppercase;
+    font-family: "Poppins", sans-serif;
 }
 
 .card p {
@@ -119,6 +205,7 @@
     background-color: #f7f7f7;
     border-radius: 10px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid #84bc26; 
 }
 
 .donate-container {
@@ -132,12 +219,14 @@
     text-align: center;
     font-size: 28px;
     margin-bottom: 20px;
+    font-family: "Poppins", sans-serif;
 }
 
 .donate-container p {
     font-size: 18px;
     line-height: 1.6;
     margin-bottom: 20px;
+    
 }
 
 .donate-container ol {

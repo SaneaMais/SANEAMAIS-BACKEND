@@ -5,15 +5,19 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #faf4f4;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f4f4;
   color: #262626;
 }
 
 /* Cabeçalho */
 .header {
-  background-color: white;
-  padding: 10px 0;
+  width: 100%;
+  background-color: #f4f4f9; 
+  padding: 0.7rem 0;
+  top: 0;
+  z-index: 10;
+  border-bottom: 2px solid #84bc26;
 }
 
 .container {
@@ -45,22 +49,27 @@ body {
 }
 
 .user-handle {
-  color: #657786;
+  color: #003158;
   font-size: 20px;
   margin-right: 20px;
-  margin-top: 5px;
+  position: relative; /* Adicione position */
+  top: -20px; /* Ajuste este valor conforme necessário */
 }
 
 /* Área do perfil */
 .profile-container {
-  max-width: 900px;
+  max-width: 1100px; /* Aumentei a largura máxima */
   margin: 80px auto;
-  padding: 0 20px;
+  padding: 70px; /* Aumentei o padding interno */
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  height: auto; 
 }
 
 .profile-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 30px;
 }
 
@@ -68,8 +77,13 @@ body {
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  border: 3px solid #dbdbdb;
+  border: 5px solid #84bc26;
   margin-right: 30px;
+  transition: all 0.3s ease;
+}
+
+.profile-picture img:hover {
+  transform: scale(1.05);
 }
 
 .profile-info {
@@ -83,25 +97,25 @@ body {
 }
 
 .username-edit h2 {
-  font-size: 28px;
+  font-size: 36px;
   margin-right: 20px;
 }
 
 .edit-profile-btn {
-  padding: 8px 20px;
+  padding: 14px 29px;
   background-color: #00417e;
   color: white;
   border: none;
   border-radius: 20px;
   font-size: 14px;
-  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
-  margin-left: 90px;
+  font-family: 'Poppins', sans-serif; /* Fonte Poppins */
+  margin-left: 260px;
 }
 
 .edit-profile-btn:hover {
-  background-color: #1991da;
+  background-color: #28a745;
   transform: scale(1.05);
 }
 
@@ -109,12 +123,30 @@ body {
   transform: scale(0.98);
 }
 
-
+/* Separador */
 .separator-line {
   border: none;
   border-top: 1px solid #00417e;
   margin: 40px 0;
   width: 100%;
+}
+
+.no-publications-message {
+    text-align: center; /* Centraliza o texto */
+    font-size: 18px; /* Aumenta o tamanho da fonte */
+    color: #657786; /* Cor suave para o texto */
+    padding: 20px; /* Adiciona espaço ao redor do texto */
+    border: none; /* Borda pontilhada para destacar */
+
+    margin-top: 20px; /* Margem superior para espaçamento */
+    box-shadow: none;
+}
+
+.profile-bio {
+  font-size: 18px; /* Aumenta o tamanho da bio */
+  line-height: 1.6;
+  margin-top: 10px;
+  color: #333;
 }
 
 .publications-title {
@@ -138,161 +170,270 @@ body {
   transform: translateX(-50%);
 }
 
-.post-card {
-  background-color: white;
-  border: 1px solid #e1e8ed;
-  border-radius: 10px;
-  padding: 15px;
-  margin-bottom: 20px;
-  width: 95%;
-  
+/* Postagens */
+
+.publicacoes-area {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column; /* Organiza as publicações em coluna */
+    align-items: center; 
+    max-width: 800px; /* Largura máxima para centralizar */
+    margin: 20px auto;
+}
+
+.publicacao {
+   border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 5px;
+    width: 580px;
+    height: auto; /* Altere para auto para ajustar a altura automaticamente */
+    margin: 0 60px;
+    
+}
+
+.publicacao img {
+    width: 80%;
+    border-radius: 10px;
+    margin: 0 auto 10px auto;
+}
+
+.publicacao p {
+    margin: 10px 0;
+}
+
+.post-container {
+  width: 100%;
+    max-width: 600px;
+    background-color: #fff; /* Cor de fundo das postagens */
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 45px;
+    border: 1px solid #e1e8ed; /* Borda sutil */
+
 }
 
 .post-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+    display: flex; /* Alinha a imagem e os detalhes do usuário lado a lado */
+    align-items: center; /* Centraliza verticalmente a imagem do perfil e o nome */
+    margin-bottom: 10px;
+
+    padding-right: 300px;
 }
 
-.post-user-img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-right: 15px;
+.post-header img {
+    width: 48px; /* Largura da imagem do perfil */
+    height: 48px; /* Altura da imagem do perfil */
+    border-radius: 50%; /* Deixa a imagem redonda */
+    margin-right: 10px; /* Espaço razoável entre a imagem e os detalhes do usuário */
+    object-fit: cover; /* Garante que a imagem cubra o círculo sem distorcer */
+    object-position: center; /* Centraliza o conteúdo da imagem */
+    background-color: #f0f0f0;
 }
 
 .post-user-details {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column; /* Organiza os detalhes do usuário verticalmente */
+    justify-content: flex-start; /* Alinha os detalhes ao topo */
 }
 
 .post-user-name {
-  font-weight: bold;
-  font-size: 16px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #14171a;
 }
 
 .post-user-handle {
-  color: #657786;
-  font-size: 14px;
+    font-size: 14px;
+    color: #657786;
 }
 
-.post-time {
-  color: #657786;
-  font-size: 12px;
+.post-endereco {
+    font-size: 12px;
+    color: #999;
 }
 
-.post-content {
-  font-size: 16px;
-  margin-bottom: 10px;
+.post-img-publicacao {
+    width: 100%; /* Largura da imagem da publicação */
+    max-width: 600px; /* Tamanho máximo da imagem */
+    border-radius: 12px; /* Canto arredondado para a imagem */
+    margin-top: 10px; /* Espaço entre a descrição e a imagem da publicação */
 }
-.post-image {
-  width: 60%;
-  border-radius: 10px;
-  margin-top: 20px;
-  margin-left: 90px;
-}
-
-
-
+  
 .post-actions {
+    display: flex;
+    justify-content: space-between;
+    max-width: 100px; /* Define o espaço para os ícones */
+    margin-top: 10px;
+    padding: 15px;
+  }
+  
+  .post-actions a {
+    font-size: 20px; /* Aumenta o tamanho dos ícones */
+    color: #657786;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px; /* Define a largura de cada ícone */
+    transition: color 0.3s ease;
+    text-decoration: none; 
+  }
+  
+  .post-actions a:hover {
+    color: #1da1f2;
+  }
+  
+  /* Específico para os ícones de curtida e comentário */
+
+  
+  .fas {
+    color:#00417e;
+  }
+  
+/*COMENTARIOS EMPRESA */
+/* Container principal do comentário */
+ul {
+  list-style: none; /* Remove o marcador de todos os <li> dentro do <ul> */
+  padding-left: 0; /* Remove o recuo à esquerda causado pela lista */
+}
+
+li {
+  list-style: none; /* Remove o marcador de cada item da lista */
+}
+
+.comment-header {
   display: flex;
-  justify-content: space-between;
-  max-width: 100px; /* Define o espaço para os ícones */
-  margin-top: 10px;
+  align-items: flex-start; /* Alinha a imagem e os detalhes do comentário */
   padding: 15px;
+  background-color: #f9f9f9; /* Cor de fundo clara */
+  border-radius: 8px; /* Bordas arredondadas */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
+  width: 100%; /* Largura total, responsiva */
+  max-width: 900px; /* Aumentar a largura da caixa de comentários */
+  margin: 0 auto 30px; /* Espaço entre os comentários */
+  border: 1px solid #140B5C;
+  margin-right: 340px;
 }
 
-.post-actions a {
-  font-size: 20px; /* Aumenta o tamanho dos ícones */
-  color: #657786;
+/* Imagem de perfil ao lado */
+.comment-user-img {
+  width: 60px; /* Tamanho da imagem de perfil */
+  height: 60px; /* Tamanho da imagem de perfil */
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #f0f0f0;
+  margin-right: 15px; /* Espaço entre a imagem e os detalhes */
+  margin-top: 10px; /* Ajuste conforme necessário */
+}
+
+/* Informações do usuário */
+.comment-user-details {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px; /* Define a largura de cada ícone */
-  transition: color 0.3s ease;
-  text-decoration: none; 
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 5px; /* Menos padding para maior responsividade */
 }
 
-.post-actions a:hover {
-  color: #1da1f2;
+/* Nome do usuário */
+.comment-username {
+  font-weight: bold;
+  font-size: 16px; /* Tamanho do nome do usuário */
+  color: #333;
+  margin-bottom: 5px; /* Espaço entre o nome e o horário */
 }
 
-/* Específico para os ícones de curtida e comentário */
-.comment-btn i {
-  margin-left: 30px;
+/* Horário do comentário */
+.comment-timestamp {
+  font-size: 12px; /* Tamanho da data e horário */
+  color: #888;
+  margin-bottom: 10px; /* Espaço entre o horário e o comentário */
 }
 
-.like-btn i {
-  margin-left: 30px;
+/* Texto do comentário */
+.comment-text {
+  font-size: 14px; /* Tamanho do texto do comentário */
+  color: #444;
+  line-height: 1.5;
+  word-wrap: break-word; /* Quebra palavras longas */
+  text-align: left;
 }
 
+/* Responsividade */
+@media (max-width: 600px) {
+  .comment-header {
+    flex-direction: column; /* Alinha verticalmente em telas menores */
+    align-items: flex-start; /* Alinha itens ao início */
+    padding: 10px; /* Menos padding */
+  }
 
+  .comment-user-img {
+    width: 50px; /* Reduz o tamanho da imagem em telas menores */
+    height: 50px; /* Reduz o tamanho da imagem em telas menores */
+    margin-right: 0; /* Remove a margem à direita */
+    margin-bottom: 10px; /* Adiciona espaço abaixo da imagem */
+  }
 
+  .comment-username {
+    font-size: 14px; /* Tamanho do nome do usuário em telas menores */
+  }
 
+  .comment-timestamp {
+    font-size: 10px; /* Tamanho da data e horário em telas menores */
+  }
+
+  .comment-text {
+    font-size: 12px; /* Tamanho do texto do comentário em telas menores */
+  }
+}
 
 /* Responsivo */
 @media (max-width: 768px) {
   .profile-container {
-      padding: 0 10px;
+    padding: 0 10px;
   }
 
   .profile-header {
-      flex-direction: column;
-      align-items: center;
+    flex-direction: column;
+    align-items: center;
   }
 
   .profile-picture {
-      margin-bottom: 20px;
+    margin-bottom: 20px;
   }
 
   .username-edit {
-      flex-direction: column;
-      align-items: center;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .profile-stats {
-      justify-content: center;
-      text-align: center;
-  }
-  
   .edit-profile-btn {
-      padding: 6px 15px;
-      font-size: 12px;
-      margin-right: 95px;
+    margin-left: 0;
   }
 }
 
 @media (max-width: 480px) {
   .profile-container {
-      max-width: 100%;
-      padding: 0 10px;
+    max-width: 100%;
+    padding: 0 10px;
   }
 
   .profile-picture img {
-      width: 80px;
-      height: 80px;
+    width: 80px;
+    height: 80px;
   }
 
   .username-edit h2 {
-      font-size: 22px;
-  }
-
-  .profile-stats li {
-      font-size: 14px;
+    font-size: 22px;
   }
 
   .edit-profile-btn {
-      padding: 6px 15px;
-      font-size: 12px;
-      margin-left: 40px;
+    font-size: 12px;
   }
 
   .publications-title {
-      font-size: 20px;
+    font-size: 20px;
   }
 
   .post-card {
-      font-size: 14px;
+    font-size: 14px;
   }
 }
-

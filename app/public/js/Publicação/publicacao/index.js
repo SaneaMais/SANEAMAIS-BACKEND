@@ -194,7 +194,10 @@ const removeSizeSelector = () => {
  });
 
  //MENU DROP DOWN
- function menuToggle(){
-    const toggleMenu = document.querySelector('.menu');
-    toggleMenu.classList.toggle('active')
-}
+ 
+ const hamburger = document.getElementById('hamburger');
+ const navList = document.getElementById('nav-list');
+ 
+ hamburger.addEventListener('click', () => {
+     navList.classList.toggle('active'); // Alterna a classe 'active' para mostrar/ocultar o menu
+ });

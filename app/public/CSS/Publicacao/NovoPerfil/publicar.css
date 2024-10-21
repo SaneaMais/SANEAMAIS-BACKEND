@@ -40,23 +40,26 @@ body {
     position: absolute;
     top: 10px;
     left: 10px;
+    font-family: "Poppins", sans-serif;
 }
 
 .next {
-    background-color: rgb(13, 13, 88);
+    background-color: #28a745;
     color: white;
     border: none;
     padding: 10px;
     cursor: not-allowed;
-    border-radius: 5px;
+    border-radius: 15px;
     position: absolute;
     top: 10px;
     right: 10px;
+    font-family: "Poppins", sans-serif;
 }
 
 .next.active {
-    background-color: green;
+    background-color: #00417e;
     cursor: pointer;
+    font-family: "Poppins", sans-serif;
 }
 
 .open-modal {
@@ -66,10 +69,34 @@ body {
     border: none;
     cursor: pointer;
     border-radius: 15px;
-    margin:30px;
+    margin: 30px; /* Margem geral do botão */
     height: 60px;
-    width: 200px;
+    width: 200px; /* Largura do botão em telas maiores */
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza o conteúdo do botão */
 }
+
+/* Efeito hover */
+.open-modal:hover {
+    background-color: #28a745; /* Azul claro ao passar o mouse */
+    color: #ffffff; /* Cor do texto azul escuro ao passar o mouse */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Leve sombra para destaque */
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Estilo para telas menores */
+@media (max-width: 768px) {
+    .open-modal {
+        padding: 10px; /* Ajuste o padding se necessário */
+        width: 80%; /* Largura do botão em telas menores, use uma porcentagem para melhor responsividade */
+        max-width: 200px; /* Largura máxima do botão */
+        margin: 20px auto; /* Margem automática para centralizar o botão */
+        height: 50px; /* Altura ajustada para telas menores */
+    }
+}
+
 
 .ContainerPublic {
     display: flex;
@@ -89,6 +116,7 @@ body {
     border-radius: 5px;
     cursor: pointer;
     margin-top: 20px;
+    font-family: "Poppins", sans-serif;
 }
 
 #imageInput {
@@ -110,6 +138,7 @@ body {
     max-width: 100%;
     max-height: 100%;
     display: none;
+    object-fit: contain; /* Mantém a proporção da imagem sem esticar */
 }
 
 .concluido-btn {
@@ -121,10 +150,11 @@ body {
     cursor: pointer;
     margin-top: 20px;
     display: none;
+    font-family: "Poppins", sans-serif;
 }
 
 .concluido-btn.disabled {
-    background-color: black;
+    background-color: #0084ff;
     cursor: not-allowed;
 }
 
@@ -154,7 +184,7 @@ body {
 }
 
 .back-btn {
-    background-color: orange;
+    background-color: #00417e;
     color: white;
     border: none;
     padding: 10px;
@@ -163,10 +193,11 @@ body {
     position: absolute;
     top: 10px;
     left: 10px;
+    font-family: "Poppins", sans-serif;
 }
 
 .publish-btn {
-    background-color: blue;
+    background-color: #28a745;
     color: white;
     border: none;
     padding: 10px;
@@ -175,6 +206,7 @@ body {
     position: absolute;
     top: 10px;
     right: 10px;
+    font-family: "Poppins", sans-serif;
 }
 
 .form-publicacao {
@@ -191,6 +223,7 @@ body {
     border-radius: 5px;
     border: 1px solid #ccc;
     margin-bottom: 5px;
+    font-family: "Poppins", sans-serif;
 }
 
 .form-publicacao textarea {
@@ -207,6 +240,7 @@ body {
     margin-top: -5px;
     margin-bottom: 10px;
 }
+
 
 
 
@@ -445,7 +479,7 @@ body {
 }
 
 .reply-button:hover {
-    background-color: #0056b3; /* Cor mais escura no hover */
+    background-color: #84bc26; /* Cor mais escura no hover */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Sombra mais intensa */
 }
 
@@ -461,67 +495,109 @@ body {
 
 
 /* Seção de comentários */
+/* Seção de comentários */
 .comments-section {
-    padding: 10px 15px;
-    margin-top: 15px;
+    padding: 15px; /* Espaçamento maior para a seção de comentários */
+    margin-top: 20px;
     font-family: 'Poppins', sans-serif;
+    background-color: #f7f7f7; /* Cor de fundo suave para a seção de comentários */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
 }
 
 /* Cada comentário */
 .comment {
     display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+    align-items: flex-start; /* Alinhamento da imagem e texto */
+    margin-bottom: 15px; /* Maior espaço entre os comentários */
     font-size: 14px;
     color: #262626;
+    padding: 10px; /* Adicionando padding para cada comentário */
+    background-color: #ffffff; /* Fundo branco para cada comentário */
+    border: 1px solid #e0e0e0; /* Borda leve em torno do comentário */
+    border-radius: 6px; /* Bordas arredondadas */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Sombra leve */
 }
 
+/* Nome do usuário em destaque */
 .comment strong {
     font-weight: 600;
     margin-right: 8px;
+    color: #0095f6; /* Cor azul para o nome do usuário */
 }
 
+/* Imagem do usuário */
 .comment img {
-    width: 32px;
-    height: 32px;
+    width: 40px; /* Aumenta o tamanho da imagem */
+    height: 40px; /* Aumenta o tamanho da imagem */
     border-radius: 50%;
     margin-right: 10px;
+    flex-shrink: 0; /* Não permite que a imagem encolha */
 }
 
+/* Texto do comentário */
 .comment p {
     margin: 0;
+    line-height: 1.5; /* Aumenta a altura da linha para melhor legibilidade */
+    color:#140B5C;
+    
 }
-
+.comments-section h3 {
+    font-weight: bold; /* Mantém o peso da fonte em negrito */
+    margin-bottom: 15px; /* Espaço abaixo do cabeçalho */
+  /* Tamanho da fonte maior para destaque */
+    color: #333; /* Cor escura para melhor legibilidade */
+    border-bottom: 2px solid #84bc26; /* Linha de separação abaixo do cabeçalho */
+    padding-bottom: 5px; /* Espaçamento entre o texto e a linha */
+    text-transform: uppercase; /* Transformação para letras maiúsculas */
+    letter-spacing: 1px; /* Aumenta o espaçamento entre letras */
+    font-family: 'Poppins', sans-serif; /* Fonte consistente com o resto da seção */
+    text-align: center;
+    color:#140B5C;
+}
 /* Formulário de comentário */
 .comment-form {
     display: flex;
     align-items: flex-start;
     border-top: 1px solid #efefef;
-    padding-top: 10px;
+    padding-top: 15px; /* Espaçamento superior do formulário */
     padding-bottom: 20px; /* Mais espaço embaixo */
+   
 }
 
 .comment-form textarea {
     width: 100%;
-    border: none;
+    border: 1px solid #efefef; /* Adiciona uma borda ao textarea */
+    border-radius: 4px; /* Bordas arredondadas para o textarea */
     resize: none;
-    padding: 5px;
+    padding: 10px; /* Aumenta o padding do textarea */
     font-size: 16px; /* Aumentando o tamanho do texto */
     outline: none;
-    height: 20px;
-    line-height: 20px;
-    font-family: 'Poppins', sans-serif;
+    height: 50px; /* Aumenta a altura do textarea */
+    line-height: 1.5; /* Aumenta a altura da linha */
+    transition: border-color 0.3s; /* Transição suave para a borda */
+    font-family: "Poppins", sans-serif;
 }
 
+.comment-form textarea:focus {
+    border-color: #84bc26; /* Cor da borda ao focar no textarea */
+}
+
+/* Botão de enviar */
 .comment-form button {
     background-color: transparent;
     border: none;
-    color: #0095f6;
+    color: #140B5C;
     font-weight: 600;
     font-size: 16px; /* Aumentando o tamanho do botão */
     cursor: pointer;
     padding-left: 10px;
     padding-top: 10px; /* Colocando mais espaçamento entre o botão e o textarea */
+    transition: color 0.3s; /* Transição suave para a cor do botão */
+}
+
+.comment-form button:hover {
+    color: #84bc26; /* Cor do botão ao passar o mouse */
 }
 
 .comment-form button:disabled {
@@ -533,9 +609,10 @@ body {
 .reply-button {
     background-color: transparent;
     border: none;
-    color: #8e8e8e;
+    color: #140B5C;
     font-size: 14px;
     cursor: pointer;
+    font-family: 'Poppins', sans-serif;
 }
 
 .reply-button i {
