@@ -15,6 +15,8 @@
 
     <link rel="stylesheet" href="../../../CSS/Publicacao/NovoPerfil/style.css">
     <link rel="stylesheet" href="../../../CSS/Publicacao/NovoPerfil/publicar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
 
 
     <!-- --------------------------------------notificação----------------------------------------------------------------- -->
@@ -44,10 +46,14 @@
             <h2 class="log">
                 <img src="../../../img/NovoPerfil/LOGO1.png" alt="Logo" />
             </h2>
-            <article class="search-bar">
-                <i class="uil-search"></i>
-                <input type="search" placeholder="O que deseja procurar?">
-            </article>
+            <ul class="ul nav-list">
+                <a href="/Publicacao">Home</a>
+                <a href="/PublicacaoPERFIL">Perfil</a>
+                <a href="/PublicacaoDOACAO">Doações</a>
+                <a href="/PublicacacaoCONFIG">Configuração</a>
+                <a href="/">Sair</a>
+               
+              </ul> 
             <section class="action">
                 <article class="profile" onclick="menuToggle();">
                     <img src="<%= autenticado && autenticado.foto ? autenticado.foto : '../../../img/NovoPerfil/profile-2.png' %> %>" alt="Foto de perfil" class="profile-picture">
@@ -84,7 +90,7 @@
             <!-----------LEFT------------------------->
             <section class="left">
                 <a class="profile">
-                    <img src="<%= autenticado && autenticado.foto ? autenticado.foto : '../../../img/NovoPerfil/profile-2.png' %>" alt="Foto de perfil" class="profile-picture">
+                    <img src="<%= autenticado && autenticado.foto ? autenticado.foto : '../../../img/NovoPerfil/profile-2.png' %>" alt="Foto de perfil" >
                     <article class="handle">
                         <h4>@<%= autenticado.autenticado %></h4>
                         <p class="text-muted">
@@ -110,7 +116,7 @@
 
                     <a href="/PublicacacaoCONFIG" class="menu-item active">
                         <span><i class="uil uil-setting"></i></span>
-                        <h3>Configurações</h3>
+                        <h3>Configuração</h3>
                     </a>
 
              </section>
@@ -119,7 +125,10 @@
 
                 <!------------------ FINAL SIDEBAR-------------------------->
                 <% if (autenticado.tipo !== 2) { %>
-                    <button class="open-modal">Denunciar</button>
+                    <button class="open-modal">
+                        <span class="text">Denunciar</span>
+                        <span class="icon">+</span>
+                    </button>
                 <% } %>
          </section>
             <!------------------ END OF LEFT-------------------------->
@@ -171,6 +180,7 @@
                             </div>
                             
                             <div class="comments-section">
+                                <h3>Respostas</h3>
                                 <% if (postagem.comentarios && postagem.comentarios.length > 0) { %>
                                     <ul>
                                         <% postagem.comentarios.forEach(function(comentario) { %>
@@ -182,7 +192,7 @@
                                         <% }) %>
                                     </ul>
                                 <% } else { %>
-                                    <p>Denúncia ainda não respondida</p>
+                                    <p>*Denúncia ainda não respondida.</p>
                                 <% } %>
                             </div>
                     </div>
@@ -246,7 +256,7 @@
                 <!-- Modal de Carregamento -->
                 <div id="loadingModal" class="loading-modal">
                     <div class="loading-content">
-                        Publicando sua postagem... Aguarde
+                        Publicando sua postagem... 
                         <div class="loader"></div>
                     </div>
                 </div>
@@ -400,6 +410,8 @@
                         endereco.value = ""; // Limpa o input de endereço
                         imagePreviewContinua.src = ""; // Limpa a pré-visualização no segundo modal
                         imagePreviewContinua.style.display = "none"; // Esconde a imagem no segundo modal
+
+                        
                     }
                 </script>
             <script src="/js/scriptComentarios.js" defer></script>          

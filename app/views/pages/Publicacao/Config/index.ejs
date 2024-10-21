@@ -7,9 +7,13 @@
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" /> -->
 
   <!-- <script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script> -->
-
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.6/css/unicons.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/simple-notify@0.5.5/dist/simple-notify.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="../../../img/MicrosoftTeams-image-removebg-preview.png" tyle="image/ x-icon">
   <script src="js/Config/scripts.js"></script>
   <title>Configurações da Conta</title>
   <link rel="stylesheet" href="../../../CSS/Publicacao/Config/style.css">
@@ -67,6 +71,8 @@ if (dadosNotificacao) {
     
         <div class="user-actions">
             <a href="/Publicacao"><i class="fas fa-home"></i></a>
+            <a href="/PublicacaoPERFIL"><i class="fa fa-user-circle" ></i></a>
+            <a href="/PublicacaoDOACAO"><i class="uil uil-setting"></i></a>
             <a href="/"><i class="fas fa-sign-out-alt"></i></a>
         </div>
     </div>
@@ -78,12 +84,12 @@ if (dadosNotificacao) {
     <form action="/PublicacacaoCONFIG" method="POST" enctype="multipart/form-data">
        
       <div class="form-group">
-        <label>Alterar Imagem de Perfil</label>
+        <label>Alterar imagem</label>
         <div class="profile-image-wrapper">
           <img src="<%= valores.foto_usuario %>" onclick="document.getElementById('profileImage').click()" alt="Imagem de perfil" id="currentProfileImage" class="profile-image">
          <!-- Input oculto para escolher nova imagem -->
+         <div class="overlay" id="changeImageOverlay">
          <input type="file" accept="image/*" class="<%= avisoErro.imagem %>" name="profileImage" id="profileImage" onchange="loadImg(event)">
-          <div class="overlay" id="changeImageOverlay">
             <span>Trocar Foto</span>
           </div>
         </div>
@@ -105,7 +111,7 @@ if (dadosNotificacao) {
       <div class="form-group">
         <label for="currentPassword">Senha</label>
         <input type="password" id="senha_usuario" name="senha" placeholder="Senha" >
-        <span class="aviso">Não preencha este campo para manter a senha atual</span>
+        <span class="aviso">*Não preencha este campo para manter a senha atual</span>
       </div>
 
       <!-- Alterar Bio -->
@@ -115,7 +121,7 @@ if (dadosNotificacao) {
           <textarea id="bio" name="bio" rows="4" placeholder="Escreva sua bio aqui..." class="<%= avisoErro.bio %>"><%= valores.bio %></textarea>
       </div>
 
-      <input type="submit" class="enviar" value="Alterar dados perfil" />
+      <input type="submit" class="enviar" value="Alterar dados" />
     </form>
   </div>
 
