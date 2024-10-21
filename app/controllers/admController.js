@@ -59,7 +59,6 @@ const admController = {
 
 
     removerPublicacao: async (req, res) => {
-        /* console.log('ID da publicação a ser removida:', req.params.id); */ // Adiciona este log para verificar o valor
         const postId = parseInt(req.params.id, 10);
         if (isNaN(postId)) {
             return res.status(400).json({ message: 'ID inválido' });
@@ -71,9 +70,8 @@ const admController = {
             console.error('Erro ao remover publicação:', error);
             res.status(500).json({ message: 'Erro ao remover publicação.' });
         }
-
     },
-
+    
 
 
     listarComentarios: async (req, res) => {

@@ -27,7 +27,14 @@ const admModel = {
     },
     
     
+    removerComentariosDaPublicacao: async (postId) => {
+        const [result] = await pool.query('DELETE FROM COMENTARIOS WHERE POSTS_id_POSTS = ?', [postId]);
+        return result;
+    },
+
     removerPublicacao: async (id) => {
+        await admModel.removerComentariosDaPublicacao(id);
+
         const [result] = await pool.query('DELETE FROM POSTS WHERE id_POSTS = ?', [id]);
         return result;
     },
