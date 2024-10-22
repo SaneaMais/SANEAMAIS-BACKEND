@@ -160,43 +160,10 @@
         </section>
       </section>
     </main>
-    <main class="depoimentos" id="meu-card">
-      <section class="container">
-        <h3 class="Font">Denúncias destaques</h3>
-        <p>Leia as principais denúncias desse mês</p>
-        <section class="cards">
-          <article class="card-item">
-            <img src="img/eduardo.png" alt="Eduardo">
-            <p class="nome-user"> Eduardo</p>
-            <p class="depoimento-user">
-              Ontem pela manhã meu filho caiu em uma vala de bueiro aberto
-              e se feriu muito, precisa ser arrumada urgentemente!!!!!
-            </p>
-            </div>
-          </article>
-          <article class="card-item">
-            <img src="./img/teresa.png" alt="Teresa">
-            <p class="nome-user">Teresa</p>
-            <p class="depoimento-user">
-              Eu estava passando pela rua Via Carijó e vi um esgoto á céu aberto
-              com muito lixo e cheiro ruim, quando chove sei que transborda e
-              acaba alagando todo bairro!!! FAÇA ALGO PREFEITURA DE BARUERI!!
-            </p>
-          </article>
-          <article class="card-item">
-            <img src="img/Design sem nome (1).png" alt="Alana">
-            <p class="nome-user">Alana</p>
-            <p class="depoimento-user">
-              Hoje fui beber um copo de água me deparei com um lodo verde
-              saindo pela torneira!!!!!!!!
-            </p>
-          </article>
-        </section>
-      </section>
-    </main>
+    
     <section>
       <section class="container-rank">
-          <article class="title">Cidades com mais denúncias</article>
+          <article class="title">Cidades mais cadastradas</article>
           <main>
               <article class="podium">
                   <ul id="ranking-podium">
@@ -247,7 +214,7 @@
                   <span>${index + 1}</span>
                   <img src="img/${index + 1}.png" alt="${index + 1}º lugar">
                   <p>${cidade.nome}</p>
-                  <span class="revenue">+${cidade.denuncias} denúncias</span>
+                  <span class="revenue">+${cidade.denuncias} cadastrada</span>
               `;
               podium.appendChild(li);
           });
@@ -259,7 +226,7 @@
             rankItem.innerHTML = `
                 <span>${index + 1}</span>
                 <p>${cidade.nome.toUpperCase()}</p> <!-- Apenas o nome da cidade -->
-                <span class="revenue">+${cidade.denuncias} denúncias</span>
+                <span class="revenue">+${cidade.denuncias} cadastrada(s)</span>
             `;
             rankingList.appendChild(rankItem);
         });
@@ -275,12 +242,6 @@
           <article class="footer-logo">
             <img src="./img/LOGO1.png" alt="Logo">
           </article>
-          <article class="footer-media-icons">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </article>
         </article>
         <article class="footer-link-boxes">
           <ul class="footer-box">
@@ -289,14 +250,7 @@
             <li><a href="/Sobre">Sobre </a></li>
             <li><a href="/Servico">Saneamento </a></li>
           </ul>
-          <ul class="footer-box">
-            <li class="footer-link-name">Publicações</li>
-            <!-- todo -->
-
-            <li><a href="#meu-card" class="scroll-link">Denúncias destaques</a></li>
-
-
-          </ul>
+      
           <ul class="footer-box" id="footer-wi">
             <li class="footer-link-name">Ongs</li>
             <li><a href="https://associacaobiosaneamento.org/">Associação Biosaneamento</a></li>

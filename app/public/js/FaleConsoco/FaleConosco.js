@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } else if (value.length < 6) {
                 formattedValue = `(${value.slice(0, 2)}) ${value.slice(2)}`;
             } else {
-                formattedValue = `(${value.slice(0, 2)}) ${value.slice(2, 6)}-${value.slice(6, 10)}`;
+                formattedValue = `(${value.slice(0, 2)}) ${value.slice(2, 6)}-${value.slice(6, 11)}`;
             }
         }
 

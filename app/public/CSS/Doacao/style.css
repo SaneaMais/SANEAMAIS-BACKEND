@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 .header{
     width: 100%;
     background-color: #f4f4f9; /* Fundo bem claro */
@@ -16,11 +16,11 @@
     display: flex; /* Coloca os elementos em linha */
     align-items: center; /* Alinha verticalmente no centro */
     justify-content: space-between; /* Cria espaço entre o texto e a imagem */
-    padding: 20px; /* Adiciona espaçamento interno */
+    padding: 40px; /* Adiciona espaçamento interno */
     background-color: #ffffff; /* Cor de fundo suave */
     border-radius: 10px; /* Arredonda os cantos */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma leve sombra */
     border-bottom: 2px solid #84bc26;
+
     
   }
   
@@ -76,9 +76,10 @@
     display: flex; /* Coloca os ícones em linha */
     align-items: center; /* Alinha os ícones verticalmente */
     justify-content: space-around; /* Espaça os ícones uniformemente */
-    padding: 10px; /* Adiciona espaçamento interno */
+    padding: 20px; /* Adiciona espaçamento interno */
      /* Cor de fundo clara */
     border-radius: 10px; /* Arredonda os cantos */
+    
     /* Sombra leve para profundidade */
   }
   

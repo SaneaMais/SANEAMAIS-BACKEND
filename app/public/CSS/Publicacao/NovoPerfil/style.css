@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2? family= Poppins:wght@300;400;500;600 & display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
 
 
 
@@ -412,100 +413,95 @@ main .container .right {
 
 /*MENU DROP DOWN*/
 }
-.action{
-   position: relative;
-    right: 30px;
-    top:2px;
-}
-.action .profile{
-    border-radius: 50%;
-    cursor: pointer;
-    height: 50px;
-    overflow: hidden;
-    position: relative;
-    width: 50px;
-}
-.action .profile img{
-    width: 100%;
-    top:0;
-    position: absolute;
-    object-fit: cover;
-    left: 0;
-    height: 100%;
-}
-.action .menu{
-    background-color:#FFF;
-    box-sizing:0 5px 25px rgba(0,0,0,0.1);
-    border-radius: 15px;
-    padding: 10px 20px;
-    position: absolute;
-    right: -10px;
-    width: 200px;
-    transition: 0.5s;
-    top: 120px;
-    visibility: hidden;
-    opacity: 0;
-}
-.action .menu.active{
-    opacity: 1;
-    top: 80px;
-    visibility: visible;
-}
-.action .menu::before{
-    background-color:#fff;
-    content: '';
-    height: 20px;
-    position: absolute;
-    right: 30px;
-    transform:rotate(45deg);
-    top:-5px;
-    width: 20px;
-}
-.action .menu h3{
-    color: #555;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.3em;
-    padding: 20px 0px;
-    text-align: left;
-    width: 100%;
-}
-.action .menu h3 div{
-    color: #818181;
-    font-size: 14px;
-    font-weight: 400;
-}
-.action .menu ul li{
-    align-items: center;
-    border-top:1px solid rgba(0,0,0,0.05);
-    display: flex;
-    justify-content: left;
-    list-style: none;
-    padding: 10px 0px;
-}
-.action .menu ul li img{
-    max-width: 20px;
-    margin-right: 10px;
-    opacity: 0.5;
-    transition:0.5s
-}
-.action .menu ul li a{
-    display: inline-block;
-    color: #555;
-    font-size: 14px;
-    font-weight: 600;
-    padding-left: 15px;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: 0.5s;
-}
-.action .menu ul li:hover img{
-    opacity: 1;
-}
-.action .menu ul li:hover a{
-    color:hsl( 230 , 74%, 39%);
+/* Estilos gerais do menu */
+.action {
+    position: relative; /* Necessário para posicionar o menu */
+    display: inline-block; /* Permite que o menu se ajuste ao conteúdo */
 }
 
+.profile {
+    cursor: pointer; /* Indica que o elemento é clicável */
+}
+
+.profile-picture {
+    width: 60px; /* Tamanho da imagem do perfil */
+    height: 60px; /* Tamanho da imagem do perfil */
+    border-radius: 50%; /* Torna a imagem circular */
+    border: 2px solid #84bc26; /* Adiciona uma borda ao redor da imagem */
+}
+
+/* Estilos do menu */
+.menu {
+    display: none; /* Oculte o menu por padrão */
+    position: absolute; /* Permite que o menu fique sobre outros elementos */
+    top: 50px; /* Distância do topo do perfil */
+    right: 0; /* Alinha o menu à direita do perfil */
+    background-color: white; /* Cor de fundo do menu */
+    border: 1px solid #ccc; /* Borda do menu */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sombra do menu mais pronunciada */
+    z-index: 1000; /* Garantir que o menu fique acima de outros elementos */
+    opacity: 0; /* Inicialmente invisível */
+    transform: translateY(-10px); /* Leve movimento para cima ao abrir */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Transições suaves */
+}
+
+/* Quando a classe 'active' é adicionada ao menu */
+.menu.active {
+    display: block; /* Exibe o menu */
+    opacity: 1; /* Torna o menu visível */
+    transform: translateY(0); /* Reseta o movimento ao abrir */
+}
+
+/* Estilos para o cabeçalho do menu */
+.menu h3 {
+    margin: 10px; /* Margem em torno do cabeçalho */
+    font-size: 16px; /* Tamanho da fonte */
+    font-weight: bold; /* Negrito */
+    color: #140B5C; /* Cor do texto do cabeçalho */
+    text-align: center;
+}
+
+/* Estilos da lista do menu */
+.menu ul {
+    list-style: none; /* Remove marcadores da lista */
+    padding: 0; /* Remove preenchimento */
+    margin: 0; /* Remove margens */
+    display: flex; /* Permite o uso de Flexbox */
+    flex-direction: column; /* Alinha itens em uma coluna */
+}
+
+/* Estilos para itens individuais da lista */
+.menu li {
+    display: flex; /* Flexbox para alinhar ícones e textos */
+    align-items: center; /* Alinha itens verticalmente */
+    padding: 10px; /* Preenchimento interno */
+    transition: background-color 0.3s; /* Suaviza a transição da cor de fundo */
+    border-bottom: 1px solid #eee; /* Linha separadora entre itens */
+}
+
+/* Remove a borda inferior do último item */
+.menu li:last-child {
+    border-bottom: none; /* Remove a linha do último item */
+}
+
+/* Estilos dos links do menu */
+.menu a {
+    text-decoration: none; /* Remove sublinhado dos links */
+    color: #333; /* Cor do texto */
+    flex: 1; /* Faz o link ocupar o espaço restante */
+}
+
+/* Efeito de hover para itens do menu */
+.menu li:hover {
+    background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
+}
+
+/* Estilos dos ícones */
+.icons-size {
+    font-size: 20px; /* Tamanho dos ícones */
+    margin-right: 10px; /* Espaço entre ícone e texto */
+}
 
 
 .feed-title {
@@ -649,5 +645,7 @@ main .container .right {
         display: none; /* Hide right sidebar on small screens */
     }
 }
+
+
 }
 /* ///////////////////////////////////////////////////////////////////////*/

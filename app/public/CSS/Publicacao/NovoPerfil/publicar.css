@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2? family= Poppins:wght@300;400;500;600 & display=swap');
+@import url('https://fonts.googleapis.com/css2?family= Poppins:wght@300;400;500;600 & display=swap');
 
 body {
     font-family: "Poppins", sans-serif;
@@ -71,7 +71,7 @@ body {
     border-radius: 15px;
     margin: 30px; /* Margem geral do botão */
     height: 60px;
-    width: 200px; /* Largura do botão em telas maiores */
+    width: 160px; /* Largura do botão em telas maiores */
     font-family: 'Poppins', sans-serif;
     display: flex;
     align-items: center;
@@ -84,17 +84,6 @@ body {
     color: #ffffff; /* Cor do texto azul escuro ao passar o mouse */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Leve sombra para destaque */
     transition: background-color 0.3s, transform 0.2s;
-}
-
-/* Estilo para telas menores */
-@media (max-width: 768px) {
-    .open-modal {
-        padding: 10px; /* Ajuste o padding se necessário */
-        width: 80%; /* Largura do botão em telas menores, use uma porcentagem para melhor responsividade */
-        max-width: 200px; /* Largura máxima do botão */
-        margin: 20px auto; /* Margem automática para centralizar o botão */
-        height: 50px; /* Altura ajustada para telas menores */
-    }
 }
 
 
@@ -242,8 +231,7 @@ body {
 }
 
 
-
-
+/* PUBLICACOES */
 .publicacoes-area {
     margin-top: 80px;
     display: flex;
@@ -320,8 +308,8 @@ body {
 }
 
 .post-endereco {
-    font-size: 12px;
-    color: #999;
+    font-size: 14px;
+    color: #657786;
 }
 
 .post-img-publicacao {
@@ -362,10 +350,7 @@ body {
   .like-btn i {
     margin-left: 40px;
   }
-  
-  .fas {
-    color:#00417e;
-  }
+ 
   
 
 
@@ -490,11 +475,6 @@ body {
 
 
 /********************** COMENTARIOS **************/
-/* Seção de comentários */
-/* Importando a fonte Poppins */
-
-
-/* Seção de comentários */
 /* Seção de comentários */
 .comments-section {
     padding: 15px; /* Espaçamento maior para a seção de comentários */

@@ -130,9 +130,8 @@
   justify-content: space-between;
 }
 
-.footer-box {
-  width: calc(100% / 5 - 10px);
-}
+
+
 
 .footer-link-name {
   color: #fff;

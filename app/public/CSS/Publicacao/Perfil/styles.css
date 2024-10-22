@@ -60,7 +60,7 @@ body {
 .profile-container {
   max-width: 1100px; /* Aumentei a largura máxima */
   margin: 80px auto;
-  padding: 70px; /* Aumentei o padding interno */
+  padding: 80px; /* Aumentei o padding interno */
   background-color: #fff;
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -208,7 +208,7 @@ body {
     padding: 15px;
     border-radius: 12px;
     margin-bottom: 45px;
-    border: 1px solid #e1e8ed; /* Borda sutil */
+    border: 3px solid #e1e8ed; /* Borda sutil */
 
 }
 
@@ -284,10 +284,6 @@ body {
   
   /* Específico para os ícones de curtida e comentário */
 
-  
-  .fas {
-    color:#00417e;
-  }
   
 /*COMENTARIOS EMPRESA */
 /* Container principal do comentário */
