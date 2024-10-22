@@ -114,7 +114,7 @@ router.get("/Sobre", (req, res) => {
 // });
 
 /* ---------------------------Publicações----------------------------- */
-router.get("/publicacao", async (req, res) => {
+router.get("/publicacao", verificarUsuAutenticado, async (req, res) => {
   const dadosNotificacao = req.session.dadosNotificacao || null;
   try {
     await publiController.buscarPublicacoes(req, res, dadosNotificacao);
@@ -134,7 +134,7 @@ router.delete("/adm/publiadm/:id", verificarUsuAutorizado([3], 'pages/restrito')
 router.get("/PublicacaoPERFIL",  usuarioController.buscarPerfilUsuario);
 
 router.get("/PublicacaoPERFIL", function (req, res) {
-  res.render("pages/Publicacao/Perfil/index", { autenticado: req.session.autenticado });
+  res.render("pages/Publicacao/Perfil/index", );
 });
 
 router.get("/PublicacaoDOACAO", function (req, res) {
@@ -156,7 +156,7 @@ router.delete("/usuario/:id", verificarUsuAutorizado([3], 'pages/restrito'), adm
 router.delete('/publicacoes/:id', admController.removerPublicacao);
 
 /* ======================================configuraçoes==================================================================*/
-router.get("/PublicacacaoCONFIG",verificarUsuAutorizado([1, 2, 3], "pages/restrito"), async function (req, res) {
+router.get("/PublicacacaoCONFIG",verificarUsuAutenticado, async function (req, res) {
     usuarioController.mostrarPerfil(req, res);
   }
 );

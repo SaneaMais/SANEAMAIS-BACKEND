@@ -3,14 +3,12 @@ const usuario = require("../models/UsuarioModel");
 const bcrypt = require("bcryptjs");
 
 const verificarUsuAutenticado = (req, res, next) => {
-    if (req.session.autenticado) {
-        var autenticado = req.session.autenticado;
-    } else {
-        var autenticado = { autenticado: null, id: null, tipo: null };
+    if (!req.session.autenticado) {
+        req.session.autenticado = { autenticado: null, id: null, tipo: null };
     }
-    req.session.autenticado = autenticado;
     next();
-}
+};
+
 
 const limparSessao = (req, res, next) => {
     req.session.destroy();

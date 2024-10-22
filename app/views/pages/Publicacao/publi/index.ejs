@@ -122,14 +122,18 @@
              </section>
             
        
-
+           
                 <!------------------ FINAL SIDEBAR-------------------------->
-                <% if (autenticado.tipo !== 2) { %>
+                <% if (tipoUsuario === 1) { %>
                     <button class="open-modal">
                         <span class="text">Denunciar</span>
                         <span class="icon">+</span>
                     </button>
-                <% } %>
+                   
+                  <% } else if (tipoUsuario === 2) { %>
+                    <!-- Não mostrar o botão para empresas -->
+                   
+                  <% } %>
          </section>
             <!------------------ END OF LEFT-------------------------->
             <script>

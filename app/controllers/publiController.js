@@ -63,7 +63,7 @@ exports.buscarPublicacoes = async (req, res) => {
         }
 
         const usuario = publicacoes.length > 0 ? publicacoes[0] : null;
-    
+
         res.render('pages/Publicacao/publi/index', {
             listaErros: null,
             dadosNotificacao: dadosNotificacao,
@@ -71,6 +71,7 @@ exports.buscarPublicacoes = async (req, res) => {
             pagina: 'publicacao',
             logado: req.session.autenticado,
             autenticado: req.session.autenticado,
+            tipoUsuario: req.session.autenticado?.tipo, // Adicionando o tipo de usuário
             fotoUsuario: usuario && usuario.foto_usuario ? usuario.foto_usuario : null
         });
     } catch (error) {
@@ -78,6 +79,7 @@ exports.buscarPublicacoes = async (req, res) => {
         return res.status(500).send('Erro ao buscar publicações');
     }
 };
+
 
 
 
