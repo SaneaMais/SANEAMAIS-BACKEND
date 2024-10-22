@@ -24,9 +24,9 @@ app.use(
   }));
 
   
-var rotas = require("./app/routes/router");
-const UsuarioController = require("./app/controllers/UsuarioController");
-app.use("/", rotas);
+// var rotas = require("./app/routes/router");
+// const UsuarioController = require("./app/controllers/UsuarioController");
+// app.use("/", rotas);
 
 app.listen(port, () => {
   console.log(`Servidor online\nhttp://localhost:${port}`);
